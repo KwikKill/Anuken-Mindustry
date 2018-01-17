@@ -38,7 +38,7 @@ public class Player extends SyncEntity{
 		hitbox.setSize(5);
 		hitboxTile.setSize(4f);
 		
-		maxhealth = 200;
+		maxhealth = 20000;
 		heal();
 	}
 
