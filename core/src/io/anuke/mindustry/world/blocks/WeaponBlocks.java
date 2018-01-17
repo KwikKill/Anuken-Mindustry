@@ -22,8 +22,8 @@ public class WeaponBlocks{
 	
 	turret = new Turret("turret"){
 		{
-			range = 52;
-			reload = 15f;
+			range = 500;
+			reload = 1f;
 			bullet = BulletType.stone;
 			health = 50;
 			ammo = Item.stone;
@@ -32,8 +32,8 @@ public class WeaponBlocks{
 	
 	doubleturret = new Turret("doubleturret"){
 		{
-			range = 44;
-			reload = 13f;
+			range = 500;
+			reload = 1f;
 			bullet = BulletType.stone;
 			ammo = Item.stone;
 			health = 55;
@@ -54,8 +54,8 @@ public class WeaponBlocks{
 	
 	machineturret = new Turret("machineturret"){
 		{
-			range = 65;
-			reload = 7f;
+			range = 500;
+			reload = 1f;
 			bullet = BulletType.iron;
 			ammo = Item.iron;
 			health = 65;
@@ -64,21 +64,21 @@ public class WeaponBlocks{
 	
 	shotgunturret = new Turret("shotgunturret"){
 		{
-			range = 50;
-			reload = 30f;
+			range = 500;
+			reload = 1f;
 			bullet = BulletType.iron;
 			ammo = Item.iron;
 			health = 70;
-			shots = 5;
-			inaccuracy = 15f;
+			shots = 100;
+			inaccuracy = 0f;
 			shotDelayScale = 0.7f;
 		}
 	},
 	
 	flameturret = new Turret("flameturret"){
 		{
-			range = 35f;
-			reload = 5f;
+			range = 500f;
+			reload = 1f;
 			bullet = BulletType.flame;
 			ammo = Item.coal;
 			health = 90;
@@ -88,8 +88,8 @@ public class WeaponBlocks{
 	sniperturret = new Turret("sniperturret"){
 		{
 			shootsound = "railgun";
-			range = 120;
-			reload = 50f;
+			range = 500;
+			reload = 1f;
 			bullet = BulletType.sniper;
 			ammo = Item.steel;
 			health = 70;
@@ -101,13 +101,13 @@ public class WeaponBlocks{
 		{
 			shootsound = "bigshot";
 			rotatespeed = 0.2f;
-			range = 120;
-			reload = 55f;
+			range = 500;
+			reload = 1f;
 			bullet = BulletType.flak;
-			shots = 3;
-			inaccuracy = 9f;
+			shots = 100;
+			inaccuracy = 1f;
 			ammo = Item.coal;
-			ammoMultiplier = 5;
+			ammoMultiplier = 100;
 			health = 110;
 			shootEffect = Fx.mortarshot;
 			shootShake = 2f;
@@ -118,9 +118,9 @@ public class WeaponBlocks{
 		{
 			shootsound = "laser";
 			beamColor = Color.SKY;
-			range = 60;
-			reload = 4f;
-			damage = 10;
+			range = 500;
+			reload = 1f;
+			damage = 500;
 			health = 110;
 			powerUsed = 0.2f;
 		}
@@ -129,8 +129,8 @@ public class WeaponBlocks{
 	teslaturret = new PowerTurret("waveturret"){
 		{
 			shootsound = "tesla";
-			range = 70;
-			reload = 15f;
+			range = 500;
+			reload = 1f;
 			bullet = BulletType.shell;
 			health = 140;
 		}
@@ -148,29 +148,29 @@ public class WeaponBlocks{
 	plasmaturret = new Turret("plasmaturret"){
 		{
 			shootsound = "flame2";
-			inaccuracy = 7f;
-			range = 60f;
-			reload = 3f;
+			inaccuracy = 1f;
+			range = 500f;
+			reload = 1f;
 			bullet = BulletType.plasmaflame;
 			ammo = Item.coal;
 			health = 180;
-			ammoMultiplier = 40;
+			ammoMultiplier = 100;
 		}
 	},
 	
 	chainturret = new Turret("chainturret"){
 		{
 			shootsound = "bigshot";
-			inaccuracy = 8f;
-			range = 80f;
-			reload = 8f;
+			inaccuracy = 1f;
+			range = 500f;
+			reload = 1f;
 			bullet = BulletType.chain;
 			ammo = Item.uranium;
 			health = 430;
 			width = height = 2;
 			shootCone = 9f;
-			ammoMultiplier = 8;
-			shots = 2;
+			ammoMultiplier = 100;
+			shots = 100;
 			shootEffect = Fx.chainshot;
 		}
 
@@ -196,14 +196,14 @@ public class WeaponBlocks{
 	titanturret = new Turret("titancannon"){
 		{
 			shootsound = "blast";
-			range = 120f;
-			reload = 23f;
+			range = 500f;
+			reload = 1f;
 			bullet = BulletType.titanshell;
 			ammo = Item.uranium;
 			health = 800;
-			ammoMultiplier = 4;
+			ammoMultiplier = 100;
 			width = height = 3;
-			rotatespeed = 0.07f;
+			rotatespeed = 0f;
 			shootCone = 9f;
 			shootEffect = Fx.titanshot;
 			shootShake = 3f;
