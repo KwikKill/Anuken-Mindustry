@@ -23,7 +23,7 @@ public class Weapon extends Upgrade{
 	},
 	triblaster = new Weapon("triblaster", 20, BulletType.spread){
 		{
-			shots = 3;
+			shots = 100;
 			effect = Fx.spreadShoot;
 			roundrobin = true;
 		}
@@ -31,9 +31,9 @@ public class Weapon extends Upgrade{
 	clustergun = new Weapon("clustergun", 26f, BulletType.cluster){
 		{
 			effect = Fx.clusterShoot;
-			inaccuracy = 20f;
+			inaccuracy = 1f;
 			roundrobin = true;
-			shots = 2;
+			shots = 100;
 			spacing = 0;
 		}
 	},
@@ -48,10 +48,10 @@ public class Weapon extends Upgrade{
 	vulcan = new Weapon("vulcan", 5, BulletType.vulcan){
 		{
 			effect = Fx.vulcanShoot;
-			inaccuracy = 5;
+			inaccuracy = 1;
 			roundrobin = true;
 			shake = 1f;
-			inaccuracy = 4f;
+			inaccuracy = 1f;
 		}
 	},
 	shockgun = new Weapon("shockgun", 36, BulletType.shockshell){
@@ -60,7 +60,7 @@ public class Weapon extends Upgrade{
 			effect = Fx.shockShoot;
 			shake = 2f;
 			roundrobin = true;
-			shots = 7;
+			shots = 100;
 			inaccuracy = 15f;
 		}
 	};
