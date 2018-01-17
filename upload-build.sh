@@ -5,7 +5,7 @@ git config --global user.email $GHEMAIL
 git config --global user.name $GHUSERNAME
 
 # add, commit and push files
-git clone https://github.com/Anuken/Mindustry.wiki.git
+git clone https://github.com/Gab351/Anuken-Mindustry.wiki.git
 cd Mindustry.wiki
 
 DESKFILE=$TRAVIS_BUILD_NUMBER"-desktop-bleeding-edge.jar"
