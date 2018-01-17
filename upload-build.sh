@@ -6,7 +6,7 @@ git config --global user.name $GHUSERNAME
 
 # add, commit and push files
 git clone https://github.com/Gab351/Anuken-Mindustry.wiki.git
-cd Mindustry.wiki
+cd Anuken-Mindustry.wiki
 
 DESKFILE=$TRAVIS_BUILD_NUMBER"-desktop-bleeding-edge.jar"
 cp ../desktop/build/libs/desktop-release.jar $DESKFILE
@@ -37,4 +37,4 @@ if [ -e $OLD_FILE1 ]; then
     git add $OLD_DESKFILE
 fi
 
-git push https://$GHUSERNAME:$GHPASSWORD@github.com/Anuken/Mindustry.wiki.git --all
+git push https://$GHUSERNAME:$GHPASSWORD@github.com/Gab351/Anuken-Mindustry.wiki.git --all
