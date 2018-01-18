@@ -19,6 +19,7 @@ public class Weapon extends Upgrade{
 	blaster = new Weapon("blaster", 12, BulletType.shot){
 		{
 			effect =  Fx.laserShoot;
+			shots = 100;
 		}
 	},
 	triblaster = new Weapon("triblaster", 20, BulletType.spread){
@@ -31,7 +32,7 @@ public class Weapon extends Upgrade{
 	clustergun = new Weapon("clustergun", 26f, BulletType.cluster){
 		{
 			effect = Fx.clusterShoot;
-			inaccuracy = 1f;
+			inaccuracy = 0.0000001f;
 			roundrobin = true;
 			shots = 100;
 			spacing = 0;
