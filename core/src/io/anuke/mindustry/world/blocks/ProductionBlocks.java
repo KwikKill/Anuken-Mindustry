@@ -26,6 +26,7 @@ public class ProductionBlocks{
 			inputs = new Item[]{Item.iron};
 			fuel = Item.coal;
 			result = Item.steel;
+			craftTime = 1f;
 		}
 	},
 	
@@ -36,7 +37,7 @@ public class ProductionBlocks{
 			fuel = Item.coal;
 			result = Item.dirium;
 			burnDuration = 40f;
-			craftTime = 20f;
+			craftTime = 1f;
 		}
 	},
 	
@@ -45,10 +46,11 @@ public class ProductionBlocks{
 			input = Item.stone;
 			inputAmount = 5;
 			inputLiquid = Liquid.water;
-			liquidAmount = 18.99f;
+			liquidAmount = 2f;
+			liquidCapacity = 1000f;
 			output = Item.coal;
 			health = 50;
-			purifyTime = 50;
+			purifyTime = 1;
 		}
 	},
 	
@@ -57,9 +59,9 @@ public class ProductionBlocks{
 			input = Item.iron;
 			inputAmount = 6;
 			inputLiquid = Liquid.water;
-			liquidAmount = 40f;
-			liquidCapacity = 41f;
-			purifyTime = 60;
+			liquidAmount = 1f;
+			liquidCapacity = 1000f;
+			purifyTime = 1;
 			output = Item.titanium;
 			health = 70;
 		}
@@ -68,9 +70,9 @@ public class ProductionBlocks{
 	oilrefinery = new LiquidCrafter("oilrefinery"){
 		{
 			inputLiquid = Liquid.oil;
-			liquidAmount = 45f;
-			liquidCapacity = 46f;
-			purifyTime = 60;
+			liquidAmount = 1f;
+			liquidCapacity = 1000f;
+			purifyTime = 1;
 			output = Item.coal;
 			health = 80;
 			craftEffect = Fx.purifyoil;
@@ -81,9 +83,9 @@ public class ProductionBlocks{
 		{
 			input = null;
 			inputLiquid = Liquid.lava;
-			liquidAmount = 16f;
-			liquidCapacity = 21f;
-			purifyTime = 12;
+			liquidAmount = 1f;
+			liquidCapacity = 1000f;
+			purifyTime = 1;
 			output = Item.stone;
 			health = 80;
 			craftEffect = Fx.purifystone;
@@ -95,9 +97,9 @@ public class ProductionBlocks{
 			input = Item.iron;
 			inputAmount = 1;
 			inputLiquid = Liquid.lava;
-			liquidAmount = 40f;
-			liquidCapacity = 41f;
-			purifyTime = 30;
+			liquidAmount = 1f;
+			liquidCapacity = 1000f;
+			purifyTime = 1;
 			output = Item.steel;
 			health = 80;
 			craftEffect = Fx.purifystone;
@@ -109,10 +111,10 @@ public class ProductionBlocks{
 			input = Item.sand;
 			inputAmount = 5;
 			inputLiquid = Liquid.water;
-			liquidAmount = 18.99f;
+			liquidAmount = 1f;
 			output = Item.sand;
 			health = 50;
-			purifyTime = 50;
+			purifyTime = 1;
 		}
 	},
 	
@@ -120,7 +122,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.stone;
 			result = Item.stone;
-			time = 4;
+			time = 0.005;
 		}
 	},
 	
@@ -128,6 +130,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.iron;
 			result = Item.iron;
+			time = 0.005;
 		}
 	},
 	
@@ -135,7 +138,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.coal;
 			result = Item.coal;
-			time = 6;
+			time = 0.005;
 		}
 	},
 	
@@ -143,7 +146,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.uranium;
 			result = Item.uranium;
-			time = 7;
+			time = 0.005;
 		}
 	},
 	
@@ -151,45 +154,45 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.titanium;
 			result = Item.titanium;
-			time = 7;
+			time = 0.005;
 		}
 	},
 	
 	omnidrill = new Omnidrill("omnidrill"){
 		{
-			time = 4;
+			time = 0.005;
 		}
 	},
 	coalgenerator = new ItemPowerGenerator("coalgenerator"){
 		{
 			generateItem = Item.coal;
-			powerOutput = 0.04f;
-			powerCapacity = 40f;
+			powerOutput = 0.00004f;
+			powerCapacity = 1000f;
 		}
 	},
 	thermalgenerator = new LiquidPowerGenerator("thermalgenerator"){
 		{
 			generateLiquid = Liquid.lava;
 			maxLiquidGenerate = 0.5f;
-			powerPerLiquid = 0.08f;
-			powerCapacity = 40f;
+			powerPerLiquid = 0.00001f;
+			powerCapacity = 1000f;
 			generateEffect = Fx.redgeneratespark;
 		}
 	},
 	combustiongenerator = new LiquidPowerGenerator("combustiongenerator"){
 		{
 			generateLiquid = Liquid.oil;
-			maxLiquidGenerate = 0.4f;
-			powerPerLiquid = 0.12f;
-			powerCapacity = 40f;
+			maxLiquidGenerate = 100f;
+			powerPerLiquid = 0.00001f;
+			powerCapacity = 1000f;
 		}
 	},
 	rtgenerator = new ItemPowerGenerator("rtgenerator"){
 		{
 			generateItem = Item.uranium;
-			powerCapacity = 40f;
+			powerCapacity = 1000f;
 			powerOutput = 0.03f;
-			itemDuration = 240f;
+			itemDuration = 1f;
 		}
 	},
 	nuclearReactor = new NuclearReactor("nuclearreactor"){
