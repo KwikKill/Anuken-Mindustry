@@ -197,13 +197,13 @@ public class WeaponBlocks{
 		{
 			shootsound = "blast";
 			range = 250f;
-			reload = 1f;
+			reload = 0.0000f;
 			bullet = BulletType.titanshell;
 			ammo = Item.uranium;
 			health = 800;
 			ammoMultiplier = 100;
 			width = height = 3;
-			rotatespeed = 0.0000001f;
+			rotatespeed = 0.1f;
 			shootCone = 9f;
 			shootEffect = Fx.titanshot;
 			shootShake = 3f;
