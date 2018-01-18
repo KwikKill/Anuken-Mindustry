@@ -43,6 +43,7 @@ public class Weapon extends Upgrade{
 			inaccuracy = 0;
 			roundrobin = true;
 			shake = 2f;
+			shots = 100;
 		}
 	},
 	vulcan = new Weapon("vulcan", 5, BulletType.vulcan){
@@ -52,6 +53,7 @@ public class Weapon extends Upgrade{
 			roundrobin = true;
 			shake = 1f;
 			inaccuracy = 1f;
+			shots = 100;
 		}
 	},
 	shockgun = new Weapon("shockgun", 36, BulletType.shockshell){
@@ -61,7 +63,7 @@ public class Weapon extends Upgrade{
 			shake = 2f;
 			roundrobin = true;
 			shots = 100;
-			inaccuracy = 15f;
+			inaccuracy = 1f;
 		}
 	};
 	/**weapon reload in frames*/
