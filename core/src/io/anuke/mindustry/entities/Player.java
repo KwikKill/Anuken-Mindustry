@@ -39,7 +39,7 @@ public class Player extends SyncEntity{
 		hitboxTile.setSize(4f);
 		
 		maxhealth = 200000;
-		heal(10000);
+		heal();
 	}
 
 	@Override
