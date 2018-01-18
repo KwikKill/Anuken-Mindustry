@@ -122,7 +122,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.stone;
 			result = Item.stone;
-			time = 0.5;
+			time = 1;
 		}
 	},
 	
@@ -130,7 +130,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.iron;
 			result = Item.iron;
-			time = 0.5;
+			time = 1;
 		}
 	},
 	
@@ -138,7 +138,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.coal;
 			result = Item.coal;
-			time = 0.5;
+			time = 1;
 		}
 	},
 	
@@ -146,7 +146,7 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.uranium;
 			result = Item.uranium;
-			time = 0.5;
+			time = 1;
 		}
 	},
 	
@@ -154,13 +154,13 @@ public class ProductionBlocks{
 		{
 			resource = Blocks.titanium;
 			result = Item.titanium;
-			time = 0.5;
+			time = 1;
 		}
 	},
 	
 	omnidrill = new Omnidrill("omnidrill"){
 		{
-			time = 0.5;
+			time = 1;
 		}
 	},
 	coalgenerator = new ItemPowerGenerator("coalgenerator"){
