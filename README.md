@@ -14,6 +14,7 @@ _[Discord](https://discord.gg/r8BkXNd)_
 ### Building
 
 Bleeding-edge live builds are generated automatically for every commit. You can see them [here](https://github.com/Anuken/Mindustry/wiki).
+and you can see [here](https://github.com/Gab351/Anuken-Mindustry/wiki) my version.
 
 If you'd rather compile on your own, follow these instructions.
 First, make sure you have Java 8 and JDK 8 installed. Open a terminal in the root directory, and run the following commands:
