@@ -6,11 +6,11 @@ import io.anuke.ucore.util.Mathf;
 
 public class UpgradeRecipes {
     private static final ObjectMap<Upgrade, ItemStack[]> recipes = Mathf.map(
-            Weapon.triblaster, list(stack(Item.iron, 40), stack(Item.steel, 40)),
-            Weapon.clustergun, list(stack(Item.iron, 60), stack(Item.steel, 80)),
-            Weapon.vulcan, list(stack(Item.iron, 60), stack(Item.steel, 120), stack(Item.titanium, 60)),
-            Weapon.beam, list(stack(Item.steel, 240), stack(Item.titanium, 120), stack(Item.dirium, 80)),
-            Weapon.shockgun, list(stack(Item.steel, 120), stack(Item.titanium, 120), stack(Item.dirium, 120))
+            Weapon.triblaster, list(stack(Item.iron, 4), stack(Item.steel, 4)),
+            Weapon.clustergun, list(stack(Item.iron, 6), stack(Item.steel, 8)),
+            Weapon.vulcan, list(stack(Item.iron, 6), stack(Item.steel, 12), stack(Item.titanium, 6)),
+            Weapon.beam, list(stack(Item.steel, 24), stack(Item.titanium, 12), stack(Item.dirium, 8)),
+            Weapon.shockgun, list(stack(Item.steel, 12), stack(Item.titanium, 12), stack(Item.dirium, 12))
     );
 
     private static final ItemStack[] empty = {};
