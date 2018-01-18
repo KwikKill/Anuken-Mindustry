@@ -1,6 +1,6 @@
 ![Imgur](https://i.imgur.com/w4N0yhv.png)
 
-[![Build Status](https://travis-ci.org/Anuken/Mindustry.svg?branch=master)](https://travis-ci.org/Anuken/Mindustry)
+[![Build Status](https://travis-ci.org/Gab351/Anuken-Mindustry/builds.svg?branch=master)](https://travis-ci.org/Gab351/Anuken-Mindustry/builds)
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Anuken/Mindustry.svg?columns=all)](https://waffle.io/Anuken/Mindustry)
 
 
