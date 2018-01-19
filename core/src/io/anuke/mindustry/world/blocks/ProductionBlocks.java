@@ -11,7 +11,10 @@ public class ProductionBlocks{
 	public static final Block
 	
 	core = new CoreBlock("core"){},
-	
+		{
+			health = 70000;
+		}
+	},
 	pump = new Pump("pump"){},
 	
 	fluxpump = new Pump("fluxpump"){
