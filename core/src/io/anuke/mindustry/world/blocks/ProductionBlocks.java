@@ -169,7 +169,7 @@ public class ProductionBlocks{
 	coalgenerator = new ItemPowerGenerator("coalgenerator"){
 		{
 			generateItem = Item.coal;
-			powerOutput = 0.00004f;
+			powerOutput = 100f;
 			powerCapacity = 1000f;
 		}
 	},
@@ -177,7 +177,7 @@ public class ProductionBlocks{
 		{
 			generateLiquid = Liquid.lava;
 			maxLiquidGenerate = 0.5f;
-			powerPerLiquid = 0.00001f;
+			powerPerLiquid = 100f;
 			powerCapacity = 1000f;
 			generateEffect = Fx.redgeneratespark;
 		}
@@ -186,15 +186,15 @@ public class ProductionBlocks{
 		{
 			generateLiquid = Liquid.oil;
 			maxLiquidGenerate = 100f;
-			powerPerLiquid = 0.00001f;
-			powerCapacity = 1000f;
+			powerPerLiquid = 10000f;
+			powerCapacity = 10000f;
 		}
 	},
 	rtgenerator = new ItemPowerGenerator("rtgenerator"){
 		{
 			generateItem = Item.uranium;
-			powerCapacity = 1000f;
-			powerOutput = 0.03f;
+			powerCapacity = 100000f;
+			powerOutput = 10000f;
 			itemDuration = 1f;
 		}
 	},
