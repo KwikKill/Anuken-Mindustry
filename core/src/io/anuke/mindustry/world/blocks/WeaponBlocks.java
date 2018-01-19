@@ -207,6 +207,7 @@ public class WeaponBlocks{
 			shootCone = 9f;
 			shootEffect = Fx.titanshot;
 			shootShake = 3f;
+			shots = 100;
 		}
 	};
 }
