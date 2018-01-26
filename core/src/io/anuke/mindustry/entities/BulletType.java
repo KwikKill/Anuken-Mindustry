@@ -369,7 +369,7 @@ public abstract class BulletType extends BaseBulletType<Bullet>{
 
 			Effects.effect(Fx.clusterbomb, b);
 
-			DamageArea.damage(!(b.owner instanceof Enemy), b.x, b.y, 220f, damage);
+			DamageArea.damage(!(b.owner instanceof Enemy), b.x, b.y, 22f, damage);
 		}
 	},
     vulcan = new BulletType(4.5f, 11) {
