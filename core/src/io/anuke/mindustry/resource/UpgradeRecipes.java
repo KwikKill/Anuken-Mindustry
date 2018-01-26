@@ -8,7 +8,7 @@ public class UpgradeRecipes {
     private static final ObjectMap<Upgrade, ItemStack[]> recipes = Mathf.map(
             Weapon.triblaster, list(stack(Item.iron, 4), stack(Item.steel, 4)),
             Weapon.clustergun, list(stack(Item.iron, 6), stack(Item.steel, 8)),
-            Weapon.vulcan, list(stack(Item.iron, 6), stack(Item.steel, 12), stack(Item.titanium, 6)),
+            Weapon.vulcan, list(stack(Item.iron, 300), stack(Item.steel, 600), stack(Item.titanium, 300)),
             Weapon.beam, list(stack(Item.steel, 24), stack(Item.titanium, 12), stack(Item.dirium, 8)),
             Weapon.shockgun, list(stack(Item.steel, 12), stack(Item.titanium, 12), stack(Item.dirium, 12))
     );
