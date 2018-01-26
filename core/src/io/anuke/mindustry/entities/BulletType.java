@@ -345,7 +345,7 @@ public abstract class BulletType extends BaseBulletType<Bullet>{
 	},
 	cluster = new BulletType(4.4f, 13){
 		{
-			lifetime = 60;
+			lifetime = 0.1;
 			drag = 0.06f;
 		}
 
