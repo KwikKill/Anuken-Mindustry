@@ -345,7 +345,7 @@ public abstract class BulletType extends BaseBulletType<Bullet>{
 	},
 	cluster = new BulletType(4.4f, 13){
 		{
-			lifetime = 1;
+			lifetime = 10;
 			drag = 0.06f;
 		}
 
@@ -369,7 +369,7 @@ public abstract class BulletType extends BaseBulletType<Bullet>{
 
 			Effects.effect(Fx.clusterbomb, b);
 
-			DamageArea.damage(!(b.owner instanceof Enemy), b.x, b.y, 22f, damage);
+			DamageArea.damage(!(b.owner instanceof Enemy), b.x, b.y, 2200f, damage);
 		}
 	},
     vulcan = new BulletType(4.5f, 11) {
