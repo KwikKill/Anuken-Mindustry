@@ -1166,6 +1166,20 @@ blocks/titaniumwall-large-icon
   orig: 8, 8
   offset: 0, 0
   index: -1
+blocks/incassablium
+  rotate: false
+  xy: 872, 359
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+blocks/incassablium-icon
+  rotate: false
+  xy: 873, 410
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 blocks/turret
   rotate: false
   xy: 736, 368
