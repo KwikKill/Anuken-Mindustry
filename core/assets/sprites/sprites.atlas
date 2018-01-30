@@ -1170,7 +1170,7 @@ blocks/incassablium
   rotate: false
   xy: 872, 359
   size: 25, 25
-  orig: 25, 25
+  orig: 0, 0
   offset: 0, 0
   index: -1
 blocks/incassablium-icon
