@@ -1,12 +1,10 @@
 ![Imgur](https://i.imgur.com/w4N0yhv.png)
 
-[![Build Status](https://travis-ci.org/Gab351/Mindustry-Anuken.svg?branch=master)](https://travis-ci.org/Gab351/Anuken-Mindustry)
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/Anuken/Mindustry.svg?columns=all)](https://waffle.io/Anuken/Mindustry)
+[![Build Status](https://travis-ci.org/Gab351/Anuken-Mindustry.svg?branch=master)](https://travis-ci.org/Gab351/Anuken-Mindustry)
 
 
 A pixelated sandbox tower defense game made using [LibGDX](https://libgdx.badlogicgames.com/). Winner of the [GDL Metal Monstrosity Jam](https://itch.io/jam/gdl---metal-monstrosity-jam).
 
-_[Issue tracker](https://waffle.io/Anuken/Mindustry)_  
 _[TODO list](TODO.md)_  
 _[Wiki](http://mindustry.wikia.com/wiki/Mindustry_Wiki)_  
 _[Discord](https://discord.gg/r8BkXNd)_  
