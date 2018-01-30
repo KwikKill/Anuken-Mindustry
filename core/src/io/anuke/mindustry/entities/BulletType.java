@@ -391,7 +391,6 @@ public abstract class BulletType extends BaseBulletType<Bullet>{
         public void update(Bullet b){
             if(Timers.get(b, "smoke", 4)){
                 Effects.effect(Fx.chainsmoke, b.x, b.y);
-		DamageArea.damage(!(b.owner instanceof Enemy), b.x, b.y, 2200f, damage);
             }
         }
     },
