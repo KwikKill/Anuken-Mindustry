@@ -8,7 +8,6 @@ import io.anuke.mindustry.world.blocks.types.distribution.*;
 
 public class ModBlocks{
 
-      public static final Block
       static final int wallHealthMultiplier = 4;
       
 	    omniconveyor = new Conveyor("omniconveyor"){{
