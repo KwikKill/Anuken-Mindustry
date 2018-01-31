@@ -10,7 +10,11 @@ public class ModBlocks{
 	public static final Block
 	
 	omniconveyor = new Conveyor("omniconveyor"){{
-		     health = 90
+		     health = 90;
 	             speed = 0.15f;
 	}},
+        incassablium = new Wall("incassablium"){{
+	   	     health = 1000*25*wallHealthMultiplier;
+                     width = height = 5;
+        }},
 }
