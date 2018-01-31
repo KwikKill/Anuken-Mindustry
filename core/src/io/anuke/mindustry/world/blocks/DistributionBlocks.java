@@ -34,7 +34,7 @@ public class DistributionBlocks{
 		speed = 0.09f;
 	}},
 	
-	pulseconveyor = new Conveyor("omniconveyor"){{
+	omniconveyor = new Conveyor("omniconveyor"){{
 		health = 90;
 		speed = 0.15f;
 	}},
