@@ -16,8 +16,4 @@ public class ModBlocks{
 	             speed = 0.15f;
         }},
 	
-	incassablium = new Wall("incassablium"){{
-		     health = 1000*25*wallHealthMultiplier;
-                     width = height = 5;
-        }},
 }
