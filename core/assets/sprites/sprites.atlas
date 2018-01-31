@@ -977,6 +977,20 @@ blocks/steelconveyormove
   orig: 8, 8
   offset: 0, 0
   index: -1
+ blocks/omniconveyor
+  rotate: false
+  xy: 883, 410
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/omniconveyormove
+  rotate: false
+  xy: 883, 420
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 blocks/steelwall
   rotate: false
   xy: 240, 81
