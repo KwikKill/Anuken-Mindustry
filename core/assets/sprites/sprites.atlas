@@ -1874,6 +1874,13 @@ ui/icons/icon-close-over
   orig: 40, 40
   offset: 0, 0
   index: -1
+ui/icons/icon-mod
+  rotate: false
+  xy: 892, 409
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
 ui/icons/icon-crafting
   rotate: false
   xy: 736, 416
