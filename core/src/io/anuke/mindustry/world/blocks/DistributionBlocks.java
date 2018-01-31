@@ -26,12 +26,17 @@ public class DistributionBlocks{
 	
 	steelconveyor = new Conveyor("steelconveyor"){{
 		health = 55;
-		speed = 0.7f;
+		speed = 0.04f;
 	}},
 	
 	pulseconveyor = new Conveyor("poweredconveyor"){{
 		health = 75;
-		speed = 0.9f;
+		speed = 0.09f;
+	}},
+	
+	pulseconveyor = new Conveyor("omniconveyor"){{
+		health = 90;
+		speed = 0.15f;
 	}},
 	
 	router = new Router("router"){{
