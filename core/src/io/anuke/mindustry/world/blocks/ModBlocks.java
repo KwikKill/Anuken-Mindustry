@@ -20,3 +20,4 @@ public class ModBlocks{
 		     health = 1000*25*wallHealthMultiplier;
                      width = height = 5;
         }},
+}
