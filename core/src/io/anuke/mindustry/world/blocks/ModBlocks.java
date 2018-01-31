@@ -19,4 +19,4 @@ public class ModBlocks{
 	incassablium = new Wall("incassablium"){{
 		     health = 1000*25*wallHealthMultiplier;
                      width = height = 5;
-
+        }}
