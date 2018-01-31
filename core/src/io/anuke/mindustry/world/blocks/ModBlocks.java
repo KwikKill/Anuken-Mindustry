@@ -6,9 +6,9 @@ import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.blocks.types.distribution.*;
 
 public class ModBlocks{
+        static final int wallHealthMultiplier = 4;
 	
         public static final Block
-        static final int wallHealthMultiplier = 4;
 	
 	omniconveyor = new Conveyor("omniconveyor"){{
 		     health = 90;
@@ -17,5 +17,5 @@ public class ModBlocks{
         incassablium = new Wall("incassablium"){{
 	   	     health = 1000*25*wallHealthMultiplier;
                      width = height = 5;
-        }},
+        }};
 }
