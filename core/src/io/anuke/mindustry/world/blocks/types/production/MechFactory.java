@@ -5,7 +5,7 @@ import io.anuke.mindustry.net.Net;
 import io.anuke.mindustry.resource.ItemStack;
 import io.anuke.mindustry.resource.Upgrade;
 import io.anuke.mindustry.resource.UpgradeMechRecipes;
-import io.anuke.mindustry.resource.Weapon;
+import io.anuke.mindustry.resource.Mech;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.Tile;
 import io.anuke.ucore.core.Draw;
@@ -75,7 +75,7 @@ public class MechFactory extends Block{
                 tiptable.row();
                 tiptable.add("[gray]" + description).left();
                 tiptable.row();
-                if(control.hasWeapon(weapon)){
+                if(control.hasMech(mech)){
                     tiptable.add("$text.purchased").padTop(4).left();
                 }
                 tiptable.margin(8f);
