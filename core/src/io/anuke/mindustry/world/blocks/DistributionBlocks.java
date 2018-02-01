@@ -33,6 +33,10 @@ public class DistributionBlocks{
 		health = 75;
 		speed = 0.09f;
 	}},
+	omniconveyor = new Conveyor("omniconveyor"){{
+		health = 90;
+	        speed = 0.15f;
+        }},
 	
 	router = new Router("router"){{
 
