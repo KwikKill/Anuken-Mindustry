@@ -1628,21 +1628,21 @@ mechs/mech-standard
   orig: 12, 12
   offset: 0, 0
   index: -1
-mechs/omnimech
+Mechs/omnimech
   rotate: false
   xy: 518, 112
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
-mechs/speedmech
+Mechs/speedmech
   rotate: false
   xy: 518, 100
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
-mechs/defensemech
+Mechs/defensemech
   rotate: false
   xy: 518, 100
   size: 12, 12
