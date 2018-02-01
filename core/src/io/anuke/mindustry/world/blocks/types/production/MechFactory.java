@@ -38,27 +38,27 @@ public class MechFactory extends Block{
         Table content = new Table();
 
         for(Upgrade upgrade : Upgrade.getAllUpgrades()){
-            if(!(upgrade instanceof Weapon)) continue;
-            Weapon weapon = (Weapon)upgrade;
+            if(!(upgrade instanceof Mech)) continue;
+            Mech mech = (Mech)upgrade;
 
-            ItemStack[] requirements = UpgradeMechRecipes.get(weapon);
+            ItemStack[] requirements = UpgradeMechRecipes.get(mech);
 
             Table tiptable = new Table();
 
             Listenable run = ()->{
                 tiptable.clearChildren();
 
-                String description = weapon.description;
+                String description = mech.description;
 
                 tiptable.background("pane");
-                tiptable.add("[orange]" + weapon.localized(), 0.5f).left().padBottom(2f);
+                tiptable.add("[orange]" + mech.localized(), 0.5f).left().padBottom(2f);
 
                 Table reqtable = new Table();
 
                 tiptable.row();
                 tiptable.add(reqtable).left();
 
-                if(!control.hasWeapon(weapon)){
+                if(!control.hasMech(mech)){
                     for(ItemStack s : requirements){
 
                         int amount = Math.min(control.getAmount(s.item), s.amount);
@@ -89,8 +89,8 @@ public class MechFactory extends Block{
 
             ImageButton button = content.addImageButton("white", 8*4, () -> {
                 control.removeItems(requirements);
-                control.addWeapon(weapon);
-                Vars.ui.hudfrag.updateWeapons();
+                control.addMech(mech);
+                Vars.ui.hudfrag.updateMech();
                 run.listen();
                 Effects.sound("purchase");
 
@@ -99,8 +99,8 @@ public class MechFactory extends Block{
                 }
             }).size(49f, 54f).padBottom(-5).get();
 
-            button.setDisabled(() -> control.hasWeapon(weapon) || !control.hasItems(requirements));
-            button.getStyle().imageUp = new TextureRegionDrawable(Draw.region(weapon.name));
+            button.setDisabled(() -> control.hasMech(mech) || !control.hasItems(requirements));
+            button.getStyle().imageUp = new TextureRegionDrawable(Draw.region(mech.name));
             button.addListener(tip);
 
             if(++i % 3 == 0){
