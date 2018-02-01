@@ -20,7 +20,7 @@ import static io.anuke.mindustry.Vars.control;
 
 public class MechFactory extends Block{
 
-    public WeaponFactory(String name){
+    public MechFactory(String name){
         super(name);
         solid = true;
         destructible = true;
