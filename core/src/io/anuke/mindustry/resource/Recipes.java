@@ -23,10 +23,12 @@ public class Recipes {
 			new Recipe(defense, DefenseBlocks.door, stack(Item.steel, 3), stack(Item.iron, 3*4)).setDesktop(),
 			new Recipe(defense, DefenseBlocks.largedoor, stack(Item.steel, 3*4), stack(Item.iron, 3*4*4)).setDesktop(),
 			new Recipe(defense, DefenseBlocks.titaniumshieldwall, stack(Item.titanium, 16)),
-
+		        new Recipe(mod, DefenseBlocks.incassablium,  stack(Item.steel, 100), stack(Item.titanium, 100), stack(Item.dirium, 100)),
+		
 			new Recipe(distribution, DistributionBlocks.conveyor, stack(Item.stone, 1)),
 			new Recipe(distribution, DistributionBlocks.steelconveyor, stack(Item.steel, 1)),
 			new Recipe(distribution, DistributionBlocks.pulseconveyor, stack(Item.dirium, 1)),
+	                new Recipe(mod, DistributionBlocks.omniconveyor, stack(Item.dirium, 10)),
 			new Recipe(distribution, DistributionBlocks.router, stack(Item.stone, 2)),
 			new Recipe(distribution, DistributionBlocks.junction, stack(Item.iron, 2)),
 			new Recipe(distribution, DistributionBlocks.tunnel, stack(Item.iron, 2)),

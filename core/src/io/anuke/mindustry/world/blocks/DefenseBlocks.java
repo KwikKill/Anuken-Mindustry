@@ -46,7 +46,11 @@ public class DefenseBlocks{
 	titaniumshieldwall = new ShieldedWallBlock("titaniumshieldwall"){{
 		health = 1500*wallHealthMultiplier;
 	}},
-
+        incassablium = new Wall("incassablium"){{
+	   	     health = 1000*25*wallHealthMultiplier;
+                     width = height = 5;
+        }},
+	
 	repairturret = new RepairTurret("repairturret"){
 		{
 			range = 300;
