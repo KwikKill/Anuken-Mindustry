@@ -8,7 +8,7 @@ public class UpgradeMechRecipes {
     private static final ObjectMap<Upgrade, ItemStack[]> recipes = Mathf.map(
             Mech.omnimech, list(stack(Item.iron, 40), stack(Item.steel, 40)),
             Mech.speedmech, list(stack(Item.iron, 60), stack(Item.steel, 80)),
-            Mech.defensemech, list(stack(Item.iron, 60), stack(Item.steel, 60), stack(Item.titanium, 30)),
+            Mech.defensemech, list(stack(Item.iron, 60), stack(Item.steel, 60), stack(Item.titanium, 30))
         );
 
     private static final ItemStack[] empty = {};
