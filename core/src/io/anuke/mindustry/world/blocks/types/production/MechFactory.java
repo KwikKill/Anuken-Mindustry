@@ -41,7 +41,7 @@ public class MechFactory extends Block{
             if(!(upgrade instanceof Weapon)) continue;
             Weapon weapon = (Weapon)upgrade;
 
-            ItemStack[] requirements = UpgradeRecipes.get(weapon);
+            ItemStack[] requirements = UpgradeMechRecipes.get(weapon);
 
             Table tiptable = new Table();
 
