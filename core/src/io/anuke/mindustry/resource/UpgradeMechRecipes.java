@@ -6,9 +6,9 @@ import io.anuke.ucore.util.Mathf;
 
 public class UpgradeMechRecipes {
     private static final ObjectMap<Upgrade, ItemStack[]> recipes = Mathf.map(
-            Mechs.omnimech, list(stack(Item.iron, 40), stack(Item.steel, 40)),
-            Mechs.speedmech, list(stack(Item.iron, 60), stack(Item.steel, 80)),
-            Mechs.defensemech, list(stack(Item.iron, 60), stack(Item.steel, 60), stack(Item.titanium, 30))
+            mechs.omnimech, list(stack(Item.iron, 40), stack(Item.steel, 40)),
+            mechs.speedmech, list(stack(Item.iron, 60), stack(Item.steel, 80)),
+            mechs.defensemech, list(stack(Item.iron, 60), stack(Item.steel, 60), stack(Item.titanium, 30))
         );
 
     private static final ItemStack[] empty = {};
