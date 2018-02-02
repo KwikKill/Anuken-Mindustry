@@ -4,15 +4,6 @@ public class Mech extends Upgrade{
 	public static final Mech
 	standard = new Mech("standard");
 	
-	public static final Mech
-	omnimech = new Mech("omnimech");
-	
-	public static final Mech
-	speedmech = new Mech("speedmech");
-	
-	public static final Mech
-	defensemech = new Mech("defensemech");
-	
 	public Mech(String name){
 		super(name);
 	}
