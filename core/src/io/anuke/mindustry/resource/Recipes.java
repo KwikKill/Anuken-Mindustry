@@ -88,9 +88,9 @@ public class Recipes {
 			new Recipe(production, ProductionBlocks.pump, stack(Item.steel, 10)),
 			new Recipe(production, ProductionBlocks.fluxpump, stack(Item.steel, 10), stack(Item.dirium, 5)),
 		
-		        new Recipe(mod, DecorationBlocks.flower, stack(Item.stone, 1)),
-		        new Recipe(mod, DecorationBlocks.decorationrock, stack(Item.stone, 1)),
-		        new Recipe(mod, DecorationBlocks.arrow, stack(Item.stone, 1))
+		        new Recipe(decoration, DecorationBlocks.flower, stack(Item.stone, 1)),
+		        new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.stone, 1)),
+		        new Recipe(decoration, DecorationBlocks.arrow, stack(Item.stone, 1))
 	);
 	
 	private static ItemStack stack(Item item, int amount){
