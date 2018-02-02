@@ -117,6 +117,13 @@ public class ProductionBlocks{
 			purifyTime = 1;
 		}
 	},
+	dirtdrill = new Drill("dirtdrill"){
+		{
+			resource = Blocks.dirt;
+			result = Item.dirt;
+			time = 1;
+		}
+	},
 	
 	stonedrill = new Drill("stonedrill"){
 		{
