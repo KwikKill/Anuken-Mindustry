@@ -8,7 +8,7 @@ public class Wall extends Block{
 		super(name);
 		solid = false;
 		destructible = true;
-	}
+	};
 	
 
 
