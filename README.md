@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/Gab351/Anuken-Mindustry.svg?branch=master)](https://travis-ci.org/Gab351/Anuken-Mindustry)
 
-
 A pixelated sandbox tower defense game made using [LibGDX](https://libgdx.badlogicgames.com/). Winner of the [GDL Metal Monstrosity Jam](https://itch.io/jam/gdl---metal-monstrosity-jam).
 
 _[TODO list](TODO.md)_  
