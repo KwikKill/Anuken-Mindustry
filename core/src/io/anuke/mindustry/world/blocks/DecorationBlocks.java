@@ -10,7 +10,22 @@ import io.anuke.mindustry.world.blocks.types.production.*;
 public class DecorationBlocks{
 	public static final Block
 	
-	arrow = new Decoration("arrow"){
+	arrow1 = new Decoration("arrow1"){
+		{
+			health = 100;
+		}
+	},
+	arrow2 = new Decoration("arrow2"){
+		{
+			health = 100;
+		}
+	},
+	arrow3 = new Decoration("arrow3"){
+		{
+			health = 100;
+		}
+	},
+	arrow4 = new Decoration("arrow4"){
 		{
 			health = 100;
 		}
