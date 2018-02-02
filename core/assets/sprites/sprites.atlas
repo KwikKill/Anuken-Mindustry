@@ -1271,7 +1271,7 @@ blocks/flower
   orig: 8, 8
   offset: 0, 0
   index: -1
-blocks/rock
+blocks/decorationrock
   rotate: false
   xy: 903, 410
   size: 8, 8
