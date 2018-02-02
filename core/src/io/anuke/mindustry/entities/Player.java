@@ -16,8 +16,8 @@ import java.nio.ByteBuffer;
 import static io.anuke.mindustry.Vars.*;
 
 public class Player extends SyncEntity{
-	static final float speed = 2f;
-	static final float dashSpeed = 3.5f;
+	static final float speed = 1.1f;
+	static final float dashSpeed = 1.8f;
 
 	public String name = "name";
 	public boolean isAndroid;
@@ -38,7 +38,7 @@ public class Player extends SyncEntity{
 		hitbox.setSize(5);
 		hitboxTile.setSize(4f);
 		
-		maxhealth = 200000;
+		maxhealth = 100;
 		heal();
 	}
 
