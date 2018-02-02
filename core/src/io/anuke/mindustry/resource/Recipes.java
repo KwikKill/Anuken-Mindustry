@@ -89,7 +89,7 @@ public class Recipes {
 			new Recipe(production, ProductionBlocks.fluxpump, stack(Item.steel, 10), stack(Item.dirium, 5)),
 		
 		        new Recipe(mod, DecorationBlocks.flower, stack(Item.stone, 1)),
-		        new Recipe(mod, DecorationBlocks.decoration-rock, stack(Item.stone, 1)),
+		        new Recipe(mod, DecorationBlocks.decorationrock, stack(Item.stone, 1)),
 		        new Recipe(mod, DecorationBlocks.arrow, stack(Item.stone, 1))
 	);
 	
