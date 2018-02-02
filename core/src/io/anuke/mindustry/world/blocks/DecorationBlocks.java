@@ -16,7 +16,7 @@ public class DecorationBlocks{
 		}
 	},
 	
-	decoration-rock = new Decoration("decoration-rock"){
+	decorationrock = new Decoration("decorationrock"){
 		{
 			health = 100;
 		}
