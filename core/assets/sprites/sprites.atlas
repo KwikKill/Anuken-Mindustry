@@ -1663,6 +1663,13 @@ blocks/mechfactory
   orig: 16, 16
   offset: 0, 0
   index: -1
+blocks/dirtdrill
+  rotate: false
+  xy: 923, 400
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 mechs/mech-standard
   rotate: false
   xy: 518, 124
