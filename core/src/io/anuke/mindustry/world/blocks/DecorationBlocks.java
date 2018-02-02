@@ -12,34 +12,34 @@ public class DecorationBlocks{
 	
 	arrow1 = new Decoration("arrow1"){
 		{
-			health = 100;
+			health = 100000;
 		}
 	},
 	arrow2 = new Decoration("arrow2"){
 		{
-			health = 100;
+			health = 100000;
 		}
 	},
 	arrow3 = new Decoration("arrow3"){
 		{
-			health = 100;
+			health = 100000;
 		}
 	},
 	arrow4 = new Decoration("arrow4"){
 		{
-			health = 100;
+			health = 100000;
 		}
 	},
 	
 	decorationrock = new Decoration("decorationrock"){
 		{
-			health = 100;
+			health = 100000;
 		}
 	},
 	
 	flower = new Decoration("flower"){
 		{
-			health = 100;
+			health = 100000;
 		}
 	};
 
