@@ -1264,6 +1264,27 @@ blocks/weaponfactory-icon
   orig: 8, 8
   offset: 0, 0
   index: -1
+blocks/flower
+  rotate: false
+  xy: 903, 420
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/rock
+  rotate: false
+  xy: 903, 410
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/arrow
+  rotate: true
+  xy: 913, 420
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 bullet
   rotate: false
   xy: 800, 384
@@ -1628,21 +1649,21 @@ mechs/mech-standard
   orig: 12, 12
   offset: 0, 0
   index: -1
-mechs/mech-omnimech
+mechs/omnimech
   rotate: false
   xy: 518, 112
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
-mechs/mech-speedmech
+mechs/speedmech
   rotate: false
   xy: 518, 100
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
-mechs/mech-defensemech
+mechs/defensemech
   rotate: false
   xy: 518, 100
   size: 12, 12
