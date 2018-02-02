@@ -4,7 +4,7 @@ import io.anuke.mindustry.graphics.Fx;
 import io.anuke.mindustry.resource.Item;
 import io.anuke.mindustry.resource.Liquid;
 import io.anuke.mindustry.world.Block;
-import io.anuke.mindustry.world.blocks.types.decoration.*;
+import io.anuke.mindustry.world.blocks.types.decoration;
 import io.anuke.mindustry.world.blocks.types.production.*;
 
 public class DecorationBlocks{
