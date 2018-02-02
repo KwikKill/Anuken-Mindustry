@@ -90,7 +90,10 @@ public class Recipes {
 		
 		        new Recipe(decoration, DecorationBlocks.flower, stack(Item.stone, 1)),
 		        new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.stone, 1)),
-		        new Recipe(decoration, DecorationBlocks.arrow, stack(Item.stone, 1))
+		        new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.stone, 1)),
+			new Recipe(decoration, DecorationBlocks.arrow2, stack(Item.stone, 1)),
+			new Recipe(decoration, DecorationBlocks.arrow3, stack(Item.stone, 1)),
+			new Recipe(decoration, DecorationBlocks.arrow4, stack(Item.stone, 1))
 	);
 	
 	private static ItemStack stack(Item item, int amount){
