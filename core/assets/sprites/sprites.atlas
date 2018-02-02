@@ -1278,9 +1278,30 @@ blocks/decorationrock
   orig: 8, 8
   offset: 0, 0
   index: -1
-blocks/arrow
+blocks/arrow1
   rotate: true
   xy: 913, 420
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/arrow2
+  rotate: true
+  xy: 913, 410
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/arrow3
+  rotate: true
+  xy: 923, 410
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/arrow4
+  rotate: true
+  xy: 923, 420
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -1926,6 +1947,13 @@ ui/icons/icon-close-over
 ui/icons/icon-mod
   rotate: false
   xy: 892, 409
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+ui/icons/icon-decoration
+  rotate: false
+  xy: 912, 399
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
