@@ -101,7 +101,9 @@ public class Blocks{
 		drops = new ItemStack(Item.uranium, 1);
 	}},
 	
-	dirt = new Floor("dirt"){},
+	dirt = new Floor("dirt"){{
+		drops = new ItemStack(Item.dirt, 1);
+	}},
 	
 	sand = new Floor("sand"){},
 	
