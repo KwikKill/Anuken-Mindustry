@@ -1635,6 +1635,13 @@ icon-uranium
   orig: 8, 8
   offset: 0, 0
   index: -1
+icon-dirt
+  rotate: false
+  xy: 913, 390
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 laser
   rotate: false
   xy: 577, 213
