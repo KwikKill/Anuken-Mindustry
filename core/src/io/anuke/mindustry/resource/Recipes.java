@@ -88,6 +88,7 @@ public class Recipes {
 			new Recipe(production, ProductionBlocks.pump, stack(Item.steel, 10)),
 			new Recipe(production, ProductionBlocks.fluxpump, stack(Item.steel, 10), stack(Item.dirium, 5)),
 		
+		        new Recipe(mod, ProductionBlocks.dirtdrill, stack(Item.stone, 1)),
 		        new Recipe(decoration, DecorationBlocks.flower, stack(Item.stone, 1)),
 		        new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.stone, 1)),
 		        new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.stone, 1)),
