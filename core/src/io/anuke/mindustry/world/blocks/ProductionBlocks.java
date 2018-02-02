@@ -208,11 +208,5 @@ public class ProductionBlocks{
 			width = height = 2;
 			health = 250;
 		}
-	},
-	mechFactory = new MechFactory("Mechfactory"){
-		{
-			width = height = 2;
-			health = 250;
-		}
 	};
 }
