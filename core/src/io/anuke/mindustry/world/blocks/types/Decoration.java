@@ -6,6 +6,7 @@ public class Decoration extends Block{
 
 	public Decoration(String name) {
 		super(name);
+		shadow = name+"shadow";
 		solid = false;
 		destructible = true;
 	};
