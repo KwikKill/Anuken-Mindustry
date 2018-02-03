@@ -19,12 +19,12 @@ public class Weapon extends Upgrade{
 	blaster = new Weapon("blaster", 12, BulletType.shot){
 		{
 			effect =  Fx.laserShoot;
-			shots = 100;
+			shots = 10;
 		}
 	},
 	triblaster = new Weapon("triblaster", 20, BulletType.spread){
 		{
-			shots = 100;
+			shots = 10;
 			effect = Fx.spreadShoot;
 			roundrobin = true;
 		}
@@ -34,7 +34,7 @@ public class Weapon extends Upgrade{
 			effect = Fx.clusterShoot;
 			inaccuracy = 0.0000001f;
 			roundrobin = true;
-			shots = 100;
+			shots = 10;
 			spacing = 0;
 		}
 	},
@@ -44,7 +44,7 @@ public class Weapon extends Upgrade{
 			inaccuracy = 0;
 			roundrobin = true;
 			shake = 2f;
-			shots = 100;
+			shots = 10;
 		}
 	},
 	vulcan = new Weapon("vulcan", 5, BulletType.vulcan){
@@ -54,7 +54,7 @@ public class Weapon extends Upgrade{
 			roundrobin = true;
 			shake = 1f;
 			inaccuracy = 1f;
-			shots = 100;
+			shots = 10;
 		}
 	},
 	shockgun = new Weapon("shockgun", 36, BulletType.shockshell){
@@ -63,7 +63,7 @@ public class Weapon extends Upgrade{
 			effect = Fx.shockShoot;
 			shake = 2f;
 			roundrobin = true;
-			shots = 100;
+			shots = 10;
 			inaccuracy = 1f;
 		}
 	};
@@ -85,7 +85,7 @@ public class Weapon extends Upgrade{
 	Effect effect;
 	/**whether to shoot the weapons in different arms one after another, rather an all at once*/
 	boolean roundrobin = false;
-	
+
 	private Weapon(String name, float reload, BulletType type){
 		super(name);
 		this.reload = reload;
@@ -118,7 +118,7 @@ public class Weapon extends Upgrade{
 			Vars.netClient.handleShoot(this, x, y, angle);
 		}
 	}
-	
+
 	void bullet(Entity owner, float x, float y, float angle){
 		Angles.translation(angle, 3f);
 		new Bullet(type, owner,  x + Angles.x(), y + Angles.y(), angle).add();

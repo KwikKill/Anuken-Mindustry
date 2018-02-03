@@ -19,53 +19,53 @@ import io.anuke.ucore.util.Mathf;
 
 public class WeaponBlocks{
 	public static Block
-	
+
 	turret = new Turret("turret"){
 		{
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			bullet = BulletType.stone;
 			health = 50;
 			ammo = Item.stone;
 		}
 	},
-	
+
 	doubleturret = new Turret("doubleturret"){
 		{
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			bullet = BulletType.stone;
 			ammo = Item.stone;
 			health = 55;
 			health = 50;
 		}
-		
+
 		@Override
 		protected void shoot(Tile tile){
 			TurretEntity entity = tile.entity();
-			
+
 			Angles.vector.set(4, -2).rotate(entity.rotation);
 			bullet(tile, entity.rotation);
-				
+
 			Angles.vector.set(4, 2).rotate(entity.rotation);
 			bullet(tile, entity.rotation);
 		}
 	},
-	
+
 	machineturret = new Turret("machineturret"){
 		{
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			bullet = BulletType.iron;
 			ammo = Item.iron;
 			health = 65;
 		}
 	},
-	
+
 	shotgunturret = new Turret("shotgunturret"){
 		{
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			bullet = BulletType.iron;
 			ammo = Item.iron;
 			health = 70;
@@ -74,35 +74,35 @@ public class WeaponBlocks{
 			shotDelayScale = 0.7f;
 		}
 	},
-	
+
 	flameturret = new Turret("flameturret"){
 		{
-			range = 250f;
-			reload = 1f;
+			range = 100f;
+			reload = 5f;
 			bullet = BulletType.flame;
 			ammo = Item.coal;
 			health = 90;
 		}
 	},
-	
+
 	sniperturret = new Turret("sniperturret"){
 		{
 			shootsound = "railgun";
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			bullet = BulletType.sniper;
 			ammo = Item.steel;
 			health = 70;
 			shootEffect = Fx.railshot;
 		}
 	},
-	
+
 	mortarturret = new Turret("mortarturret"){
 		{
 			shootsound = "bigshot";
 			rotatespeed = 0.2f;
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			bullet = BulletType.flak;
 			shots = 100;
 			inaccuracy = 1f;
@@ -113,56 +113,56 @@ public class WeaponBlocks{
 			shootShake = 2f;
 		}
 	},
-	
+
 	laserturret = new LaserTurret("laserturret"){
 		{
 			shootsound = "laser";
 			beamColor = Color.SKY;
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			damage = 500;
 			health = 110;
 			powerUsed = 0.2f;
 		}
 	},
-	
+
 	teslaturret = new PowerTurret("waveturret"){
 		{
 			shootsound = "tesla";
-			range = 250;
-			reload = 1f;
+			range = 100;
+			reload = 5f;
 			bullet = BulletType.shell;
 			health = 140;
 		}
-		
+
 		@Override
 		public void shoot(Tile tile){
 			TurretEntity entity = tile.entity();
 			Angles.translation(entity.rotation, 4);
 
-			new TeslaOrb(tile.worldx() + Angles.x(), tile.worldy() + Angles.y(), 
+			new TeslaOrb(tile.worldx() + Angles.x(), tile.worldy() + Angles.y(),
 					range, (int)(9*Vars.multiplier)).add();
 		}
 	},
-		
+
 	plasmaturret = new Turret("plasmaturret"){
 		{
 			shootsound = "flame2";
 			inaccuracy = 1f;
-			range = 250f;
-			reload = 1f;
+			range = 100f;
+			reload = 5f;
 			bullet = BulletType.plasmaflame;
 			ammo = Item.coal;
 			health = 180;
 			ammoMultiplier = 100;
 		}
 	},
-	
+
 	chainturret = new Turret("chainturret"){
 		{
 			shootsound = "bigshot";
 			inaccuracy = 1f;
-			range = 250f;
+			range = 100f;
 			reload = 1f;
 			bullet = BulletType.chain;
 			ammo = Item.uranium;
@@ -178,26 +178,26 @@ public class WeaponBlocks{
 		protected void shoot(Tile tile){
 			TurretEntity entity = tile.entity();
 			Vector2 offset = getPlaceOffset();
-			
+
 			float len = 8;
 			float space = 3.5f;
-			
+
 			for(int i = -1; i < 1; i ++){
 				Angles.vector.set(len, Mathf.sign(i) * space).rotate(entity.rotation);
 				bullet(tile, entity.rotation);
-				Effects.effect(shootEffect, tile.worldx() + Angles.x() + offset.x, 
+				Effects.effect(shootEffect, tile.worldx() + Angles.x() + offset.x,
 						tile.worldy()+ Angles.y() + offset.y, entity.rotation);
 			}
-			
+
 			Effects.shake(1f, 1f, tile.worldx(), tile.worldy());
 		}
 	},
-	
+
 	titanturret = new Turret("titancannon"){
 		{
 			shootsound = "blast";
-			range = 250f;
-			reload = 0.0000f;
+			range = 100f;
+			reload = 5f;
 			bullet = BulletType.titanshell;
 			ammo = Item.uranium;
 			health = 800;
