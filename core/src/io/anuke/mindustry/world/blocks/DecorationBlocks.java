@@ -6,6 +6,7 @@ import io.anuke.mindustry.resource.Liquid;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.blocks.types.Decoration;
 import io.anuke.mindustry.world.blocks.types.production.*;
+import io.anuke.mindustry.world.blocks.types.Rock; 
 
 public class DecorationBlocks{
 	public static final Block
@@ -31,7 +32,7 @@ public class DecorationBlocks{
 		}
 	},
 	
-	decorationrock = new Decoration("decorationrock"){
+	decorationrock = new Rock("decorationrock"){
 		{
 			health = 100000;
 		}
