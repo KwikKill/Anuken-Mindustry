@@ -111,7 +111,9 @@ public class Blocks{
 	
 	snow = new Floor("snow"){},
 	
-	grass = new Floor("grass"){},
+	grass = new Floor("grass"){{
+		drops = new ItemStack(Item.dirt, 1);
+	]},
 	
 	sandblock = new StaticBlock("sandblock"){{
 		solid = true;
