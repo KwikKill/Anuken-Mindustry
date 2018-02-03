@@ -1183,8 +1183,8 @@ blocks/titaniumwall-large-icon
 blocks/incassablium
   rotate: false
   xy: 872, 369
-  size: 25, 25
-  orig: 25, 25
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: -1
 blocks/incassablium-icon
