@@ -113,7 +113,7 @@ public class Blocks{
 	
 	grass = new Floor("grass"){{
 		drops = new ItemStack(Item.dirt, 1);
-	]},
+	}},
 	
 	sandblock = new StaticBlock("sandblock"){{
 		solid = true;
