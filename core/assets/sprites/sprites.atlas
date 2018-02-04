@@ -2616,14 +2616,14 @@ blocks/dirtdrill
 blocks/castlegate
   rotate: true
   xy: 917, 8
-  size: 24, 32
-  orig: 24, 32
+  size: 32, 24
+  orig: 32, 24
   offset: 0, 0
   index: -1
 blocks/castlegate-open
   rotate: true
   xy: 947, 8
-  size: 24, 32
+  size: 32, 24
   orig: 24, 32
   offset: 0, 0
   index: -1
