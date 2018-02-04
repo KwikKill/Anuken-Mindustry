@@ -5,10 +5,10 @@ git config --global user.email $GHEMAIL
 git config --global user.name $GHUSERNAME
 
 # add, commit and push files
-git clone https://github.com/Anuken/Mindustry.wiki.git
-cd Mindustry.wiki
+git clone https://github.com/Gab351/Anuken-Mindustry.wiki.git
+cd Anuken-Mindustry.wiki
 
-DESKFILE=$TRAVIS_BUILD_NUMBER"-desktop-bleeding-edge.jar"
+DESKFILE=$TRAVIS_BUILD_NUMBER"-gab_351-mod.jar"
 cp ../desktop/build/libs/desktop-release.jar $DESKFILE
 
 FILE1="Bleeding-Edge-Build-"$TRAVIS_BUILD_NUMBER".md"
@@ -27,4 +27,4 @@ git commit -m "Added a new bleeding edge build"
 # now remove old build
 bash ../cleanup_builds.sh
 
-git push https://$GHUSERNAME:$GHPASSWORD@github.com/Anuken/Mindustry.wiki.git --all
+git push https://$GHUSERNAME:$GHPASSWORD@github.com/Gab351/Anuken-Mindustry.wiki.git --all

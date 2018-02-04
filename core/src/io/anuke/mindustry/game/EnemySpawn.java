@@ -26,20 +26,20 @@ public class EnemySpawn{
 	protected float scaling = 9999f;
 	/**Amount of enemies spawned initially, with no scaling*/
 	protected int amount = 1;
-	
+
 	public EnemySpawn(EnemyType type){
 		this.type = type;
 	}
-	
+
 	public int evaluate(int wave, int lane){
 		if(wave < after || wave > before || (wave - after) % spacing != 0){
 			return 0;
 		}
 		float scaling = this.scaling * state.difficulty.enemyScaling;
-		
+
 		return Math.min(amount-1 + Math.max((int)((wave / spacing) / scaling), 1) + (tier(wave, lane)-1) * tierscaleback, max);
 	}
-	
+
 	public int tier(int wave, int lane){
 		return Mathf.clamp(tier + (wave-after)/tierscale, 1, EnemyType.maxtier);
 	}

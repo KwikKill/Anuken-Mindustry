@@ -1,11 +1,10 @@
 ![Imgur](https://i.imgur.com/w4N0yhv.png)
 
-[![Build Status](https://travis-ci.org/Anuken/Mindustry.svg?branch=master)](https://travis-ci.org/Anuken/Mindustry)
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/Anuken/Mindustry.svg?columns=all)](https://waffle.io/Anuken/Mindustry)
+[![Build Status](https://travis-ci.org/Gab351/Anuken-Mindustry.svg?branch=master)](https://travis-ci.org/Gab351/Anuken-Mindustry)
+
 
 A pixelated sandbox tower defense game made using [LibGDX](https://libgdx.badlogicgames.com/). Winner of the [GDL Metal Monstrosity Jam](https://itch.io/jam/gdl---metal-monstrosity-jam).
 
-_[Issue tracker](https://waffle.io/Anuken/Mindustry)_  
 _[TODO list](TODO.md)_  
 _[Wiki](http://mindustry.wikia.com/wiki/Mindustry_Wiki)_  
 _[Discord](https://discord.gg/r8BkXNd)_  
@@ -13,6 +12,7 @@ _[Discord](https://discord.gg/r8BkXNd)_
 ### Building
 
 Bleeding-edge live builds are generated automatically for every commit. You can see them [here](https://github.com/Anuken/Mindustry/wiki).
+and you can see [here](https://github.com/Gab351/Anuken-Mindustry/wiki) my version.
 
 If you'd rather compile on your own, follow these instructions.
 First, make sure you have Java 8 and JDK 8 installed. Open a terminal in the root directory, and run the following commands:

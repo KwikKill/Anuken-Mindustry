@@ -5,10 +5,8 @@ _(These are not planned in the near future at all, and have been suggested befor
 - Texture packs
 - Online player profiles
 - Player mech on Android
-- Modding support
 - Game speed increase (fast forward)
 - Liquid teleporter
-- More teleporter colors/any system that gives it more frequencies (numbers)
 - More ore generation (if you're playing on maze, *play any different map, maze has the least resources, and for good reason!*)
 - Power wires or conduits
 
@@ -31,13 +29,11 @@ _(not necessarily planned!)_
 - Better graphics
 - Enemies dropping resources
 - Final objectives/non-endless mode
-- Fusion reactor
 - Dams, flowing water
 - Flying enemies
 - Day/night cycle
 - Solar panels
 - Deflector shields
-- Autosave
 - Underground blocks
 - Configurable outputs/inputs
 - Getting items out of the core
@@ -98,4 +94,3 @@ _(not necessarily planned!)_
 - Optimize health bars and enemies in general
 - Make drawing of enemies more efficient (don't call `flush()`?)
 - Look into `NodeRecord` storage for pathfinder, since it's taking 2MB+ of memory!
-

@@ -12,8 +12,8 @@ public class DistributionBlocks{
 	}},
 	
 	pulseconduit = new Conduit("pulseconduit"){{
-		liquidCapacity = 16f;
-		flowfactor = 4.9f;
+		liquidCapacity = 10000f;
+		flowfactor = 100f;
 		health = 65;
 	}},
 	
@@ -33,6 +33,10 @@ public class DistributionBlocks{
 		health = 75;
 		speed = 0.09f;
 	}},
+	omniconveyor = new Conveyor("omniconveyor"){{
+		health = 90;
+	        speed = 0.15f;
+        }},
 	
 	router = new Router("router"){{
 

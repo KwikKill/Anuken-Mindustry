@@ -7,6 +7,7 @@ public class Item{
 	private static final Array<Item> items = new Array<>();
 
 	public static final Item
+		dirt = new Item("dirt"),
 		stone = new Item("stone"),
 		iron = new Item("iron"),
 		coal = new Item("coal"),

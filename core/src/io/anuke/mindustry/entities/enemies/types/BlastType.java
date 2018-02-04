@@ -15,7 +15,7 @@ public class BlastType extends EnemyType {
 	public BlastType() {
 		super("blastenemy");
 		health = 30;
-		speed = 0.8f;
+		speed = 2f;
 		bullet = null;
 		turretrotatespeed = 0f;
 		mass = 0.8f;
@@ -33,18 +33,18 @@ public class BlastType extends EnemyType {
 			range = (e.tile.block().width * tilesize) /2f + 8f;
 			offset.set(e.tile.block().getPlaceOffset());
 		}
-		
+
 		if(enemy.target != null && enemy.target.distanceTo(enemy.x - offset.x, enemy.y - offset.y) < range){
 			explode(enemy);
 		}
 	}
-	
+
 	@Override
 	public void onDeath(Enemy enemy, boolean force){
 		if(force) explode(enemy);
 		super.onDeath(enemy, force);
 	}
-	
+
 	void explode(Enemy enemy){
 		Bullet b = new Bullet(BulletType.blast, enemy, enemy.x, enemy.y, 0).add();
 		b.damage = BulletType.blast.damage + (enemy.tier-1) * 40;

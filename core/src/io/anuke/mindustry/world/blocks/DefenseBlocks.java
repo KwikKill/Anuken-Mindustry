@@ -7,76 +7,80 @@ import io.anuke.mindustry.world.blocks.types.defense.*;
 
 public class DefenseBlocks{
 	static final int wallHealthMultiplier = 4;
-	
+
 	public static final Block
 
 	stonewall = new Wall("stonewall"){{
-		health = 40*wallHealthMultiplier;
+		health = 500*wallHealthMultiplier;
 	}},
 
 	ironwall = new Wall("ironwall"){{
-		health = 80*wallHealthMultiplier;
+		health = 800*wallHealthMultiplier;
 	}},
 
 	steelwall = new Wall("steelwall"){{
-		health = 110*wallHealthMultiplier;
+		health = 1100*wallHealthMultiplier;
 	}},
 
 	titaniumwall = new Wall("titaniumwall"){{
-		health = 150*wallHealthMultiplier;
+		health = 1500*wallHealthMultiplier;
 	}},
 	diriumwall = new Wall("duriumwall"){{
-		health = 190*wallHealthMultiplier;
+		health = 1900*wallHealthMultiplier;
 	}},
 	compositewall = new Wall("compositewall"){{
-		health = 270*wallHealthMultiplier;
+		health = 2700*wallHealthMultiplier;
 	}},
 	steelwalllarge = new Wall("steelwall-large"){{
-		health = 110*4*wallHealthMultiplier;
+		health = 1100*4*wallHealthMultiplier;
 		width = height = 2;
 	}},
 	titaniumwalllarge = new Wall("titaniumwall-large"){{
-		health = 150*4*wallHealthMultiplier;
+		health = 1500*4*wallHealthMultiplier;
 		width = height = 2;
 	}},
 	diriumwalllarge = new Wall("duriumwall-large"){{
-		health = 190*4*wallHealthMultiplier;
+		health = 1900*4*wallHealthMultiplier;
 		width = height = 2;
 	}},
 	titaniumshieldwall = new ShieldedWallBlock("titaniumshieldwall"){{
-		health = 150*wallHealthMultiplier;
+		health = 1500*wallHealthMultiplier;
 	}},
+        incassablium = new Wall("incassablium"){{
+	   	     health = 1000*25*wallHealthMultiplier;
+                     width = height = 5;
+        }},
 
 	repairturret = new RepairTurret("repairturret"){
 		{
-			range = 30;
-			reload = 20f;
-			health = 60;
-			powerUsed = 0.08f;
+			range = 300;
+			reload = 1f;
+			health = 600;
+			powerUsed = 0f;
 		}
 	},
 
 	megarepairturret = new RepairTurret("megarepairturret"){
 		{
-			range = 44;
-      		reload = 12f;
-			health = 90;
-			powerUsed = 0.13f;
+			range = 500;
+      		reload = 1f;
+			health = 900;
+			powerUsed = 0f;
 		}
 	},
 
 	shieldgenerator = new ShieldBlock("shieldgenerator"){
 		{
-			health = 100*wallHealthMultiplier;
+			health = 1000*wallHealthMultiplier;
 		}
 	},
 	door = new Door("door"){{
-		health = 90*wallHealthMultiplier;
+		health = 9000*wallHealthMultiplier;
 	}},
 	largedoor = new Door("door-large"){{
 		openfx = Fx.dooropenlarge;
 		closefx = Fx.doorcloselarge;
-		health = 90*4*wallHealthMultiplier;
+		health = 9000*4*wallHealthMultiplier;
 		width = height = 2;
 	}};
 }
