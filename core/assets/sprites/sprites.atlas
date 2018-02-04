@@ -1,3 +1,4 @@
+
 sprites.png
 size: 1024,512
 format: RGBA8888
@@ -2165,6 +2166,13 @@ ui/icons/icon-pencil
   xy: 953, 495
   size: 16, 16
   orig: 16, 16
+  offset: 0, 0
+  index: -1
+ui/icons/icon-pencil-small
+  rotate: false
+  xy: 913, 376
+  size: 14, 14
+  orig: 14, 14
   offset: 0, 0
   index: -1
 ui/icons/icon-pick
