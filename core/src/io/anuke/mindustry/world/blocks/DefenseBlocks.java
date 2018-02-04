@@ -75,12 +75,17 @@ public class DefenseBlocks{
 		}
 	},
 	door = new Door("door"){{
-		health = 9000*wallHealthMultiplier;
+		health = 900*wallHealthMultiplier;
+	}},
+	castlegate = new Door("castlegate"){{
+		health = 90*12*wallHealthMultiplier;
+		width = 3;
+		height = 4;
 	}},
 	largedoor = new Door("door-large"){{
 		openfx = Fx.dooropenlarge;
 		closefx = Fx.doorcloselarge;
-		health = 9000*4*wallHealthMultiplier;
+		health = 900*4*wallHealthMultiplier;
 		width = height = 2;
 	}};
 }

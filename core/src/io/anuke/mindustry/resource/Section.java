@@ -1,5 +1,5 @@
 package io.anuke.mindustry.resource;
 
 public enum Section{
-	weapon, production, distribution, power, defense, crafting, mod, decoration;
+	weapon, production, distribution, power, defense, crafting, mod, decoration, castle;
 }

@@ -22,14 +22,15 @@ public class Recipes {
 			new Recipe(defense, DefenseBlocks.titaniumwalllarge, stack(Item.titanium, 12*4)),
 			new Recipe(defense, DefenseBlocks.diriumwalllarge, stack(Item.dirium, 12*4)),
 			new Recipe(defense, DefenseBlocks.door, stack(Item.steel, 3), stack(Item.iron, 3*4)).setDesktop(),
+			new Recipe(castle, DefenseBlocks.castlegate, stack(Item.steel, 3*12), stack(Item.iron, 3*4*12)).setDesktop(),
 			new Recipe(defense, DefenseBlocks.largedoor, stack(Item.steel, 3*4), stack(Item.iron, 3*4*4)).setDesktop(),
 			new Recipe(defense, DefenseBlocks.titaniumshieldwall, stack(Item.titanium, 16)),
-		        new Recipe(mod, DefenseBlocks.incassablium,  stack(Item.steel, 100), stack(Item.titanium, 100), stack(Item.dirium, 100)),
-		
+		  new Recipe(mod, DefenseBlocks.incassablium,  stack(Item.steel, 100), stack(Item.titanium, 100), stack(Item.dirium, 100)),
+
 			new Recipe(distribution, DistributionBlocks.conveyor, stack(Item.stone, 1)),
 			new Recipe(distribution, DistributionBlocks.steelconveyor, stack(Item.steel, 1)),
 			new Recipe(distribution, DistributionBlocks.pulseconveyor, stack(Item.dirium, 1)),
-	                new Recipe(mod, DistributionBlocks.omniconveyor, stack(Item.dirium, 10)),
+	    new Recipe(mod, DistributionBlocks.omniconveyor, stack(Item.dirium, 10)),
 			new Recipe(distribution, DistributionBlocks.router, stack(Item.stone, 2)),
 			new Recipe(distribution, DistributionBlocks.junction, stack(Item.iron, 2)),
 			new Recipe(distribution, DistributionBlocks.tunnel, stack(Item.iron, 2)),
@@ -87,16 +88,16 @@ public class Recipes {
 
 			new Recipe(production, ProductionBlocks.pump, stack(Item.steel, 10)),
 			new Recipe(production, ProductionBlocks.fluxpump, stack(Item.steel, 10), stack(Item.dirium, 5)),
-		
-		        new Recipe(mod, ProductionBlocks.dirtdrill, stack(Item.stone, 1)),
-		        new Recipe(decoration, DecorationBlocks.flower, stack(Item.dirt, 1)),
-		        new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.dirt, 1)),
-		        new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.dirt, 1)),
+
+		  new Recipe(mod, ProductionBlocks.dirtdrill, stack(Item.stone, 1)),
+		  new Recipe(decoration, DecorationBlocks.flower, stack(Item.dirt, 1)),
+		  new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.dirt, 1)),
+		  new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.dirt, 1)),
 			new Recipe(decoration, DecorationBlocks.arrow2, stack(Item.dirt, 1)),
 			new Recipe(decoration, DecorationBlocks.arrow3, stack(Item.dirt, 1)),
 			new Recipe(decoration, DecorationBlocks.arrow4, stack(Item.dirt, 1))
 	);
-	
+
 	private static ItemStack stack(Item item, int amount){
 		return new ItemStack(item, amount);
 	}
@@ -113,13 +114,13 @@ public class Recipes {
 		}
 		return null;
 	}
-	
+
 	public static Array<Recipe> getBy(Section section, Array<Recipe> r){
 		for(Recipe recipe : list){
 			if(recipe.section == section && !(Vars.android && recipe.desktopOnly))
 				r.add(recipe);
 		}
-		
+
 		return r;
 	}
 }
