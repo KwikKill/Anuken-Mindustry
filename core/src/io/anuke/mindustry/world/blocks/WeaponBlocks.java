@@ -174,7 +174,6 @@ public class WeaponBlocks{
 		@Override
 		protected void shoot(Tile tile){
 			TurretEntity entity = tile.entity();
-			Vector2 offset = getPlaceOffset();
 			float len = 8;
 			float space = 3.5f;
 
