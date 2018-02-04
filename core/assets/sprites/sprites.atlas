@@ -2531,7 +2531,7 @@ blocks/incassablium-icon
   index: -1
 blocks/omniconveyormove
   rotate: false
-  xy: 1002, 51
+  xy: 1005, 51
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
