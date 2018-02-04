@@ -101,7 +101,12 @@ public class Recipes {
 		  new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.dirt, 1)),
 			new Recipe(decoration, DecorationBlocks.arrow2, stack(Item.dirt, 1)),
 			new Recipe(decoration, DecorationBlocks.arrow3, stack(Item.dirt, 1)),
-			new Recipe(decoration, DecorationBlocks.arrow4, stack(Item.dirt, 1))
+			new Recipe(decoration, DecorationBlocks.arrow4, stack(Item.dirt, 1)),
+			new Recipe(mod, DecorationBlocks.redcarpet1, stack(Item.dirt, 1)),
+			new Recipe(mod, DecorationBlocks.redcarpet2, stack(Item.dirt, 1)),
+			new Recipe(mod, DecorationBlocks.redcarpet3, stack(Item.dirt, 1)),
+			new Recipe(mod, DecorationBlocks.redcarpet4, stack(Item.dirt, 1)),
+			new Recipe(mod, DecorationBlocks.castleflor, stack(Item.stone, 5))
 	);
 
 	private static ItemStack stack(Item item, int amount){

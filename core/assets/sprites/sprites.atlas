@@ -2676,3 +2676,38 @@ blocks/castlewall6
   orig: 8, 8
   offset: 0, 0
   index: -1
+blocks/redcarpet1
+  rotate: true
+  xy: 985, 81
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/redcarpet2
+  rotate: true
+  xy: 995, 81
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/redcarpet3
+  rotate: true
+  xy: 985, 91
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/redcarpet4
+  rotate: true
+  xy: 995, 91
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/castleflor
+  rotate: true
+  xy: 995, 71
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
