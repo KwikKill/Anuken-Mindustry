@@ -2599,6 +2599,13 @@ ui/icons/icon-decoration
   orig: 10, 10
   offset: 0, 0
   index: -1
+ui/icons/icon-castle
+  rotate: false
+  xy: 1014, 60
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
 blocks/dirtdrill
   rotate: false
   xy: 1015, 41
@@ -2623,6 +2630,48 @@ blocks/castlegate-open
 blocks/castlegate-icon
   rotate: true
   xy: 975, 1
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/castlewall1
+  rotate: true
+  xy: 1005, 61
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/castlewall2
+  rotate: true
+  xy: 995, 61
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/castlewall3
+  rotate: true
+  xy: 985, 61
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/castlewall4
+  rotate: true
+  xy: 975, 61
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/castlewall5
+  rotate: true
+  xy: 975, 71
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/castlewall6
+  rotate: true
+  xy: 985, 71
   size: 8, 8
   orig: 8, 8
   offset: 0, 0

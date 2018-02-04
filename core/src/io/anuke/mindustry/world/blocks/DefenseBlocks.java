@@ -31,6 +31,24 @@ public class DefenseBlocks{
 	compositewall = new Wall("compositewall"){{
 		health = 2700*wallHealthMultiplier;
 	}},
+	castlewall1 = new Wall("castlewall1"){{
+		health = 1000*wallHealthMultiplier;
+	}},
+	castlewall2 = new Wall("castlewall2"){{
+		health = 1000*wallHealthMultiplier;
+	}},
+	castlewall3 = new Wall("castlewall3"){{
+		health = 1000*wallHealthMultiplier;
+	}},
+	castlewall4 = new Wall("castlewall4"){{
+		health = 1000*wallHealthMultiplier;
+	}},
+	castlewall5 = new Wall("castlewall5"){{
+		health = 1000*wallHealthMultiplier;
+	}},
+	castlewall6 = new Wall("castlewall6"){{
+		health = 1000*wallHealthMultiplier;
+	}},
 	steelwalllarge = new Wall("steelwall-large"){{
 		health = 1100*4*wallHealthMultiplier;
 		width = height = 2;
