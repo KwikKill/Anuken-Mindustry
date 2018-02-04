@@ -93,49 +93,7 @@
     },
     {
       "id": 13,
-      "name": "castle_keep",
-      "visible": true,
-      "flipBase": false,
-      "backgroundColor": "f7feff"
-    },
-    {
-      "id": 14,
-      "name": "castle",
-      "visible": true,
-      "flipBase": false,
-      "backgroundColor": "f7feff"
-    },
-    {
-      "id": 14,
-      "name": "d-day",
-      "visible": true,
-      "flipBase": false,
-      "backgroundColor": "f7feff"
-    },
-    {
-      "id": 15,
-      "name": "Hidden-Valley",
-      "visible": true,
-      "flipBase": false,
-      "backgroundColor": "f7feff"
-    },
-    {
-      "id": 16,
-      "name": "LavaCave",
-      "visible": true,
-      "flipBase": false,
-      "backgroundColor": "f7feff"
-    },
-    {
-      "id": 17,
-      "name": "long_island",
-      "visible": true,
-      "flipBase": false,
-      "backgroundColor": "f7feff"
-    },
-    {
-      "id": 18,
-      "name": "minautorus_Maze",
+      "name": "minautorusMaze",
       "visible": true,
       "flipBase": false,
       "backgroundColor": "f7feff"
