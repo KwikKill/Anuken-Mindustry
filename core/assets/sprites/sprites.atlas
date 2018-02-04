@@ -2599,3 +2599,10 @@ ui/icons/icon-decoration
   orig: 10, 10
   offset: 0, 0
   index: -1
+blocks/dirtdrill
+  rotate: false
+  xy: 1015, 41
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
