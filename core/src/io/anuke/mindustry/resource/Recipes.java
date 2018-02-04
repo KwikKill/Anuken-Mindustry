@@ -96,17 +96,17 @@ public class Recipes {
 			new Recipe(production, ProductionBlocks.fluxpump, stack(Item.steel, 10), stack(Item.dirium, 5)),
 
 		  new Recipe(mod, ProductionBlocks.dirtdrill, stack(Item.stone, 1)),
-		  new Recipe(decoration, DecorationBlocks.flower, stack(Item.dirt, 1)),
-		  new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.dirt, 1)),
-		  new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.dirt, 1)),
-			new Recipe(decoration, DecorationBlocks.arrow2, stack(Item.dirt, 1)),
-			new Recipe(decoration, DecorationBlocks.arrow3, stack(Item.dirt, 1)),
-			new Recipe(decoration, DecorationBlocks.arrow4, stack(Item.dirt, 1)),
-			new Recipe(mod, DecorationBlocks.redcarpet1, stack(Item.dirt, 1)),
-			new Recipe(mod, DecorationBlocks.redcarpet2, stack(Item.dirt, 1)),
-			new Recipe(mod, DecorationBlocks.redcarpet3, stack(Item.dirt, 1)),
-			new Recipe(mod, DecorationBlocks.redcarpet4, stack(Item.dirt, 1)),
-			new Recipe(mod, DecorationBlocks.castleflor, stack(Item.stone, 5))
+		  new Recipe(decoration, DecorationBlocks.flower, stack(Item.dirt, 5)),
+		  new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.dirt, 5)),
+		  new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.dirt, 5)),
+			new Recipe(decoration, DecorationBlocks.arrow2, stack(Item.dirt, 5)),
+			new Recipe(decoration, DecorationBlocks.arrow3, stack(Item.dirt, 5)),
+			new Recipe(decoration, DecorationBlocks.arrow4, stack(Item.dirt, 5)),
+			new Recipe(castle, DecorationBlocks.redcarpet1, stack(Item.dirt, 5)),
+			new Recipe(castle, DecorationBlocks.redcarpet2, stack(Item.dirt, 5)),
+			new Recipe(castle, DecorationBlocks.redcarpet3, stack(Item.dirt, 5)),
+			new Recipe(castle, DecorationBlocks.redcarpet4, stack(Item.dirt, 5)),
+			new Recipe(castle, DecorationBlocks.castleflor, stack(Item.stone, 5))
 	);
 
 	private static ItemStack stack(Item item, int amount){
