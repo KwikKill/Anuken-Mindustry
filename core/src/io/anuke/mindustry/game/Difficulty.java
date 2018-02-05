@@ -20,8 +20,7 @@ public enum Difficulty {
     insane(0.5f, 0.25f, 0.5f, new DestrutiveHeuristic(b -> b instanceof Generator || b instanceof Drill || b instanceof Smelter || b instanceof Router)),
     purge(0.25f, 0.01f, 0.25f, new DestrutiveHeuristic(b -> b instanceof Generator || b instanceof Drill || b instanceof Router
             || b instanceof Smelter || b instanceof Conveyor || b instanceof LiquidBlock || b instanceof PowerBlock));
-   death(0.0001f, 0.0001f, 0.0001f, new DestrutiveHeuristic(b -> b instanceof Generator || b instanceof Drill || b instanceof Router || b instanceof Smelter || b instanceof Conveyor || b instanceof LiquidBlock || b instanceof PowerBlock));
-
+            
     /**The scaling of how many waves it takes for one more enemy of a type to appear.
      * For example: with enemeyScaling = 2 and the default scaling being 2, it would take 4 waves for
      * an enemy spawn to go from 1->2 enemies.*/
