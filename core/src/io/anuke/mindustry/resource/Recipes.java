@@ -19,11 +19,7 @@ public class Recipes {
 			new Recipe(defense, DefenseBlocks.titaniumwall, stack(Item.titanium, 12)),
 			new Recipe(defense, DefenseBlocks.diriumwall, stack(Item.dirium, 12)),
 			new Recipe(castle, DefenseBlocks.castlewall1, stack(Item.steel, 20), stack(Item.stone, 12)),
-			new Recipe(castle, DefenseBlocks.castlewall2, stack(Item.steel, 20), stack(Item.stone, 12)),
 			new Recipe(castle, DefenseBlocks.castlewall3, stack(Item.steel, 20), stack(Item.stone, 12)),
-			new Recipe(castle, DefenseBlocks.castlewall4, stack(Item.steel, 20), stack(Item.stone, 12)),
-			new Recipe(castle, DefenseBlocks.castlewall5, stack(Item.steel, 20), stack(Item.stone, 12)),
-			new Recipe(castle, DefenseBlocks.castlewall6, stack(Item.steel, 20), stack(Item.stone, 12)),
 			new Recipe(defense, DefenseBlocks.steelwalllarge, stack(Item.steel, 12*4)),
 			new Recipe(defense, DefenseBlocks.titaniumwalllarge, stack(Item.titanium, 12*4)),
 			new Recipe(defense, DefenseBlocks.diriumwalllarge, stack(Item.dirium, 12*4)),
@@ -99,15 +95,8 @@ public class Recipes {
 		  new Recipe(decoration, DecorationBlocks.flower, stack(Item.dirt, 5)),
 		  new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.dirt, 5)),
 		  new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.dirt, 5)),
-			new Recipe(decoration, DecorationBlocks.arrow2, stack(Item.dirt, 5)),
-			new Recipe(decoration, DecorationBlocks.arrow3, stack(Item.dirt, 5)),
-			new Recipe(decoration, DecorationBlocks.arrow4, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.redcarpet1, stack(Item.dirt, 5)),
-			new Recipe(castle, DecorationBlocks.redcarpet2, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.redcarpet3, stack(Item.dirt, 5)),
-			new Recipe(castle, DecorationBlocks.redcarpet4, stack(Item.dirt, 5)),
-			new Recipe(castle, DecorationBlocks.redcarpet5, stack(Item.dirt, 5)),
-			new Recipe(castle, DecorationBlocks.redcarpet6, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.castleflor, stack(Item.stone, 5))
 	);
 

@@ -3,6 +3,7 @@ package io.anuke.mindustry.world.blocks;
 import io.anuke.mindustry.graphics.Fx;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.blocks.types.Wall;
+import io.anuke.mindustry.world.blocks.types.castlewall;
 import io.anuke.mindustry.world.blocks.types.defense.*;
 
 public class DefenseBlocks{
@@ -31,22 +32,10 @@ public class DefenseBlocks{
 	compositewall = new Wall("compositewall"){{
 		health = 2700*wallHealthMultiplier;
 	}},
-	castlewall1 = new Wall("castlewall1"){{
+	castlewall1 = new Castlewall("castlewall1"){{
 		health = 1000*wallHealthMultiplier;
 	}},
-	castlewall2 = new Wall("castlewall2"){{
-		health = 1000*wallHealthMultiplier;
-	}},
-	castlewall3 = new Wall("castlewall3"){{
-		health = 1000*wallHealthMultiplier;
-	}},
-	castlewall4 = new Wall("castlewall4"){{
-		health = 1000*wallHealthMultiplier;
-	}},
-	castlewall5 = new Wall("castlewall5"){{
-		health = 1000*wallHealthMultiplier;
-	}},
-	castlewall6 = new Wall("castlewall6"){{
+	castlewall3 = new castlewall("castlewall3"){{
 		health = 1000*wallHealthMultiplier;
 	}},
 	steelwalllarge = new Wall("steelwall-large"){{
