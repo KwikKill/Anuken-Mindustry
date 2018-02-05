@@ -8,7 +8,6 @@ public class Castlewall extends Block{
 		super(name);
 		solid = true;
 		destructible = true;
-    rotate = true;
 	}
 
 	public boolean canReplace(Block other){
