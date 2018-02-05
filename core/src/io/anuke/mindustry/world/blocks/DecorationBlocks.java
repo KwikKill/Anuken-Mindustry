@@ -5,19 +5,19 @@ import io.anuke.mindustry.resource.Item;
 import io.anuke.mindustry.resource.Liquid;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.blocks.types.Decoration;
-import io.anuke.mindustry.world.blocks.types.carpet;
+import io.anuke.mindustry.world.blocks.types.Carpet;
 import io.anuke.mindustry.world.blocks.types.production.*;
 
 public class DecorationBlocks{
 	public static final Block
 
-	arrow1 = new carpet("arrow1"){
+	arrow1 = new Carpet("arrow1"){
 	},
 	decorationrock = new Decoration("decorationrock"){
 	},
-	redcarpet1 = new carpet("redcarpet1"){
+	redcarpet1 = new Carpet("redcarpet1"){
 	},
-	redcarpet3 = new carpet("redcarpet3"){
+	redcarpet3 = new Carpet("redcarpet3"){
 	},
 	castleflor = new Decoration("castleflor"){
 	},
