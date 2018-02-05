@@ -57,6 +57,16 @@ public class DecorationBlocks{
 			health = 100000;
 		}
 	},
+	redcarpet5 = new Decoration("redcarpet5"){
+		{
+			health = 100000;
+		}
+	},
+	redcarpet6 = new Decoration("redcarpet6"){
+		{
+			health = 100000;
+		}
+	},
 	castleflor = new Decoration("castleflor"){
 		{
 			health = 100000;

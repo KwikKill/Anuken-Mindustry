@@ -2704,6 +2704,20 @@ blocks/redcarpet4
   orig: 8, 8
   offset: 0, 0
   index: -1
+blocks/redcarpet5
+  rotate: true
+  xy: 1005, 71
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/redcarpet6
+  rotate: true
+  xy: 1005, 81
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 blocks/castleflor
   rotate: true
   xy: 995, 71

@@ -106,6 +106,8 @@ public class Recipes {
 			new Recipe(castle, DecorationBlocks.redcarpet2, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.redcarpet3, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.redcarpet4, stack(Item.dirt, 5)),
+			new Recipe(castle, DecorationBlocks.redcarpet5, stack(Item.dirt, 5)),
+			new Recipe(castle, DecorationBlocks.redcarpet6, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.castleflor, stack(Item.stone, 5))
 	);
 
