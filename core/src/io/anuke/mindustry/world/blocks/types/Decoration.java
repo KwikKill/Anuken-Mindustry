@@ -7,7 +7,7 @@ public class Decoration extends Block{
 	public Decoration(String name) {
 		super(name);
 		solid = false;
-		destructible = true;
+		breakable = true;
 	};
 
 
