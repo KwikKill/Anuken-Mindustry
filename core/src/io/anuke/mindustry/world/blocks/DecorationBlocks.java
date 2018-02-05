@@ -11,9 +11,6 @@ public class DecorationBlocks{
 	public static final Block
 
 	arrow1 = new Decoration("arrow1"){
-		{
-			health = 100000;
-		}
 	},
 	arrow2 = new Decoration("arrow2"){
 		{
