@@ -94,7 +94,7 @@ public class WeaponBlocks{
 			shootEffect = Fx.railshot;
 		}
 	},
-	beamturret = new Weapon("beamturret"){
+	beamturret = new Turret("beamturret"){
 		{
 			bullet = BulletType.beamlaser;
 			shootEffect = Fx.beamShoot;
