@@ -94,6 +94,17 @@ public class WeaponBlocks{
 			shootEffect = Fx.railshot;
 		}
 	},
+	beamturret = new Weapon("beamturret"){
+		{
+			bullet = BulletType.beamlaser;
+			shootEffect = Fx.beamShoot;
+			inaccuracy = 0;
+			reload = 5f;
+			roundrobin = true;
+			shake = 2f;
+			ammo = Item.uranium;
+		}
+	},
 
 	mortarturret = new Turret("mortarturret"){
 		{

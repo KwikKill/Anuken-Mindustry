@@ -2725,3 +2725,10 @@ blocks/castleflor
   orig: 8, 8
   offset: 0, 0
   index: -1
+blocks/beamturret
+  rotate: false
+  xy: 964, 40
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
