@@ -23,11 +23,11 @@ public enum PlaceMode{
 			lockCamera = true;
 			pan = true;
 		}
-		
+
 		public void draw(int tilex, int tiley, int endx, int endy){
 			float x = tilex * tilesize;
 			float y = tiley * tilesize;
-			
+
 			boolean valid = control.input().validPlace(tilex, tiley, control.input().recipe.result) && (android || control.input().cursorNear());
 
 			Vector2 offset = control.input().recipe.result.getPlaceOffset();
@@ -48,7 +48,7 @@ public enum PlaceMode{
 				Lines.line(x, y, x + Tmp.v1.x, y + Tmp.v1.y);
 			}
 		}
-		
+
 		public void tapped(int tilex, int tiley){
 			control.input().tryPlaceBlock(tilex, tiley, true);
 		}
@@ -60,7 +60,7 @@ public enum PlaceMode{
 			showRotate = true;
 			showCancel = true;
 		}
-		
+
 		public void tapped(int x, int y){
 			control.input().tryPlaceBlock(x, y, true);
 		}
@@ -78,15 +78,15 @@ public enum PlaceMode{
 			shown = true;
 			both = true;
 		}
-		
+
 		public void draw(int tilex, int tiley, int endx, int endy){
 			Tile tile = world.tile(tilex, tiley);
-			
+
 			if(tile != null && control.input().validBreak(tilex, tiley)){
 				if(tile.isLinked())
 					tile = tile.getLinked();
 				float fract = control.input().breaktime / tile.getBreakTime();
-				
+
 				if(android && control.input().breaktime > 0){
 					Draw.color(Colors.get("breakStart"), Colors.get("break"), fract);
 					Lines.poly(tile.drawx(), tile.drawy(), 25, 4 + (1f - fract) * 26);
@@ -103,44 +103,44 @@ public enum PlaceMode{
 			showCancel = true;
 			delete = true;
 		}
-		
+
 		public void tapped(int x, int y){
 			control.input().tryDeleteBlock(x, y, true);
 		}
 	},
 	areaDelete{
-		int maxlen = 20;
+		int maxlen = 40;
 		int tilex;
 		int tiley;
 		int endx;
 		int endy;
-		
+
 		{
 			shown = true;
 			lockCamera = true;
 			delete = true;
 		}
-		
+
 		public void draw(int tilex, int tiley, int endx, int endy){
 			float t = tilesize;
-			
+
 			process(tilex, tiley, endx, endy);
-			
-			tilex = this.tilex; tiley = this.tiley; 
+
+			tilex = this.tilex; tiley = this.tiley;
 			endx = this.endx; endy = this.endy;
-			float x = this.tilex * t, y = this.tiley * t, 
+			float x = this.tilex * t, y = this.tiley * t,
 					x2 = this.endx * t, y2 = this.endy * t;
-			
+
 			if(x2 >= x){
 				x -= t/2;
 				x2 += t/2;
 			}
-			
+
 			if(y2 >= y){
 				y -= t/2;
 				y2 += t/2;
 			}
-			
+
 			Draw.color(Colors.get("break"));
 			Lines.stroke(1f);
 			for(int cx = tilex; cx <= endx; cx ++){
@@ -154,7 +154,7 @@ public enum PlaceMode{
 					}
 				}
 			}
-			
+
 			Lines.stroke(2f);
 			Draw.color(control.input().cursorNear() ? Colors.get("break") : Colors.get("breakInvalid"));
 			Lines.rect(x, y, x2 - x, y2 - y);
@@ -162,11 +162,11 @@ public enum PlaceMode{
 			Draw.crect("blank", x, y, x2 - x, y2 - y);
 			Draw.reset();
 		}
-		
+
 		public void released(int tilex, int tiley, int endx, int endy){
 
 			process(tilex, tiley, endx, endy);
-			tilex = this.tilex; tiley = this.tiley; 
+			tilex = this.tilex; tiley = this.tiley;
 			endx = this.endx; endy = this.endy;
 
 			if(android){
@@ -180,9 +180,9 @@ public enum PlaceMode{
 					return;
 				}
 			}
-			
+
 			boolean first = true;
-			
+
 			for(int cx = tilex; cx <= endx; cx ++){
 				for(int cy = tiley; cy <= endy; cy ++){
 					if(control.input().tryDeleteBlock(cx, cy, first)){
@@ -191,17 +191,17 @@ public enum PlaceMode{
 				}
 			}
 		}
-		
+
 		void process(int tilex, int tiley, int endx, int endy){
-			
+
 			if(Math.abs(endx - tilex) > maxlen){
 				endx = Mathf.sign(endx - tilex) * maxlen + tilex;
 			}
-			
+
 			if(Math.abs(endy - tiley) > maxlen){
 				endy = Mathf.sign(endy - tiley) * maxlen + tiley;
 			}
-			
+
 			if(endx < tilex){
 				int t = endx;
 				endx = tilex;
@@ -212,7 +212,7 @@ public enum PlaceMode{
 				endy = tiley;
 				tiley = t;
 			}
-			
+
 			this.endx = endx;
 			this.endy = endy;
 			this.tilex = tilex;
@@ -226,45 +226,45 @@ public enum PlaceMode{
 		int endx;
 		int endy;
 		int rotation;
-		
+
 		{
 			lockCamera = true;
 			shown = true;
 			showCancel = true;
 			showRotate = true;
 		}
-		
+
 		public void draw(int tilex, int tiley, int endx, int endy){
 			if(android && !Gdx.input.isTouched(0) && !control.showCursor()){
 				return;
 			}
-			
+
 			float t = tilesize;
 			Block block = control.input().recipe.result;
 			Vector2 offset = block.getPlaceOffset();
-			
+
 			process(tilex, tiley, endx, endy);
 			int tx = tilex, ty = tiley, ex = endx, ey = endy;
-			tilex = this.tilex; tiley = this.tiley; 
+			tilex = this.tilex; tiley = this.tiley;
 			endx = this.endx; endy = this.endy;
-			float x = this.tilex * t, y = this.tiley * t, 
+			float x = this.tilex * t, y = this.tiley * t,
 					x2 = this.endx * t, y2 = this.endy * t;
-			
+
 			if(x2 >= x){
 				x -= block.width * t/2;
 				x2 += block.width * t/2;
 			}
-			
+
 			if(y2 >= y){
 				y -= block.height * t/2;
 				y2 += block.height * t/2;
 			}
-			
+
 			x += offset.x;
 			y += offset.y;
 			x2 += offset.x;
 			y2 += offset.y;
-			
+
 			if(tilex == endx && tiley == endy){
 				cursor.draw(tilex, tiley, endx, endy);
 			}else{
@@ -275,13 +275,13 @@ public enum PlaceMode{
 				Draw.crect("blank", x, y, x2 - x, y2 - y);
 
 				Draw.color(Colors.get("placeInvalid"));
-				
+
 				int amount = 1;
 				for(int cx = 0; cx <= Math.abs(endx - tilex); cx ++){
 					for(int cy = 0; cy <= Math.abs(endy - tiley); cy ++){
-						int px = tx + cx * Mathf.sign(ex - tx), 
+						int px = tx + cx * Mathf.sign(ex - tx),
 						py = ty + cy * Mathf.sign(ey - ty);
-						
+
 						if(!control.input().validPlace(px, py, control.input().recipe.result)
 								|| !state.inventory.hasItems(control.input().recipe.requirements, amount)){
 							Lines.crect(px * t + offset.x, py * t + offset.y, t*block.width, t*block.height);
@@ -289,7 +289,7 @@ public enum PlaceMode{
 						amount ++;
 					}
 				}
-				
+
 				if(control.input().recipe.result.rotate){
 					float cx = tx * t, cy = ty * t;
 					Draw.color(Colors.get("placeRotate"));
@@ -299,40 +299,40 @@ public enum PlaceMode{
 				Draw.reset();
 			}
 		}
-		
+
 		public void released(int tilex, int tiley, int endx, int endy){
 			process(tilex, tiley, endx, endy);
-			
+
 			control.input().rotation = this.rotation;
-			
+
 			boolean first = true;
 			for(int x = 0; x <= Math.abs(this.endx - this.tilex); x ++){
 				for(int y = 0; y <= Math.abs(this.endy - this.tiley); y ++){
 					if(control.input().tryPlaceBlock(
-							tilex + x * Mathf.sign(endx - tilex), 
+							tilex + x * Mathf.sign(endx - tilex),
 							tiley + y * Mathf.sign(endy - tiley), first)){
 						first = false;
 					}
-					
+
 				}
 			}
 		}
-		
+
 		void process(int tilex, int tiley, int endx, int endy){
 			if(Math.abs(tilex - endx) > Math.abs(tiley - endy)){
 				endy = tiley;
 			}else{
 				endx = tilex;
 			}
-			
+
 			if(Math.abs(endx - tilex) > maxlen){
 				endx = Mathf.sign(endx - tilex) * maxlen + tilex;
 			}
-			
+
 			if(Math.abs(endy - tiley) > maxlen){
 				endy = Mathf.sign(endy - tiley) * maxlen + tiley;
 			}
-			
+
 			if(endx > tilex)
 				rotation = 0;
 			else if(endx < tilex)
@@ -341,9 +341,9 @@ public enum PlaceMode{
 				rotation = 1;
 			else if(endy < tiley)
 				rotation = 3;
-			else 
+			else
 				rotation = control.input().rotation;
-			
+
 			if(endx < tilex){
 				int t = endx;
 				endx = tilex;
@@ -354,7 +354,7 @@ public enum PlaceMode{
 				endy = tiley;
 				tiley = t;
 			}
-			
+
 			this.endx = endx;
 			this.endy = endy;
 			this.tilex = tilex;
@@ -368,17 +368,17 @@ public enum PlaceMode{
 	public boolean showCancel;
 	public boolean delete = false;
 	public boolean both = false;
-	
+
 	public void draw(int tilex, int tiley, int endx, int endy){
-		
+
 	}
-	
+
 	public void released(int tilex, int tiley, int endx, int endy){
-		
+
 	}
-	
+
 	public void tapped(int x, int y){
-		
+
 	}
 
 	@Override
