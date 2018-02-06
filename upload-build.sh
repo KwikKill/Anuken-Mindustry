@@ -8,7 +8,7 @@ git config --global user.name $GHUSERNAME
 git clone https://github.com/Gab351/Anuken-Mindustry.wiki.git
 cd Anuken-Mindustry.wiki
 
-DESKFILE=$TRAVIS_BUILD_NUMBER"-gab_351-mod.jar"
+DESKFILE=$TRAVIS_BUILD_NUMBER"-Gab351-mod.jar"
 cp ../desktop/build/libs/desktop-release.jar $DESKFILE
 
 FILE1="Bleeding-Edge-Build-"$TRAVIS_BUILD_NUMBER".md"
