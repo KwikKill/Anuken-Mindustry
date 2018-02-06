@@ -9,6 +9,8 @@ echo "OLD_DESKFILE=${OLD_DESKFILE}"
 echo "OLD_FILE1=${OLD_FILE1}"
 
 if [ -e "{OLD_FILE1}" ]; then
-    git rm ${OLD_FILE1}
-    git rm ${OLD_DESKFILE}
+    echo "Cleaning up old build #${OLD_TRAVIS_BUILD_NUMBER}"
+    git rm -f ${OLD_FILE1}
+    git rm -f ${OLD_DESKFILE}
+    git status
 fi
