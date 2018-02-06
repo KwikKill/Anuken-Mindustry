@@ -100,8 +100,6 @@ public class WeaponBlocks{
 			shootEffect = Fx.beamShoot;
 			inaccuracy = 0;
 			reload = 5f;
-			roundrobin = true;
-			shake = 2f;
 			ammo = Item.uranium;
 		}
 	},
