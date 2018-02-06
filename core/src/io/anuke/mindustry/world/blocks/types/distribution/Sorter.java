@@ -7,7 +7,6 @@ import io.anuke.mindustry.resource.Item;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.Tile;
 import io.anuke.ucore.graphics.Draw;
-import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.scene.style.TextureRegionDrawable;
 import io.anuke.ucore.scene.ui.ButtonGroup;
 import io.anuke.ucore.scene.ui.ImageButton;
@@ -33,7 +32,7 @@ public class Sorter extends Block{
 		
 		SorterEntity entity = tile.entity();
 		
-		TextureRegion region = Draw.region("icon-" + entity.sortItem.name);
+		TextureRegion region = entity.sortItem.region;
 		Tmp.tr1.setRegion(region, 4, 4, 1, 1);
 		
 		Draw.rect(Tmp.tr1, tile.worldx(), tile.worldy(), 4f, 4f);
@@ -46,7 +45,7 @@ public class Sorter extends Block{
 	
 	@Override
 	public boolean acceptItem(Item item, Tile tile, Tile source){
-		if(source.block() instanceof Sorter) return false;
+		if(source.block() instanceof Sorter || source.block() instanceof Splitter) return false;
 		Tile to = getTileTarget(item, tile, source, false);
 		
 		return to != null && to.block().acceptItem(item, to, tile);
@@ -55,11 +54,8 @@ public class Sorter extends Block{
 	@Override
 	public void handleItem(Item item, Tile tile, Tile source){
 		Tile to = getTileTarget(item, tile, source, true);
-		
-		Timers.run(15, () -> {
-			to.block().handleItem(item, to, tile);
-		});
-		
+
+		to.block().handleItem(item, to, tile);
 	}
 	
 	Tile getTileTarget(Item item, Tile dest, Tile source, boolean flip){
@@ -130,7 +126,7 @@ public class Sorter extends Block{
 				entity.sortItem = items.get(f);
 				setConfigure(tile, (byte)f);
 			}).size(38, 42).padBottom(-5.1f).group(group).get();
-			button.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(Draw.region("icon-"+items.get(i).name)));
+			button.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(items.get(i).region));
 			button.setChecked(entity.sortItem.id == f);
 
 			if(i%4 == 3){
