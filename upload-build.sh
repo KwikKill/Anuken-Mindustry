@@ -22,9 +22,9 @@ echo "### Commit #"$TRAVIS_COMMIT".${NEWLINE}Desktop JAR download: [Link]("$DESK
 
 git add $FILE1
 git add $DESKFILE
-git commit -m "Added a new bleeding edge build"
 
 # now remove old build
 bash ../cleanup_builds.sh
+git commit -m "Added a new bleeding edge build"
 
 git push https://$GHUSERNAME:$GHPASSWORD@github.com/Gab351/Anuken-Mindustry.wiki.git --all

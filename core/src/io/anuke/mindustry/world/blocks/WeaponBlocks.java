@@ -101,6 +101,8 @@ public class WeaponBlocks{
 			inaccuracy = 0;
 			reload = 5f;
 			ammo = Item.uranium;
+			health = 70;
+			rotatespeed = 0.2f;
 		}
 	},
 
