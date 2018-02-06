@@ -18,7 +18,7 @@ public class WeaponBlocks{
 	public static Block
 
 	turret = new Turret("turret"){
-		{
+		{ 
 			range = 100;
 			reload = 5f;
 			bullet = BulletType.stone;
@@ -98,11 +98,13 @@ public class WeaponBlocks{
 		{
 			bullet = BulletType.beamlaser;
 			shootEffect = Fx.beamShoot;
-			inaccuracy = 0;
+			inaccuracy = 1;
 			reload = 5f;
 			ammo = Item.uranium;
 			health = 70;
 			rotatespeed = 0.2f;
+			shootsound = "laser";
+
 		}
 	},
 

@@ -444,7 +444,7 @@ public abstract class BulletType extends BaseBulletType<Bullet>{
 	beamlaser = new BulletType(0.001f, 38) {
 		float length = 230f;
 		{
-			drawSize = length*2f+20f;
+			drawSize = length*2f+40f;
 			lifetime = 15f;
 		}
 
