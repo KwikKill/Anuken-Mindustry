@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # cd $HOME
 git config --global user.email $GHEMAIL

@@ -1,9 +1,4 @@
-#!/bin/bash -x
-
-echo "---"
-pwd
-ls
-echo "---"
+#!/bin/bash
 
 ls *.jar | cut -d'-' -f 1 | sort -n | head -n -7 |  while read oldbuild; do
   echo "cleaning up ${oldbuild}"
