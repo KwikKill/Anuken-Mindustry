@@ -1,6 +1,12 @@
-#!/bin/bash
+#!/bin/bash -x
+
+echo "---"
+pwd
+ls
+echo "---"
 
 ls *-Gab351-mod.jar | sort | head -n -7 | cut -d'-' -f 1 | while read oldbuild; do
+  echo "cleaning up ${oldbuild}"
   OLD_DESKFILE="${oldbuild}-Gab351-mod.jar"
   OLD_FILE1="Bleeding-Edge-Build-${oldbuild}.md"
   [ -e "${OLD_FILE1}" ] && git rm -f ${OLD_FILE1}
