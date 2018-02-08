@@ -11,5 +11,3 @@ ls *.jar | cut -d'-' -f 1 | sort -n | head -n -7 |  while read oldbuild; do
   [ -e "${OLD_OLD_DESKFILE}" ] && git rm -f ${OLD_OLD_DESKFILE}
   [ -e "${OLD_OLD_OLD_DESKFILE}" ] && git rm -f ${OLD_OLD_OLD_DESKFILE}
 done
-
-git status

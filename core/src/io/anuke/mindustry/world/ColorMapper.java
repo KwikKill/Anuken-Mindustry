@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.IntMap.Entry;
 import com.badlogic.gdx.utils.ObjectIntMap;
 
 import io.anuke.mindustry.world.blocks.Blocks;
+import io.anuke.mindustry.world.blocks.DecorationBlocks;
 import io.anuke.mindustry.world.blocks.SpecialBlocks;
 
 public class ColorMapper{
@@ -40,9 +41,12 @@ public class ColorMapper{
 		"c3a490", pair(Blocks.iron),
 		"161616", pair(Blocks.coal),
 		"6277bc", pair(Blocks.titanium),
-		"83bc58", pair(Blocks.uranium)
+		"83bc58", pair(Blocks.uranium),
+		"c49393", pair(DecorationBlocks.castleflor),
+		"d6e100", pair(DecorationBlocks.flower),
+		"745b5b", pair(DecorationBlocks.decorationrock)
 	);
-	
+
 	public static BlockPair get(int color){
 		return colors.get(color);
 	}
@@ -54,27 +58,27 @@ public class ColorMapper{
 	public static byte getColorID(int color){
 		return (byte)reverseIDs.get(color, -1);
 	}
-	
+
 	public static IntMap<BlockPair> getColors(){
 		return colors;
 	}
-	
+
 	public static Array<BlockPair> getPairs(){
 		return pairs;
 	}
-	
+
 	public static int getColor(Block block){
 		return reverseColors.get(block, 0);
 	}
-	
+
 	private static BlockPair pair(Block floor, Block wall){
 		return new BlockPair(floor, wall);
 	}
-	
+
 	private static BlockPair pair(Block floor){
 		return new BlockPair(floor, Blocks.air);
 	}
-	
+
 	private static IntMap<BlockPair> map(Object...objects){
 		colorIDS = new int[objects.length/2];
 		IntMap<BlockPair> colors = new IntMap<>();
@@ -90,14 +94,14 @@ public class ColorMapper{
 		}
 		return colors;
 	}
-	
+
 	public static class BlockPair{
 		public final Block floor, wall;
-		
+
 		public Block dominant(){
 			return wall == Blocks.air ? floor : wall;
 		}
-		
+
 		private BlockPair(Block floor, Block wall){
 			this.floor = floor;
 			this.wall = wall;
