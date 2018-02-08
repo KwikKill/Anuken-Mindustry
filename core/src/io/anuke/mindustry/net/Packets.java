@@ -11,6 +11,8 @@ import io.anuke.ucore.entities.EntityGroup;
 
 import java.nio.ByteBuffer;
 
+import static io.anuke.mindustry.Vars.versionBuild;
+
 /**Class for storing all packets.*/
 public class Packets {
 
@@ -56,7 +58,7 @@ public class Packets {
 
         @Override
         public void write(ByteBuffer buffer) {
-            buffer.putInt(Net.version);
+            buffer.putInt(versionBuild);
             buffer.put((byte)name.getBytes().length);
             buffer.put(name.getBytes());
             buffer.put(android ? (byte)1 : 0);
@@ -508,15 +510,15 @@ public class Packets {
 
         @Override
         public void write(ByteBuffer buffer) {
-            buffer.putInt(position);
-            buffer.put(rotation);
+            buffer.putInt((rotation) | (position << 2));
             buffer.put(itemid);
         }
 
         @Override
         public void read(ByteBuffer buffer) {
-            position = buffer.getInt();
-            rotation = buffer.get();
+            int i = buffer.getInt();
+            rotation = (byte)(i & 0x3);
+            position = i >> 2;
             itemid = buffer.get();
         }
     }
