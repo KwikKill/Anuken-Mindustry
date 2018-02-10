@@ -214,6 +214,23 @@ public class WeaponBlocks{
 			shots = 200;
 			shootEffect = Fx.chainshot;
 		},
+
+		@Override
+		protected void shoot(Tile tile){
+			TurretEntity entity = tile.entity();
+			float len = 8;
+			float space = 3.5f;
+
+			for(int i = -1; i < 1; i ++){
+				tr.trns(entity.rotation, len, Mathf.sign(i) * space);
+				bullet(tile, entity.rotation);
+				Effects.effect(shootEffect, tile.drawx() + tr.x,
+						tile.drawy() + tr.y, entity.rotation);
+			}
+
+			Effects.shake(1f, 1f, tile.worldx(), tile.worldy());
+		}
+	},
 		shadowcanon = new Turret("shadowcanon"){
 			{
 				shootsound = "bigshot";
@@ -229,6 +246,23 @@ public class WeaponBlocks{
 				shots = 200;
 				shootEffect = Fx.chainshot;
 			},
+
+			@Override
+			protected void shoot(Tile tile){
+				TurretEntity entity = tile.entity();
+				float len = 8;
+				float space = 3.5f;
+
+				for(int i = -1; i < 1; i ++){
+					tr.trns(entity.rotation, len, Mathf.sign(i) * space);
+					bullet(tile, entity.rotation);
+					Effects.effect(shootEffect, tile.drawx() + tr.x,
+							tile.drawy() + tr.y, entity.rotation);
+				}
+
+				Effects.shake(1f, 1f, tile.worldx(), tile.worldy());
+			}
+		},
 
 	titanturret = new Turret("titancannon"){
 		{
