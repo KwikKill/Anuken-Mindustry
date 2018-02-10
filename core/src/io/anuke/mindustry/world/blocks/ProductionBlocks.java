@@ -9,17 +9,17 @@ import io.anuke.mindustry.world.blocks.types.production.*;
 
 public class ProductionBlocks{
 	public static final Block
-	
+
 	core = new CoreBlock("core"){},
-        
+
 	pump = new Pump("pump"){},
-	
+
 	fluxpump = new Pump("fluxpump"){
 		{
 			pumpAmount = 3f;
 		}
 	},
-	
+
 	smelter = new Smelter("smelter"){
 		{
 			health = 70;
@@ -29,7 +29,27 @@ public class ProductionBlocks{
 			craftTime = 1f;
 		}
 	},
-	
+
+	shadower = new Smelter("shadower"){
+		{
+			health = 70;
+			inputs = new Item[]{Item.uranium, Item.durium, Item.titanium};
+			fuel = Item.coal;
+			result = Item.shadow;
+			craftTime = 1f;
+		}
+	},
+
+	lighter = new Smelter("lighter"){
+		{
+			health = 70;
+			inputs = new Item[]{Item.uranium, Item.durium, Item.titanium};
+			fuel = Item.coal;
+			result = Item.light;
+			craftTime = 1f;
+		}
+	},
+
 	crucible = new Smelter("crucible"){
 		{
 			health = 90;
@@ -40,7 +60,7 @@ public class ProductionBlocks{
 			craftTime = 1f;
 		}
 	},
-	
+
 	coalpurifier = new LiquidCrafter("coalpurifier"){
 		{
 			input = Item.stone;
@@ -53,7 +73,7 @@ public class ProductionBlocks{
 			purifyTime = 1;
 		}
 	},
-	
+
 	titaniumpurifier = new LiquidCrafter("titaniumpurifier"){
 		{
 			input = Item.iron;
@@ -66,7 +86,7 @@ public class ProductionBlocks{
 			health = 70;
 		}
 	},
-	
+
 	oilrefinery = new LiquidCrafter("oilrefinery"){
 		{
 			inputLiquid = Liquid.oil;
@@ -78,7 +98,7 @@ public class ProductionBlocks{
 			craftEffect = Fx.purifyoil;
 		}
 	},
-	
+
 	stoneformer = new LiquidCrafter("stoneformer"){
 		{
 			input = null;
@@ -91,7 +111,7 @@ public class ProductionBlocks{
 			craftEffect = Fx.purifystone;
 		}
 	},
-	
+
 	lavasmelter = new LiquidCrafter("lavasmelter"){
 		{
 			input = Item.iron;
@@ -124,7 +144,7 @@ public class ProductionBlocks{
 			time = 1;
 		}
 	},
-	
+
 	stonedrill = new Drill("stonedrill"){
 		{
 			resource = Blocks.stone;
@@ -132,7 +152,7 @@ public class ProductionBlocks{
 			time = 1;
 		}
 	},
-	
+
 	irondrill = new Drill("irondrill"){
 		{
 			resource = Blocks.iron;
@@ -140,7 +160,7 @@ public class ProductionBlocks{
 			time = 1;
 		}
 	},
-	
+
 	coaldrill = new Drill("coaldrill"){
 		{
 			resource = Blocks.coal;
@@ -148,7 +168,7 @@ public class ProductionBlocks{
 			time = 1;
 		}
 	},
-	
+
 	uraniumdrill = new Drill("uraniumdrill"){
 		{
 			resource = Blocks.uranium;
@@ -156,7 +176,7 @@ public class ProductionBlocks{
 			time = 1;
 		}
 	},
-	
+
 	titaniumdrill = new Drill("titaniumdrill"){
 		{
 			resource = Blocks.titanium;
@@ -164,7 +184,7 @@ public class ProductionBlocks{
 			time = 1;
 		}
 	},
-	
+
 	omnidrill = new Omnidrill("omnidrill"){
 		{
 			time = 1;

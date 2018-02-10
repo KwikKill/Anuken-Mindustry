@@ -2606,6 +2606,20 @@ icon-dirt
   orig: 8, 8
   offset: 0, 0
   index: -1
+icon-shadow
+  rotate: false
+  xy: 1015, 111
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+icon-light
+  rotate: false
+  xy: 1005, 111
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 ui/icons/icon-mod
   rotate: false
   xy: 974, 10
@@ -2772,5 +2786,19 @@ blocks/beamturret
   xy: 964, 40
   size: 10, 10
   orig: 10, 10
+  offset: 0, 0
+  index: -1
+blocks/shadower
+  rotate: false
+  xy: 1005, 101
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/lighter
+  rotate: false
+  xy: 1015, 101
+  size: 8, 8
+  orig: 8, 8
   offset: 0, 0
   index: -1
