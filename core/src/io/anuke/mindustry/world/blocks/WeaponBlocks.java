@@ -228,7 +228,7 @@ public class WeaponBlocks{
 				ammoMultiplier = 200;
 				shots = 200;
 				shootEffect = Fx.chainshot;
-			}
+			},
 
 	titanturret = new Turret("titancannon"){
 		{
