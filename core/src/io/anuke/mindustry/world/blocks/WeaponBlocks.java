@@ -213,7 +213,7 @@ public class WeaponBlocks{
 			ammoMultiplier = 200;
 			shots = 200;
 			shootEffect = Fx.chainshot;
-		},
+		}
 
 		@Override
 		protected void shoot(Tile tile){
@@ -245,7 +245,7 @@ public class WeaponBlocks{
 				ammoMultiplier = 200;
 				shots = 200;
 				shootEffect = Fx.chainshot;
-			},
+			}
 
 			@Override
 			protected void shoot(Tile tile){
