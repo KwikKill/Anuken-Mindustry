@@ -54,6 +54,8 @@ public class Recipes {
 			new Recipe(weapon, WeaponBlocks.plasmaturret, stack(Item.steel, 10), stack(Item.titanium, 20), stack(Item.dirium, 15)),
 			new Recipe(weapon, WeaponBlocks.chainturret, stack(Item.steel, 50), stack(Item.titanium, 25), stack(Item.dirium, 40)),
 			new Recipe(weapon, WeaponBlocks.titanturret, stack(Item.steel, 70), stack(Item.titanium, 50), stack(Item.dirium, 55)),
+			new Recipe(mod, WeaponBlocks.shadowcanon, stack(Item.shadow, 70),  stack(Item.dirium, 55)),
+			new Recipe(mod, WeaponBlocks.lightcanon, stack(Item.light, 70),  stack(Item.dirium, 55)),
 			new Recipe(mod, WeaponBlocks.beamturret, stack(Item.steel, 60), stack(Item.titanium, 40), stack(Item.dirium, 45)),
 
 

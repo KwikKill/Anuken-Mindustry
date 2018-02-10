@@ -2802,3 +2802,17 @@ blocks/lighter
   orig: 8, 8
   offset: 0, 0
   index: -1
+blocks/lightcanon
+  rotate: false
+  xy: 975, 121
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+blocks/shadowcanon
+  rotate: false
+  xy: 999, 121
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1

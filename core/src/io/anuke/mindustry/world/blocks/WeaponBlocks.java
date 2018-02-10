@@ -199,6 +199,36 @@ public class WeaponBlocks{
 			Effects.shake(1f, 1f, tile.worldx(), tile.worldy());
 		}
 	},
+	lightcanon = new Turret("lightcanon"){
+		{
+			shootsound = "bigshot";
+			inaccuracy = 1;
+			range = 100f;
+			reload = 1f;
+			bullet = BulletType.chain;
+			ammo = Item.uranium;
+			health = 500;
+			width = height = 3;
+			shootCone = 9f;
+			ammoMultiplier = 200;
+			shots = 200;
+			shootEffect = Fx.chainshot;
+		},
+		shadowcanon = new Turret("shadowcanon"){
+			{
+				shootsound = "bigshot";
+				inaccuracy = 1f;
+				range = 100f;
+				reload = 1f;
+				bullet = BulletType.chain;
+				ammo = Item.uranium;
+				health = 500;
+				width = height = 3;
+				shootCone = 9f;
+				ammoMultiplier = 200;
+				shots = 200;
+				shootEffect = Fx.chainshot;
+			}
 
 	titanturret = new Turret("titancannon"){
 		{
