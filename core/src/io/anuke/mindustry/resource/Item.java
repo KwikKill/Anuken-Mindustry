@@ -18,7 +18,7 @@ public class Item{
 		dirium = new Item("dirium"),
 		uranium = new Item("uranium"),
 		shadow = new Item("shadow"),
-		shadow = new Item("shadow"),
+		light = new Item("light"),
 		sand = new Item("sand");
 		/*glass = new Item("glass"),
 		silicon = new Item("silicon");*/
