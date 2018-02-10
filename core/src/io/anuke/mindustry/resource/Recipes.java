@@ -58,6 +58,8 @@ public class Recipes {
 
 
 			new Recipe(crafting, ProductionBlocks.smelter, stack(Item.stone, 40), stack(Item.iron, 40)),
+			new Recipe(mod, ProductionBlocks.shadower, stack(Item.steel, 30), stack(Item.titanium, 15)),
+			new Recipe(mod, ProductionBlocks.lighter, stack(Item.steel, 30), stack(Item.titanium, 15)),
 			new Recipe(crafting, ProductionBlocks.crucible, stack(Item.titanium, 50), stack(Item.steel, 50)),
 			new Recipe(crafting, ProductionBlocks.coalpurifier, stack(Item.steel, 10), stack(Item.iron, 10)),
 			new Recipe(crafting, ProductionBlocks.titaniumpurifier, stack(Item.steel, 30), stack(Item.iron, 30)),

@@ -33,7 +33,7 @@ public class ProductionBlocks{
 	shadower = new Smelter("shadower"){
 		{
 			health = 70;
-			inputs = new Item[]{Item.uranium, Item.durium, Item.titanium};
+			inputs = new Item[]{Item.uranium, Item.dirium, Item.titanium};
 			fuel = Item.coal;
 			result = Item.shadow;
 			craftTime = 1f;
@@ -43,7 +43,7 @@ public class ProductionBlocks{
 	lighter = new Smelter("lighter"){
 		{
 			health = 70;
-			inputs = new Item[]{Item.uranium, Item.durium, Item.titanium};
+			inputs = new Item[]{Item.uranium, Item.dirium, Item.titanium};
 			fuel = Item.coal;
 			result = Item.light;
 			craftTime = 1f;
