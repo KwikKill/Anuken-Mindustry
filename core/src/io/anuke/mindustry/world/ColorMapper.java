@@ -31,6 +31,7 @@ public class ColorMapper{
 		"252525", pair(Blocks.blackstone),
 		"575757", pair(Blocks.blackstone, Blocks.blackstoneblock),
 		"988a67", pair(Blocks.sand),
+		"ed4646", pair(Blocks.blood),
 		"e5d8bb", pair(Blocks.sand, Blocks.sandblock),
 		"c2d1d2", pair(Blocks.snow),
 		"c4e3e7", pair(Blocks.ice),

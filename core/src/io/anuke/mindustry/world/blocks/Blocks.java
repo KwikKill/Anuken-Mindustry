@@ -107,6 +107,8 @@ public class Blocks{
 
 	sand = new Floor("sand"){},
 
+	blood = new Floor("blood"){},
+
 	ice = new Floor("ice"){},
 
 	snow = new Floor("snow"){},
