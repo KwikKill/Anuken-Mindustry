@@ -843,6 +843,27 @@ blocks/sandblock3
   orig: 8, 8
   offset: 0, 0
   index: -1
+blocks/bloodblock1
+  rotate: false
+  xy: 288, 61
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/bloodblock2
+  rotate: false
+  xy: 288, 61
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+blocks/bloodblock3
+  rotate: false
+  xy: 288, 61
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 blocks/sandedge
   rotate: false
   xy: 549, 213

@@ -44,7 +44,8 @@ public class ColorMapper{
 		"83bc58", pair(Blocks.uranium),
 		"c49393", pair(DecorationBlocks.castleflor),
 		"d6e100", pair(DecorationBlocks.flower),
-		"745b5b", pair(DecorationBlocks.decorationrock)
+		"745b5b", pair(DecorationBlocks.decorationrock),
+		"ec8e8e", pair(Blocks.stone, Blocks.bloodblock)
 	);
 
 	public static BlockPair get(int color){
