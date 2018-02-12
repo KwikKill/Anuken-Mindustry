@@ -2662,6 +2662,13 @@ icon-light
   orig: 8, 8
   offset: 0, 0
   index: -1
+icon-blood
+  rotate: false
+  xy: 955, 41
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
 ui/icons/icon-mod
   rotate: false
   xy: 974, 10
@@ -2856,5 +2863,12 @@ blocks/shadowcanon
   xy: 999, 121
   size: 24, 24
   orig: 24, 24
+  offset: 0, 0
+  index: -1
+blocks/blooddrill
+  rotate: false
+  xy: 955, 51
+  size: 8, 8
+  orig: 8, 8
   offset: 0, 0
   index: -1

@@ -19,6 +19,7 @@ public class Item{
 		uranium = new Item("uranium"),
 		shadow = new Item("shadow"),
 		light = new Item("light"),
+		blood = new Item("blood"),
 		sand = new Item("sand");
 		/*glass = new Item("glass"),
 		silicon = new Item("silicon");*/

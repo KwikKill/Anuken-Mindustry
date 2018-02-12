@@ -105,9 +105,11 @@ public class Blocks{
 		drops = new ItemStack(Item.dirt, 1);
 	}},
 
-	sand = new Floor("sand"){},
+  blood = new Floor("blood"){{
+    drops = new ItemStack(Item.blood, 1);
+	}},
 
-	blood = new Floor("blood"){},
+	sand = new Floor("sand"){},
 
 	ice = new Floor("ice"){},
 

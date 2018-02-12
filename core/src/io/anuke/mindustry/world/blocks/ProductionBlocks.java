@@ -145,6 +145,14 @@ public class ProductionBlocks{
 		}
 	},
 
+	blooddrill = new Drill("blooddrill"){
+		{
+			resource = Blocks.blood;
+			result = Item.blood;
+			time = 1;
+		}
+	},
+
 	stonedrill = new Drill("stonedrill"){
 		{
 			resource = Blocks.stone;

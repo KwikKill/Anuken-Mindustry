@@ -30,8 +30,9 @@ public class ColorMapper{
 		"465a96", pair(Blocks.deepwater),
 		"252525", pair(Blocks.blackstone),
 		"575757", pair(Blocks.blackstone, Blocks.blackstoneblock),
-		"988a67", pair(Blocks.sand),
 		"ed4646", pair(Blocks.blood),
+		"ec8e8e", pair(Blocks.blood, Blocks.bloodblock),
+		"988a67", pair(Blocks.sand),
 		"e5d8bb", pair(Blocks.sand, Blocks.sandblock),
 		"c2d1d2", pair(Blocks.snow),
 		"c4e3e7", pair(Blocks.ice),
@@ -42,11 +43,7 @@ public class ColorMapper{
 		"c3a490", pair(Blocks.iron),
 		"161616", pair(Blocks.coal),
 		"6277bc", pair(Blocks.titanium),
-		"83bc58", pair(Blocks.uranium),
-		"c49393", pair(DecorationBlocks.castleflor),
-		"d6e100", pair(DecorationBlocks.flower),
-		"745b5b", pair(DecorationBlocks.decorationrock),
-		"ec8e8e", pair(Blocks.stone, Blocks.bloodblock)
+		"83bc58", pair(Blocks.uranium)
 	);
 
 	public static BlockPair get(int color){
