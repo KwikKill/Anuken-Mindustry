@@ -2,6 +2,7 @@ package io.anuke.mindustry.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.TimeUtils;
 import io.anuke.mindustry.core.GameState.State;
@@ -26,6 +27,7 @@ import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.entities.EntityGroup;
 import io.anuke.ucore.modules.Module;
 import io.anuke.ucore.util.Log;
+import io.anuke.ucore.util.Timer;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -37,16 +39,20 @@ public class NetClient extends Module {
     private final static float dataTimeout = 60*18; //18 seconds timeout
     private final static float playerSyncTime = 2;
 
+    private Timer timer = new Timer(5);
     private boolean connecting = false;
     private boolean gotData = false;
     private boolean kicked = false;
     private IntSet recieved = new IntSet();
+    private IntMap<Entity> recent = new IntMap<>();
 
     public NetClient(){
 
         Net.handleClient(Connect.class, packet -> {
+
             Net.setClientLoaded(false);
             recieved.clear();
+            recent.clear();
             connecting = true;
             gotData = false;
             kicked = false;
@@ -75,7 +81,7 @@ public class NetClient extends Module {
         Net.handleClient(Disconnect.class, packet -> {
             if (kicked) return;
 
-            Timers.runFor(3f, ui.loadfrag::hide);
+            Timers.runTask(3f, ui.loadfrag::hide);
 
             state.set(State.menu);
 
@@ -153,7 +159,8 @@ public class NetClient extends Module {
             state.wavetime = packet.countdown;
             state.wave = packet.wave;
 
-            Timers.resetTime(packet.time + (float) (TimeUtils.timeSinceMillis(packet.timestamp) / 1000.0 * 60.0));
+            //removed: messing with time isn't necessary anymore
+            //Timers.resetTime(packet.time + (float) (TimeUtils.timeSinceMillis(packet.timestamp) / 1000.0 * 60.0));
 
             ui.hudfrag.updateItems();
         });
@@ -166,6 +173,7 @@ public class NetClient extends Module {
                     recieved.contains(packet.entity.id)) return;
 
             recieved.add(packet.entity.id);
+            recent.put(packet.entity.id, packet.entity);
 
             packet.entity.add();
 
@@ -176,6 +184,8 @@ public class NetClient extends Module {
             Enemy enemy = enemyGroup.getByID(packet.id);
             if (enemy != null){
                 enemy.type.onDeath(enemy, true);
+            }else if(recent.get(packet.id) != null){
+                recent.get(packet.id).remove();
             }else{
                 Log.err("Got remove for null entity! {0}", packet.id);
             }
@@ -334,7 +344,9 @@ public class NetClient extends Module {
     }
 
     void sync(){
-        if(Timers.get("syncPlayer", playerSyncTime)){
+
+        if(timer.get(0, playerSyncTime)){
+
             byte[] bytes = new byte[player.getWriteSize() + 8];
             ByteBuffer buffer = ByteBuffer.wrap(bytes);
             buffer.putLong(TimeUtils.millis());
@@ -345,7 +357,7 @@ public class NetClient extends Module {
             Net.send(packet, SendMode.udp);
         }
 
-        if(Timers.get("updatePing", 60)){
+        if(timer.get(1, 60)){
             Net.updatePing();
         }
     }
