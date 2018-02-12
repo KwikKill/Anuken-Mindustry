@@ -9,19 +9,20 @@ import io.anuke.mindustry.world.blocks.types.Carpet;
 import io.anuke.mindustry.world.blocks.types.production.*;
 
 public class DecorationBlocks{
-	public static final Block
+	 public static final Block
 
-	arrow1 = new Carpet("arrow1"){
-	},
-	decorationrock = new Decoration("decorationrock"){
-	},
-	redcarpet1 = new Carpet("redcarpet1"){
-	},
-	redcarpet3 = new Carpet("redcarpet3"){
-	},
-	castleflor = new Decoration("castleflor"){
-	},
-	flower = new Decoration("flower"){
-	};
+	 arrow1 = new Carpet("arrow1"){},
+
+	 bloodblock = new Carpet("bloodblock"){},
+
+	 decorationrock = new Decoration("decorationrock"){},
+
+	 redcarpet1 = new Carpet("redcarpet1"){},
+
+	 redcarpet3 = new Carpet("redcarpet3"){},
+
+	 castleflor = new Decoration("castleflor"){},
+
+	 flower = new Decoration("flower"){};
 
 }
