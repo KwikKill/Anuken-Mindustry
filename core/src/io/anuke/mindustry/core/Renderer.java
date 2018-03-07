@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -28,10 +30,7 @@ import io.anuke.ucore.core.*;
 import io.anuke.ucore.entities.EffectEntity;
 import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.function.Callable;
-import io.anuke.ucore.graphics.Draw;
-import io.anuke.ucore.graphics.Hue;
-import io.anuke.ucore.graphics.Lines;
-import io.anuke.ucore.graphics.Surface;
+import io.anuke.ucore.graphics.*;
 import io.anuke.ucore.modules.RendererModule;
 import io.anuke.ucore.scene.ui.layout.Unit;
 import io.anuke.ucore.util.Angles;
@@ -48,6 +47,7 @@ public class Renderer extends RendererModule{
 	public Surface shadowSurface, shieldSurface, indicatorSurface;
 	
 	private int targetscale = baseCameraScale;
+	private Texture background = new Texture("sprites/background.png");
 	private FloatArray shieldHits = new FloatArray();
 	private Array<Callable> shieldDraws = new Array<>();
 	private Rectangle rect = new Rectangle(), rect2 = new Rectangle();
@@ -67,9 +67,11 @@ public class Renderer extends RendererModule{
 				}
 			}
 		});
-		
+
 		clearColor = Hue.lightness(0.4f);
 		clearColor.a = 1f;
+
+		background.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 	}
 
 	@Override
@@ -92,7 +94,7 @@ public class Renderer extends RendererModule{
 
 		if(Core.cameraScale != targetscale){
 			float targetzoom = (float) Core.cameraScale / targetscale;
-			camera.zoom = Mathf.lerp(camera.zoom, targetzoom, 0.2f * Timers.delta());
+			camera.zoom = Mathf.lerpDelta(camera.zoom, targetzoom, 0.2f);
 
 			if(Mathf.in(camera.zoom, targetzoom, 0.005f)){
 				camera.zoom = 1f;
@@ -100,7 +102,7 @@ public class Renderer extends RendererModule{
 				control.input().resetCursor();
 			}
 		}else{
-			camera.zoom = Mathf.lerp(camera.zoom, 1f, 0.2f * Timers.delta());
+			camera.zoom = Mathf.lerpDelta(camera.zoom, 1f, 0.2f);
 		}
 
 		if(state.is(State.menu)){
@@ -122,7 +124,6 @@ public class Renderer extends RendererModule{
 				limitCamera(4f, player.x, player.y);
 
 			float prex = camera.position.x, prey = camera.position.y;
-
 			updateShake(0.75f);
 			float prevx = camera.position.x, prevy = camera.position.y;
 			clampCamera(-tilesize / 2f, -tilesize / 2f + 1, world.width() * tilesize - tilesize / 2f, world.height() * tilesize - tilesize / 2f);
@@ -152,7 +153,8 @@ public class Renderer extends RendererModule{
 
 			camera.position.set(lastx - deltax, lasty - deltay, 0);
 
-			if(debug) record(); //this only does something if GdxGifRecorder is on the class path, which it usually isn't
+			if(debug && !ui.chatfrag.chatOpen())
+				record(); //this only does something if GdxGifRecorder is on the class path, which it usually isn't
 		}
 	}
 
@@ -172,6 +174,8 @@ public class Renderer extends RendererModule{
 		//clears shield surface
 		Graphics.surface(shieldSurface);
 		Graphics.surface();
+
+		drawPadding();
 		
 		blocks.drawFloor();
 		blocks.processBlocks();
@@ -215,9 +219,37 @@ public class Renderer extends RendererModule{
 		control.input().resetCursor();
 		camera.position.set(player.x, player.y, 0);
 	}
-	
+
+	@Override
+	public void dispose() {
+		background.dispose();
+	}
+
 	public void clearTiles(){
 		blocks.clearTiles();
+	}
+
+	void drawPadding(){
+		float vw = world.width() * tilesize;
+		float cw = camera.viewportWidth * camera.zoom;
+		float ch = camera.viewportHeight * camera.zoom;
+		if(vw < cw){
+			batch.draw(background,
+					camera.position.x + vw/2,
+					Mathf.round(camera.position.y - ch/2, tilesize),
+					(cw - vw) /2,
+					ch + tilesize,
+					0, 0,
+					((cw - vw) / 2 / tilesize), -ch / tilesize + 1);
+
+			batch.draw(background,
+					camera.position.x - vw/2,
+					Mathf.round(camera.position.y - ch/2, tilesize),
+					-(cw - vw) /2,
+					ch + tilesize,
+					0, 0,
+					-((cw - vw) / 2 / tilesize), -ch / tilesize + 1);
+		}
 	}
 
 	void drawPlayerNames(){
@@ -232,8 +264,14 @@ public class Renderer extends RendererModule{
 				Draw.color();
 				Draw.tcolor(player.getColor());
 	            Draw.text(player.name, player.x, player.y + 8);
-	            Draw.tcolor();
-            }
+
+	            if(player.isAdmin){
+	            	Draw.color(player.getColor());
+	            	float s = 3f;
+					Draw.rect("icon-admin-small", player.x + layout.width/2f + 2 + 1, player.y + 7f, s, s);
+				}
+				Draw.reset();
+           }
         }
 		Pools.free(layout);
         Draw.tscl(fontscale);
@@ -242,6 +280,7 @@ public class Renderer extends RendererModule{
 	void drawEnemyMarkers(){
 		Graphics.surface(indicatorSurface);
 		Draw.color(Color.RED);
+
 		for(Enemy enemy : enemyGroup.all()) {
 
 			if (rect.setSize(camera.viewportWidth, camera.viewportHeight).setCenter(camera.position.x, camera.position.y)
@@ -377,8 +416,10 @@ public class Renderer extends RendererModule{
 				Lines.dashCircle(spawn.start.worldx(), spawn.start.worldy(), enemyspawnspace);
 			}
 
-			Draw.color(Color.LIME);
-			Lines.poly(world.getSpawnX(), world.getSpawnY(), 4, 6f, Timers.time()*2f);
+			if(world.getCore() != null) {
+				Draw.color(Color.LIME);
+				Lines.poly(world.getSpawnX(), world.getSpawnY(), 4, 6f, Timers.time() * 2f);
+			}
 			
 			if(input.breakMode == PlaceMode.holdDelete)
 				input.breakMode.draw(tilex, tiley, 0, 0);
@@ -395,7 +436,7 @@ public class Renderer extends RendererModule{
 		
 		Draw.reset();
 
-		//draw selected block health
+		//draw selected block bars and info
 		if(input.recipe == null && !ui.hasMouse()){
 			Tile tile = world.tileWorld(Graphics.mouseWorld().x, Graphics.mouseWorld().y);
 
@@ -404,14 +445,36 @@ public class Renderer extends RendererModule{
 				if(tile.isLinked())
 					target = tile.getLinked();
 
+				if(showBlockDebug && target.entity != null){
+					Draw.color(Color.RED);
+					Lines.crect(target.drawx(), target.drawy(), target.block().width * tilesize, target.block().height * tilesize);
+					Vector2 v = new Vector2();
+
+
+
+					Draw.tcolor(Color.YELLOW);
+					Draw.tscl(0.25f);
+					Array<Object> arr = target.block().getDebugInfo(target);
+					StringBuilder result = new StringBuilder();
+					for(int i = 0; i < arr.size/2; i ++){
+						result.append(arr.get(i*2));
+						result.append(": ");
+						result.append(arr.get(i*2 + 1));
+						result.append("\n");
+					}
+					Draw.textc(result.toString(), target.drawx(), target.drawy(), v);
+					Draw.color(0f, 0f, 0f, 0.5f);
+					Fill.rect(target.drawx(), target.drawy(), v.x, v.y);
+					Draw.textc(result.toString(), target.drawx(), target.drawy(), v);
+					Draw.tscl(fontscale);
+					Draw.reset();
+				}
+
 				if(Inputs.keyDown("block_info") && target.block().fullDescription != null){
 					Draw.color(Colors.get("accent"));
 					Lines.crect(target.drawx(), target.drawy(), target.block().width * tilesize, target.block().height * tilesize);
 					Draw.color();
 				}
-
-				//if(target.entity != null)
-				//	drawHealth(target.drawx(), target.drawy() - 3f - target.block().height / 2f * tilesize, target.entity.health, target.entity.tile.block().health);
 
 				if(target.entity != null) {
 					int bot = 0, top = 0;
@@ -421,7 +484,7 @@ public class Renderer extends RendererModule{
 
 						float value = bar.value.get(target);
 
-						if(value <= -1f) continue;
+						if(MathUtils.isEqual(value, -1f)) continue;
 
 						drawBar(bar.color, target.drawx(), target.drawy() + offset, value);
 
@@ -467,8 +530,7 @@ public class Renderer extends RendererModule{
 	public void drawBar(Color color, float x, float y, float fraction){
 		fraction = Mathf.clamp(fraction);
 
-		if(fraction > 0)
-			fraction = Mathf.clamp(fraction + 0.2f, 0.24f, 1f);
+		if(fraction > 0) fraction = Mathf.clamp(fraction + 0.2f, 0.24f, 1f);
 
 		float len = 3;
 

@@ -6,6 +6,7 @@ import io.anuke.mindustry.resource.Item;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.BlockBar;
 import io.anuke.mindustry.world.Tile;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.util.Mathf;
 
 public class Router extends Block{
@@ -34,21 +35,26 @@ public class Router extends Block{
 	@Override
 	public void update(Tile tile){
 		tile.setRotation((byte)Mathf.mod(tile.getRotation(), 4));
-		
-		if(tile.entity.totalItems() > 0){
-			if(tile.getExtra() != tile.getRotation() 
-					|| Mathf.chance(0.35)){ //sometimes dump backwards at a 1/4 chance... this somehow works?
-				tryDump(tile, tile.getRotation(), null);
+
+		int iterations = Math.max(1, (int) (Timers.delta() + 0.4f));
+
+		for(int i = 0; i < iterations; i ++) {
+
+			if (tile.entity.totalItems() > 0) {
+				if (tile.getExtra() != tile.getRotation()
+						|| Mathf.chance(0.35)) { //sometimes dump backwards at a 1/4 chance... this somehow works?
+					tryDump(tile, tile.getRotation(), null);
+				}
+
+				tile.setRotation((byte) ((tile.getRotation() + 1) % 4));
 			}
-			
-			tile.setRotation((byte)((tile.getRotation() + 1) % 4));
 		}
 	}
 	
 	@Override
 	public void handleItem(Item item, Tile tile, Tile source){
 		super.handleItem(item, tile, source);
-		tile.setExtra((byte)tile.relativeTo(source.x, source.y));
+		tile.setExtra(tile.relativeTo(source.x, source.y));
 	}
 
 	@Override

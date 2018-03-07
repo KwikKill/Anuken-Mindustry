@@ -20,6 +20,7 @@ fi
 NEWLINE="\n"
 echo -e "### Commit [${TRAVIS_COMMIT}](https://github.com/Gab351/Anuken-Mindustry/commit/${TRAVIS_COMMIT})${NEWLINE}${NEWLINE}Desktop JAR download: [Link](${DESKFILE})" >> ${FILE1}
 
+
 git add ${FILE1}
 git add ${DESKFILE}
 

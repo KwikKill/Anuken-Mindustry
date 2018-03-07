@@ -8,28 +8,33 @@ import io.anuke.mindustry.core.GameState.State;
 import io.anuke.mindustry.core.ThreadHandler.ThreadProvider;
 import io.anuke.mindustry.io.Platform;
 import io.anuke.mindustry.net.Net;
+import io.anuke.ucore.UCore;
 import io.anuke.ucore.util.Strings;
 
 import javax.swing.*;
+import java.net.NetworkInterface;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 
 import static io.anuke.mindustry.Vars.*;
 
 public class DesktopPlatform extends Platform {
-    DateFormat format = SimpleDateFormat.getDateTimeInstance();
-    DiscordRPC lib = DiscordRPC.INSTANCE;
+    final static boolean useDiscord = UCore.getPropertyNotNull("sun.arch.data.model").equals("64");
+    final static String applicationId = "398246104468291591";
+    final static DateFormat format = SimpleDateFormat.getDateTimeInstance();
     String[] args;
 
     public DesktopPlatform(String[] args){
         this.args = args;
-        String applicationId = "398246104468291591";
-        DiscordEventHandlers handlers = new DiscordEventHandlers();
 
-        lib.Discord_Initialize(applicationId, handlers, true, "");
+        if(useDiscord) {
+            DiscordEventHandlers handlers = new DiscordEventHandlers();
+            DiscordRPC.INSTANCE.Discord_Initialize(applicationId, handlers, true, "");
+        }
     }
 
     @Override
@@ -54,15 +59,18 @@ public class DesktopPlatform extends Platform {
 
     @Override
     public void updateRPC() {
+        if(!useDiscord) return;
+
         DiscordRichPresence presence = new DiscordRichPresence();
 
         if(!state.is(State.menu)){
             presence.state = Strings.capitalize(state.mode.name()) + ", Solo";
             presence.details = Strings.capitalize(world.getMap().name) + " | Wave " + state.wave;
             presence.largeImageText = "Wave " + state.wave;
-            if(Net.active() ){
+
+            if(Net.active()){
                 presence.partyMax = 16;
-                presence.partySize = Net.getConnections().size;
+                presence.partySize = playerGroup.size();
                 presence.state = Strings.capitalize(state.mode.name());
             }
         }else{
@@ -75,12 +83,12 @@ public class DesktopPlatform extends Platform {
 
         presence.largeImageKey = "logo";
 
-        lib.Discord_UpdatePresence(presence);
+        DiscordRPC.INSTANCE.Discord_UpdatePresence(presence);
     }
 
     @Override
     public void onGameExit() {
-        lib.Discord_Shutdown();
+        if(useDiscord) DiscordRPC.INSTANCE.Discord_Shutdown();
     }
 
     @Override
@@ -91,5 +99,22 @@ public class DesktopPlatform extends Platform {
     @Override
     public ThreadProvider getThreadProvider() {
         return new DefaultThreadImpl();
+    }
+
+    @Override
+    public byte[] getUUID() {
+        try {
+            Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+            NetworkInterface out;
+            for(out = e.nextElement(); out.getHardwareAddress() == null && e.hasMoreElements(); out = e.nextElement());
+
+            byte[] bytes = out.getHardwareAddress();
+            byte[] result = new byte[8];
+            System.arraycopy(bytes, 0, result, 0, bytes.length);
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

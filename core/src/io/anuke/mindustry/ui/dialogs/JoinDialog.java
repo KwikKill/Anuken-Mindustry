@@ -1,9 +1,11 @@
 package io.anuke.mindustry.ui.dialogs;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import io.anuke.mindustry.Vars;
 import io.anuke.mindustry.io.Platform;
+import io.anuke.mindustry.io.Version;
 import io.anuke.mindustry.net.Host;
 import io.anuke.mindustry.net.Net;
 import io.anuke.ucore.core.Settings;
@@ -13,6 +15,7 @@ import io.anuke.ucore.scene.ui.Dialog;
 import io.anuke.ucore.scene.ui.ImageButton;
 import io.anuke.ucore.scene.ui.ScrollPane;
 import io.anuke.ucore.scene.ui.TextButton;
+import io.anuke.ucore.scene.ui.layout.Cell;
 import io.anuke.ucore.scene.ui.layout.Table;
 import io.anuke.ucore.util.Bundles;
 import io.anuke.ucore.util.Log;
@@ -56,7 +59,6 @@ public class JoinDialog extends FloatingDialog {
                 setupRemote();
                 refreshRemote();
             }else{
-                //renaming.port = Strings.parseInt(Settings.getString("port"));
                 renaming.ip = Settings.getString("ip");
                 saveServers();
                 setupRemote();
@@ -85,7 +87,7 @@ public class JoinDialog extends FloatingDialog {
 
             TextButton button = buttons[0] = remote.addButton("[accent]"+server.ip, "clear", () -> {
                 if(!buttons[0].childrenPressed()) connect(server.ip, Vars.port);
-            }).width(w).height(120f).pad(4f).get();
+            }).width(w).height(150f).pad(4f).get();
 
             button.getLabel().setWrap(true);
 
@@ -132,12 +134,37 @@ public class JoinDialog extends FloatingDialog {
         server.content.label(() -> Bundles.get("text.server.refreshing") + Strings.animated(4, 11, "."));
 
         Net.pingHost(server.ip, server.port, host -> {
+            String versionString;
+
+            if(host.version == -1) {
+                versionString = Bundles.format("text.server.version", Bundles.get("text.server.custombuild"));
+            }else if(host.version == 0){
+                versionString = Bundles.get("text.server.outdated");
+            }else if(host.version < Version.build && Version.build != -1){
+                versionString = Bundles.get("text.server.outdated") + "\n" +
+                        Bundles.format("text.server.version", host.version);
+            }else if(host.version > Version.build && Version.build != -1){
+                versionString = Bundles.get("text.server.outdated.client") + "\n" +
+                        Bundles.format("text.server.version", host.version);
+            }else{
+                versionString = Bundles.format("text.server.version", host.version);
+            }
+
             server.content.clear();
 
-            server.content.add("[lightgray]" + Bundles.format("text.server.hostname", host.name)).pad(4);
-            server.content.row();
-            server.content.add("[lightgray]" + (host.players != 1 ? Bundles.format("text.players", host.players) :
-                    Bundles.format("text.players.single", host.players)));
+            server.content.table(t -> {
+                t.add(versionString).left();
+                t.row();
+                t.add("[lightgray]" + Bundles.format("text.server.hostname", host.name)).left();
+                t.row();
+                t.add("[lightgray]" + (host.players != 1 ? Bundles.format("text.players", host.players) :
+                        Bundles.format("text.players.single", host.players))).left();
+                t.row();
+                t.add("[lightgray]" + Bundles.format("text.save.map", host.mapname) + " / " + Bundles.format("text.save.wave", host.wave)).left();
+            }).expand().left().bottom().padLeft(12f).padBottom(8);
+
+            //server.content.add(versionString).top().expandY().top().expandX();
+
         }, e -> {
             server.content.clear();
             server.content.add("$text.host.invalid");
@@ -158,7 +185,7 @@ public class JoinDialog extends FloatingDialog {
 
         hosts.add(remote).growX();
         hosts.row();
-        hosts.add(local).growX();
+        hosts.add(local).width(w);
 
         ScrollPane pane = new ScrollPane(hosts, "clear");
         pane.setFadeScrollBars(false);
@@ -175,7 +202,7 @@ public class JoinDialog extends FloatingDialog {
                 Vars.player.name = text;
                 Settings.put("name", text);
                 Settings.save();
-            }).grow().pad(8);
+            }).grow().pad(8).get().setMaxLength(40);
 
             ImageButton button = t.addImageButton("white", 40, () -> {
                 new ColorPickDialog().show(color -> {
@@ -185,15 +212,29 @@ public class JoinDialog extends FloatingDialog {
                 });
             }).size(50f, 54f).get();
             button.update(() -> button.getStyle().imageUpColor = player.getColor());
-
         }).width(w).height(70f).pad(4);
         content().row();
-        content().add(pane).width(w).pad(0);
+        content().add(pane).width(w + 34).pad(0);
         content().row();
         content().addCenteredImageTextButton("$text.server.add", "icon-add", "clear", 14*3, () -> {
             renaming = null;
             add.show();
-        }).width(w).height(80f);
+        }).marginLeft(6).width(w).height(80f).update(button -> {
+            float pw = w;
+            float pad = 0f;
+            if(pane.getChildren().first().getPrefHeight() > pane.getHeight()){
+                pw = w + 30;
+                pad = 6;
+            }
+
+            Cell<TextButton> cell = ((Table)pane.getParent()).getCell(button);
+
+            if(!MathUtils.isEqual(cell.getMinWidth(), pw)){
+                cell.width(pw);
+                cell.padLeft(pad);
+                pane.getParent().invalidateHierarchy();
+            }
+        });
     }
 
     void addLocalHosts(Array<Host> array){

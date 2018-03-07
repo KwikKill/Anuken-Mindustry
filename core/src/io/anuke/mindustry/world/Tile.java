@@ -2,6 +2,7 @@ package io.anuke.mindustry.world;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
 import io.anuke.mindustry.entities.TileEntity;
 import io.anuke.mindustry.world.blocks.Blocks;
 import io.anuke.ucore.util.Bits;
@@ -12,6 +13,7 @@ import static io.anuke.mindustry.Vars.world;
 
 
 public class Tile{
+	public static final Object tileSetLock = new Object();
 	private static final Array<Tile> tmpArray = new Array<>();
 	
 	/**Packed block data. Left is floor, right is block.*/
@@ -120,18 +122,21 @@ public class Tile{
 	}
 	
 	public void setBlock(Block type, int rotation){
-		if(rotation < 0) rotation = (-rotation + 2);
-		rotation %= 4;
-		iSetBlock(type);
-		setRotation((byte)rotation);
-		this.link = 0;
-		changed();
+		synchronized (tileSetLock) {
+			if(rotation < 0) rotation = (-rotation + 2);
+			iSetBlock(type);
+			setRotation((byte) (rotation % 4));
+			this.link = 0;
+			changed();
+		}
 	}
 	
 	public void setBlock(Block type){
-		iSetBlock(type);
-		this.link = 0;
-		changed();
+		synchronized (tileSetLock) {
+			iSetBlock(type);
+			this.link = 0;
+			changed();
+		}
 	}
 	
 	public void setFloor(Block type){
@@ -203,7 +208,7 @@ public class Tile{
 	
 	/**Returns the list of all tiles linked to this multiblock, or an empty array if it's not a multiblock.
 	 * This array contains all linked tiles, including this tile itself.*/
-	public Array<Tile> getLinkedTiles(){
+	public synchronized Array<Tile> getLinkedTiles(){
 		Block block = block();
 		tmpArray.clear();
 		if(!(block.width == 1 && block.height == 1)){
@@ -229,6 +234,12 @@ public class Tile{
 			return world.tile(x - (dx - 8), y - (dy - 8));
 		}
 	}
+
+	public Tile target(){
+	    Tile link = getLinked();
+	    return link == null ? this : link;
+    }
+
 
 	public Tile getNearby(int rotation){
 		if(rotation == 0) return world.tile(x + 1, y);
@@ -260,18 +271,20 @@ public class Tile{
 	}
 	
 	public void changed(){
-		if(entity != null){
-			entity.remove();
-			entity = null;
-		}
-		
-		Block block = block();
-		
-		if(block.destructible || block.update){
-			entity = block.getEntity().init(this, block.update);
-		}
+		synchronized (tileSetLock) {
+			if (entity != null) {
+				entity.remove();
+				entity = null;
+			}
 
-		updateOcclusion();
+			Block block = block();
+
+			if (block.destructible || block.update) {
+				entity = block.getEntity().init(this, block.update);
+			}
+
+			updateOcclusion();
+		}
 	}
 	
 	@Override
@@ -279,7 +292,7 @@ public class Tile{
 		Block block = block();
 		Block floor = floor();
 		
-		return floor.name() + ":" + block.name() + "[" + x + "," + y + "] " + "entity=" + entity +
+		return floor.name() + ":" + block.name() + "[" + x + "," + y + "] " + "entity=" + (entity == null ? "null" : ClassReflection.getSimpleName(entity.getClass())) +
 				(link != 0 ? " link=[" + (Bits.getLeftByte(link) - 8) + ", " + (Bits.getRightByte(link) - 8) +  "]" : "");
 	}
 }

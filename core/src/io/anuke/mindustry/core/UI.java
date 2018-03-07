@@ -1,6 +1,7 @@
 package io.anuke.mindustry.core;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.math.Interpolation;
@@ -45,6 +46,9 @@ public class UI extends SceneModule{
 	public ControlsDialog controls;
 	public MapEditorDialog editor;
 	public LanguageDialog language;
+	public BansDialog bans;
+	public AdminsDialog admins;
+	public TraceDialog traces;
 
 	public final MenuFragment menufrag = new MenuFragment();
     public final ToolFragment toolfrag = new ToolFragment();
@@ -118,8 +122,10 @@ public class UI extends SceneModule{
 	}
 
 	@Override
-	public void update(){
+	public synchronized void update(){
 		if(Vars.debug && !Vars.showUI) return;
+
+		if(Graphics.drawing()) Graphics.end();
 		
 		scene.act();
 		scene.draw();
@@ -150,6 +156,9 @@ public class UI extends SceneModule{
 		paused = new PausedDialog();
 		about = new AboutDialog();
 		host = new HostDialog();
+		bans = new BansDialog();
+		admins = new AdminsDialog();
+		traces = new TraceDialog();
 		
 		build.begin(scene);
 
@@ -165,6 +174,11 @@ public class UI extends SceneModule{
 		loadfrag.build();
 
 		build.end();
+	}
+
+	@Override
+	public synchronized boolean hasMouse() {
+		return super.hasMouse();
 	}
 
 	public Locale getLocale(){
@@ -227,6 +241,8 @@ public class UI extends SceneModule{
 			dialog.hide();
 			confirmed.listen();
 		});
+		dialog.keyDown(Keys.ESCAPE, dialog::hide);
+		dialog.keyDown(Keys.BACK, dialog::hide);
 		dialog.show();
 	}
 

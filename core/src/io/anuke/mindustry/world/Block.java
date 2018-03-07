@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
 import io.anuke.mindustry.core.GameState.State;
 import io.anuke.mindustry.entities.TileEntity;
 import io.anuke.mindustry.graphics.Fx;
@@ -20,8 +21,7 @@ import io.anuke.ucore.scene.ui.layout.Table;
 import io.anuke.ucore.util.Bundles;
 import io.anuke.ucore.util.Mathf;
 
-import static io.anuke.mindustry.Vars.state;
-import static io.anuke.mindustry.Vars.tilesize;
+import static io.anuke.mindustry.Vars.*;
 
 public class Block{
 	private static int lastid;
@@ -89,6 +89,8 @@ public class Block{
 	public Array<BlockBar> bars = Array.with(new BlockBar(Color.RED, false, tile -> tile.entity.health / (float)tile.block().health));
 	/**whether this block can be replaced in all cases*/
 	public boolean alwaysReplace = false;
+	/**whether this block has instant transfer checking. used for calculations to prevent infinite loops.*/
+	public boolean instantTransfer = false;
 
 	public Block(String name) {
 		this.name = name;
@@ -120,7 +122,7 @@ public class Block{
 	public void configure(Tile tile, byte data){}
 
 	public void setConfigure(Tile tile, byte data){
-		NetEvents.handleBlockConfig(tile, data);
+		if(Net.active()) NetEvents.handleBlockConfig(tile, data);
 	}
 
 	public boolean isConfigurable(Tile tile){
@@ -150,6 +152,7 @@ public class Block{
 
 	public void handleItem(Item item, Tile tile, Tile source){
 		if(tile.entity == null) return;
+
 		tile.entity.addItem(item, 1);
 	}
 	
@@ -171,11 +174,15 @@ public class Block{
 		return new TileEntity();
 	}
 
+	public boolean syncEntity(){
+		return true;
+	}
+
 	/**
 	 * Tries to put this item into a nearby container, if there are no available
 	 * containers, it gets added to the block's inventory.*/
-	protected void offloadNear(Tile tile, Item item){
-		if(Net.client()){
+	public void offloadNear(Tile tile, Item item){
+		if(Net.client() && syncBlockState){
 			handleItem(item, tile, tile);
 			return;
 		}
@@ -188,7 +195,7 @@ public class Block{
 			if(other != null && other.block().acceptItem(item, other, tile)){
 				other.block().handleItem(item, other, tile);
 				tile.setDump((byte)((i+1)%4));
-				if(Net.server()) NetEvents.handleTransfer(tile, i, item);
+				if(Net.server() && syncBlockState) NetEvents.handleTransfer(tile, i, item);
 				return;
 			}
 			i++;
@@ -207,7 +214,7 @@ public class Block{
 	 * Try dumping any item near the tile. -1 = any direction
 	 */
 	protected boolean tryDump(Tile tile, int direction, Item todump){
-		if(Net.client()) return false;
+		if(Net.client() && syncBlockState) return false;
 
 		int i = tile.getDump()%4;
 		
@@ -223,7 +230,7 @@ public class Block{
 						other.block().handleItem(item, other, tile);
 						tile.entity.removeItem(item, 1);
 						tile.setDump((byte)((i+1)%4));
-						if(Net.server()) NetEvents.handleTransfer(tile, (byte)i, item);
+						if(Net.server() && syncBlockState) NetEvents.handleTransfer(tile, (byte)i, item);
 						return true;
 					}
 				}
@@ -236,7 +243,7 @@ public class Block{
 	}
 
 	/**
-	 * Try offloading an item to a nearby container. Returns true if success.
+	 * Try offloading an item to a nearby container in its facing direction. Returns true if success.
 	 */
 	protected boolean offloadDir(Tile tile, Item item){
 		Tile other = tile.getNearby(tile.getRotation());
@@ -291,6 +298,20 @@ public class Block{
 	
 	public static Block getByID(int id){
 		return blocks.get(id);
+	}
+
+	public Array<Object> getDebugInfo(Tile tile){
+		return Array.with(
+				"block", tile.block().name,
+				"floor", tile.floor().name,
+				"x", tile.x,
+				"y", tile.y,
+				"entity.name", ClassReflection.getSimpleName(tile.entity.getClass()),
+				"entity.x", tile.entity.x,
+				"entity.y", tile.entity.y,
+				"entity.id", tile.entity.id,
+				"entity.items.total", tile.entity.totalItems()
+		);
 	}
 
 	@Override

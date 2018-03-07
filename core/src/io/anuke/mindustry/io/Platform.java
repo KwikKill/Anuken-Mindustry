@@ -1,6 +1,8 @@
 package io.anuke.mindustry.io;
 
 import io.anuke.mindustry.core.ThreadHandler.ThreadProvider;
+import io.anuke.ucore.entities.Entity;
+import io.anuke.ucore.entities.EntityGroup;
 import io.anuke.ucore.scene.ui.TextField;
 
 import java.util.Date;
@@ -28,6 +30,8 @@ public abstract class Platform {
 		return true;
 	}
 	public boolean isDebug(){return false;}
+	/**Must be 8 bytes in length.*/
+	public byte[] getUUID(){return null;}
 	public ThreadProvider getThreadProvider(){
 		return new ThreadProvider() {
 			@Override public boolean isOnThread() {return true;}
@@ -36,6 +40,7 @@ public abstract class Platform {
 			@Override public void stop() {}
 			@Override public void notify(Object object) {}
 			@Override public void wait(Object object) {}
+			@Override public <T extends Entity> void switchContainer(EntityGroup<T> group) {}
 		};
 	}
 }

@@ -4,11 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
 import io.anuke.mindustry.entities.TileEntity;
+import io.anuke.mindustry.net.Net;
 import io.anuke.mindustry.resource.Item;
 import io.anuke.mindustry.world.Tile;
 import io.anuke.mindustry.world.blocks.types.PowerBlock;
-import io.anuke.ucore.graphics.Draw;
 import io.anuke.ucore.core.Timers;
+import io.anuke.ucore.graphics.Draw;
 import io.anuke.ucore.scene.ui.ButtonGroup;
 import io.anuke.ucore.scene.ui.ImageButton;
 import io.anuke.ucore.scene.ui.layout.Table;
@@ -18,6 +19,8 @@ import io.anuke.ucore.util.Strings;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import static io.anuke.mindustry.Vars.syncBlockState;
 
 public class Teleporter extends PowerBlock{
 	public static final Color[] colorArray = {Color.ROYAL, Color.ORANGE, Color.SCARLET, Color.FOREST,
@@ -44,6 +47,7 @@ public class Teleporter extends PowerBlock{
 		solid = true;
 		health = 80;
 		powerCapacity = 30f;
+		instantTransfer = true;
 	}
 
 	@Override
@@ -83,9 +87,9 @@ public class Teleporter extends PowerBlock{
 	@Override
 	public void update(Tile tile){
 		TeleporterEntity entity = tile.entity();
-		
+
 		teleporters[entity.color].add(tile);
-		
+
 		if(entity.totalItems() > 0){
 			tryDump(tile);
 		}
@@ -133,8 +137,10 @@ public class Teleporter extends PowerBlock{
 		Array<Tile> links = findLinks(tile);
 		
 		if(links.size > 0){
-			Tile target = links.get(Mathf.random(0, links.size-1));
-			target.entity.addItem(item, 1);
+            if(!syncBlockState || Net.server() || !Net.active()){
+                Tile target = links.random();
+                target.entity.addItem(item, 1);
+            }
 		}
 
 		entity.power -= powerPerItem;
@@ -143,7 +149,7 @@ public class Teleporter extends PowerBlock{
 	@Override
 	public boolean acceptItem(Item item, Tile tile, Tile source){
 		PowerEntity entity = tile.entity();
-		return entity.power >= powerPerItem && findLinks(tile).size > 0;
+		return !(source.block() instanceof Teleporter) && entity.power >= powerPerItem && findLinks(tile).size > 0;
 	}
 	
 	@Override
@@ -170,6 +176,7 @@ public class Teleporter extends PowerBlock{
 				}
 			}
 		}
+
 		for(Tile remove : removal)
 			teleporters[entity.color].remove(remove);
 		

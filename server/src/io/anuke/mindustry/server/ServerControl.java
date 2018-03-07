@@ -13,8 +13,10 @@ import io.anuke.mindustry.net.Net;
 import io.anuke.mindustry.net.NetEvents;
 import io.anuke.mindustry.net.Packets.ChatPacket;
 import io.anuke.mindustry.net.Packets.KickReason;
+import io.anuke.mindustry.net.TraceInfo;
 import io.anuke.mindustry.ui.fragments.DebugFragment;
 import io.anuke.mindustry.world.Map;
+import io.anuke.mindustry.world.Tile;
 import io.anuke.ucore.core.*;
 import io.anuke.ucore.modules.Module;
 import io.anuke.ucore.util.CommandHandler;
@@ -37,7 +39,12 @@ public class ServerControl extends Module {
     private ShuffleMode mode;
 
     public ServerControl(){
-        Settings.defaults("shufflemode", "normal");
+        Settings.defaultList(
+            "shufflemode", "normal",
+            "bans", "",
+            "admins", ""
+        );
+
         mode = ShuffleMode.valueOf(Settings.getString("shufflemode"));
 
         Effects.setScreenShakeProvider((a, b) -> {});
@@ -98,7 +105,7 @@ public class ServerControl extends Module {
         handler.register("help", "Displays this command list.", arg -> {
             info("Commands:");
             for(Command command : handler.getCommandList()){
-                print("   &y" + command.text + (command.params.isEmpty() ? "" : " ") + command.params + " - &lm" + command.description);
+                print("   &y" + command.text + (command.paramText.isEmpty() ? "" : " ") + command.paramText + " - &lm" + command.description);
             }
         });
 
@@ -112,6 +119,7 @@ public class ServerControl extends Module {
             Net.closeServer();
             state.set(State.menu);
             netServer.reset();
+            Log.info("Stopped server.");
         });
 
         handler.register("host", "<mapname> <mode>", "Open the server with a specific map.", arg -> {
@@ -182,15 +190,30 @@ public class ServerControl extends Module {
             }
         });
 
-        handler.register("say", "<message>", "Send a message to all players.", arg -> {
+        handler.register("players", "Display player info.", arg -> {
+            if(state.is(State.menu)){
+                info("&lyServer is closed.");
+            }else{
+                if(playerGroup.size() > 0) {
+                    info("&lyPlayers: {0}", playerGroup.size());
+                    for (Player p : playerGroup.all()) {
+                        print("   &y{0} / Connection {1} / IP: {2}", p.name, p.clientid, Net.getConnection(p.clientid).address);
+                    }
+                }else{
+                    info("&lyNo players connected.");
+                }
+            }
+        });
+
+        handler.register("say", "<message...>", "Send a message to all players.", arg -> {
             if(!state.is(State.playing)) {
                 err("Not hosting. Host a game first.");
                 return;
             }
 
-            netCommon.sendMessage("[DARK_GRAY][[Server]:[] " + arg[0]);
+            netCommon.sendMessage("[GRAY][[Server]:[] " + arg[0]);
             info("&lyServer: &lb{0}", arg[0]);
-        }).mergeArgs();
+        });
 
         handler.register("difficulty", "<difficulty>", "Set game difficulty.", arg -> {
             try{
@@ -229,14 +252,9 @@ public class ServerControl extends Module {
             }
         });
 
-        handler.register("kick", "<username>", "Kick a person by name.", arg -> {
+        handler.register("kick", "<username...>", "Kick a person by name.", arg -> {
             if(!state.is(State.playing)) {
                 err("Not hosting a game yet. Calm down.");
-                return;
-            }
-
-            if(playerGroup.size() == 0){
-                err("But this server is empty. A barren wasteland.");
                 return;
             }
 
@@ -254,6 +272,177 @@ public class ServerControl extends Module {
                 info("It is done.");
             }else{
                 info("Nobody with that name could be found...");
+            }
+        });
+
+        handler.register("ban", "<username...>", "Ban a person by name.", arg -> {
+            if(!state.is(State.playing)) {
+                err("Can't ban people by name with no players.");
+                return;
+            }
+
+            Player target = null;
+
+            for(Player player : playerGroup.all()){
+                if(player.name.equalsIgnoreCase(arg[0])){
+                    target = player;
+                    break;
+                }
+            }
+
+            if(target != null){
+                String ip = Net.getConnection(target.clientid).address;
+                netServer.admins.banPlayerIP(ip);
+                netServer.admins.banPlayerID(netServer.admins.getTrace(ip).uuid);
+                Net.kickConnection(target.clientid, KickReason.banned);
+                info("Banned player by IP and ID: {0} / {1}", ip, netServer.admins.getTrace(ip).uuid);
+            }else{
+                info("Nobody with that name could be found.");
+            }
+        });
+
+        handler.register("bans", "List all banned IPs and IDs.", arg -> {
+            Array<String> bans = netServer.admins.getBanned();
+
+            if(bans.size == 0){
+                Log.info("No IP-banned players have been found.");
+            }else{
+                Log.info("&lyBanned players [IP]:");
+                for(String string : bans){
+                    Log.info(" &ly {0} / Last known name: '{1}'", string, netServer.admins.getLastName(string));
+                }
+            }
+
+            Array<String> idbans = netServer.admins.getBannedIDs();
+
+            if(idbans.size == 0){
+                Log.info("No ID-banned players have been found.");
+            }else{
+                Log.info("&lmBanned players [ID]:");
+                for(String string : idbans){
+                    Log.info(" &lm '{0}' / Last known name: '{1}' / Last known IP: '{2}'", string,
+                            netServer.admins.getLastName(netServer.admins.getLastIP(string)), netServer.admins.getLastIP(string));
+                }
+            }
+        });
+
+        handler.register("banip", "<ip>", "Ban a person by IP.", arg -> {
+            if(netServer.admins.banPlayerIP(arg[0])) {
+                info("Banned player by IP: {0}.", arg[0]);
+
+                for(Player player : playerGroup.all()){
+                    if(Net.getConnection(player.clientid).address.equals(arg[0])){
+                        Net.kickConnection(player.clientid, KickReason.banned);
+                        break;
+                    }
+                }
+            }else{
+                err("That IP is already banned!");
+            }
+        });
+
+        handler.register("banid", "<id>", "Ban a person by their unique ID.", arg -> {
+            if(netServer.admins.banPlayerID(arg[0])) {
+                info("Banned player by ID: {0}.", arg[0]);
+
+                for(Player player : playerGroup.all()){
+                    if(netServer.admins.getTrace(Net.getConnection(player.clientid).address).uuid.equals(arg[0])){
+                        Net.kickConnection(player.clientid, KickReason.banned);
+                        break;
+                    }
+                }
+            }else{
+                err("That ID is already banned!");
+            }
+        });
+
+        handler.register("unbanip", "<ip>", "Completely unban a person by IP.", arg -> {
+            if(netServer.admins.unbanPlayerIP(arg[0])) {
+                info("Unbanned player by IP: {0}.", arg[0]);
+                for(String s : netServer.admins.getBannedIDs()){
+                    if(netServer.admins.getLastIP(s).equals(arg[0])){
+                         netServer.admins.unbanPlayerID(s);
+                         Log.info("Also unbanned UUID '{0}' as it corresponds to this IP.", s);
+                    }
+                }
+            }else{
+                err("That IP is not banned!");
+            }
+        });
+
+        handler.register("unbanid", "<id>", "Completely unban a person by ID.", arg -> {
+            if(netServer.admins.unbanPlayerID(arg[0])) {
+                info("&lmUnbanned player by ID: {0}.", arg[0]);
+                String ip = netServer.admins.getLastIP(arg[0]);
+                if(!ip.equals("unknown")) {
+                    netServer.admins.unbanPlayerIP(ip);
+                    Log.info("Also unbanned IP '{0}' as it corresponds to this ID.", ip);
+                }
+            }else{
+                err("That IP is not banned!");
+            }
+        });
+
+        handler.register("admin", "<username...>", "Make a user admin", arg -> {
+            if(!state.is(State.playing)) {
+                err("Open the server first.");
+                return;
+            }
+
+            Player target = null;
+
+            for(Player player : playerGroup.all()){
+                if(player.name.equalsIgnoreCase(arg[0])){
+                    target = player;
+                    break;
+                }
+            }
+
+            if(target != null){
+                String ip = Net.getConnection(target.clientid).address;
+                netServer.admins.adminPlayer(ip);
+                NetEvents.handleAdminSet(target, true);
+                info("Admin-ed player by IP: {0} / {1}", ip, arg[0]);
+            }else{
+                info("Nobody with that name could be found.");
+            }
+        });
+
+        handler.register("unadmin", "<username...>", "Removes admin status from a player", arg -> {
+            if(!state.is(State.playing)) {
+                err("Open the server first.");
+                return;
+            }
+
+            Player target = null;
+
+            for(Player player : playerGroup.all()){
+                if(player.name.equalsIgnoreCase(arg[0])){
+                    target = player;
+                    break;
+                }
+            }
+
+            if(target != null){
+                String ip = Net.getConnection(target.clientid).address;
+                netServer.admins.unAdminPlayer(ip);
+                NetEvents.handleAdminSet(target, false);
+                info("Un-admin-ed player by IP: {0} / {1}", ip, arg[0]);
+            }else{
+                info("Nobody with that name could be found.");
+            }
+        });
+
+        handler.register("admins", "List all admins.", arg -> {
+            Array<String> admins = netServer.admins.getAdmins();
+
+            if(admins.size == 0){
+                Log.info("No admins have been found.");
+            }else{
+                Log.info("&lyAdmins:");
+                for(String string : admins){
+                    Log.info(" &luy {0} / Name: '{1}'", string, netServer.admins.getLastName(string));
+                }
             }
         });
 
@@ -314,6 +503,68 @@ public class ServerControl extends Module {
         handler.register("info", "Print debug info", arg -> {
             info(DebugFragment.debugInfo());
         });
+
+        handler.register("traceblock", "<x> <y>", "Prints debug info about a block", arg -> {
+            try{
+                int x = Integer.parseInt(arg[0]);
+                int y = Integer.parseInt(arg[1]);
+                Tile tile = world.tile(x, y);
+                if(tile != null){
+                    if(tile.entity != null){
+                        Array<Object> arr = tile.block().getDebugInfo(tile);
+                        StringBuilder result = new StringBuilder();
+                        for(int i = 0; i < arr.size/2; i ++){
+                            result.append(arr.get(i*2));
+                            result.append(": ");
+                            result.append(arr.get(i*2 + 1));
+                            result.append("\n");
+                        }
+                        Log.info("&ly{0}", result);
+                    }else{
+                        Log.info("No tile entity for that block.");
+                    }
+                }else{
+                    Log.info("No tile at that location.");
+                }
+            }catch (NumberFormatException e){
+                Log.err("Invalid coordinates passed.");
+            }
+        });
+
+        handler.register("trace", "<username...>", "Trace a player's actions", arg -> {
+            if(!state.is(State.playing)) {
+                err("Open the server first.");
+                return;
+            }
+
+            Player target = null;
+
+            for(Player player : playerGroup.all()){
+                if(player.name.equalsIgnoreCase(arg[0])){
+                    target = player;
+                    break;
+                }
+            }
+
+            if(target != null){
+                TraceInfo info = netServer.admins.getTrace(Net.getConnection(target.clientid).address);
+                Log.info("&lcTrace info for player '{0}':", target.name);
+                Log.info("  &lyEntity ID: {0}", info. playerid);
+                Log.info("  &lyIP: {0}", info.ip);
+                Log.info("  &lyUUID: {0}", info.uuid);
+                Log.info("  &lycustom client: {0}", info.modclient);
+                Log.info("  &lyandroid: {0}", info.android);
+                Log.info("");
+                Log.info("  &lytotal blocks broken: {0}", info.totalBlocksBroken);
+                Log.info("  &lystructure blocks broken: {0}", info.structureBlocksBroken);
+                Log.info("  &lylast block broken: {0}", info.lastBlockBroken.formalName);
+                Log.info("");
+                Log.info("  &lytotal blocks placed: {0}", info.totalBlocksPlaced);
+                Log.info("  &lylast block placed: {0}", info.lastBlockPlaced.formalName);
+            }else{
+                info("Nobody with that name could be found.");
+            }
+        });
     }
 
     private void readCommands(){
@@ -326,8 +577,10 @@ public class ServerControl extends Module {
 
                 if (response.type == ResponseType.unknownCommand) {
                     err("Invalid command. Type 'help' for help.");
-                } else if (response.type == ResponseType.invalidArguments) {
-                    err("Invalid command arguments. Usage: " + response.command.text + " " + response.command.params);
+                }else if (response.type == ResponseType.fewArguments) {
+                    err("Too few command arguments. Usage: " + response.command.text + " " + response.command.paramText);
+                }else if (response.type == ResponseType.manyArguments) {
+                    err("Too many command arguments. Usage: " + response.command.text + " " + response.command.paramText);
                 }
             });
         }

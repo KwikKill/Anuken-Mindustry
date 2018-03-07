@@ -4,8 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import io.anuke.ucore.core.Timers;
+import io.anuke.ucore.entities.Entities;
+import io.anuke.ucore.entities.Entity;
+import io.anuke.ucore.entities.EntityGroup;
+import io.anuke.ucore.entities.EntityGroup.ArrayContainer;
 import io.anuke.ucore.util.Log;
 
+import static io.anuke.mindustry.Vars.control;
 import static io.anuke.mindustry.Vars.logic;
 
 public class ThreadHandler {
@@ -22,12 +27,19 @@ public class ThreadHandler {
     public ThreadHandler(ThreadProvider impl){
         this.impl = impl;
 
-        Timers.setDeltaProvider(() -> impl.isOnThread() ? delta : Gdx.graphics.getDeltaTime()*60f);
+        Timers.setDeltaProvider(() -> {
+            float result = impl.isOnThread() ? delta : Gdx.graphics.getDeltaTime()*60f;
+            return Math.min(Float.isNaN(result) ? 1f : result, 12f);
+        });
     }
 
     public void run(Runnable r){
-        synchronized (toRun) {
-            toRun.add(r);
+        if(enabled) {
+            synchronized (toRun) {
+                toRun.add(r);
+            }
+        }else{
+            r.run();
         }
     }
 
@@ -44,6 +56,7 @@ public class ThreadHandler {
     }
 
     public void handleRender(){
+
         if(!enabled) return;
 
         framesSinceUpdate += Timers.delta();
@@ -57,6 +70,9 @@ public class ThreadHandler {
     public void setEnabled(boolean enabled){
         if(enabled){
             logic.doUpdate = false;
+            for(EntityGroup<?> group : Entities.getAllGroups()){
+                impl.switchContainer(group);
+            }
             Timers.runTask(2f, () -> {
                 impl.start(this::runLogic);
                 this.enabled = true;
@@ -64,6 +80,9 @@ public class ThreadHandler {
         }else{
             this.enabled = false;
             impl.stop();
+            for(EntityGroup<?> group : Entities.getAllGroups()){
+                group.setContainer(new ArrayContainer<>());
+            }
             Timers.runTask(2f, () -> {
                 logic.doUpdate = true;
             });
@@ -109,10 +128,8 @@ public class ThreadHandler {
             }
         } catch (InterruptedException ex) {
             Log.info("Stopping logic thread.");
-        } catch (Exception ex) {
-            Gdx.app.postRunnable(() -> {
-                throw new RuntimeException(ex);
-            });
+        } catch (Throwable ex) {
+            control.setError(ex);
         }
     }
 
@@ -123,5 +140,6 @@ public class ThreadHandler {
         void stop();
         void wait(Object object) throws InterruptedException;
         void notify(Object object);
+        <T extends Entity> void switchContainer(EntityGroup<T> group);
     }
 }

@@ -1,6 +1,5 @@
 package io.anuke.mindustry.core;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
@@ -17,7 +16,9 @@ import io.anuke.mindustry.net.Net.SendMode;
 import io.anuke.mindustry.net.NetworkIO;
 import io.anuke.mindustry.net.Packets.*;
 import io.anuke.mindustry.resource.Item;
+import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.Map;
+import io.anuke.mindustry.world.Placement;
 import io.anuke.mindustry.world.Tile;
 import io.anuke.mindustry.world.blocks.ProductionBlocks;
 import io.anuke.ucore.core.Timers;
@@ -29,8 +30,6 @@ import io.anuke.ucore.modules.Module;
 import io.anuke.ucore.util.Log;
 import io.anuke.ucore.util.Timer;
 
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import static io.anuke.mindustry.Vars.*;
@@ -49,6 +48,7 @@ public class NetClient extends Module {
     public NetClient(){
 
         Net.handleClient(Connect.class, packet -> {
+            player.isAdmin = false;
 
             Net.setClientLoaded(false);
             recieved.clear();
@@ -67,11 +67,20 @@ public class NetClient extends Module {
             c.name = player.name;
             c.android = android;
             c.color = Color.rgba8888(player.color);
+            c.uuid = Platform.instance.getUUID();
+
+            if(c.uuid == null){
+                ui.showError("$text.invalidid");
+                ui.loadfrag.hide();
+                disconnectQuietly();
+                return;
+            }
+
             Net.send(c, SendMode.tcp);
 
             Timers.runTask(dataTimeout, () -> {
                 if (!gotData) {
-                    Gdx.app.error("Mindustry", "Failed to load data!");
+                    Log.err("Failed to load data!");
                     ui.loadfrag.hide();
                     Net.disconnect();
                 }
@@ -159,10 +168,20 @@ public class NetClient extends Module {
             state.wavetime = packet.countdown;
             state.wave = packet.wave;
 
-            //removed: messing with time isn't necessary anymore
-            //Timers.resetTime(packet.time + (float) (TimeUtils.timeSinceMillis(packet.timestamp) / 1000.0 * 60.0));
-
             ui.hudfrag.updateItems();
+        });
+
+        Net.handleClient(PlacePacket.class, (packet) -> {
+            Placement.placeBlock(packet.x, packet.y, Block.getByID(packet.block), packet.rotation, true, Timers.get("placeblocksound", 10));
+
+            if(packet.playerid == player.id){
+                Tile tile = world.tile(packet.x, packet.y);
+                if(tile != null) Block.getByID(packet.block).placed(tile);
+            }
+        });
+
+        Net.handleClient(BreakPacket.class, (packet) -> {
+            Placement.breakBlock(packet.x, packet.y, true, Timers.get("breakblocksound", 10));
         });
 
         Net.handleClient(EntitySpawnPacket.class, packet -> {
@@ -213,43 +232,6 @@ public class NetClient extends Module {
             }
         });
 
-        Net.handleClient(BlockSyncPacket.class, packet -> {
-            if (!gotData) return;
-
-            DataInputStream stream = new DataInputStream(packet.stream);
-
-            try {
-
-                float time = stream.readFloat();
-                float elapsed = Timers.time() - time;
-
-                while (stream.available() > 0) {
-                    int pos = stream.readInt();
-
-                    //TODO what if there's no entity? new code
-                    Tile tile = world.tile(pos % world.width(), pos / world.width());
-
-                    byte times = stream.readByte();
-
-                    for (int i = 0; i < times; i++) {
-                        tile.entity.timer.getTimes()[i] = stream.readFloat();
-                    }
-
-                    short data = stream.readShort();
-                    tile.setPackedData(data);
-
-                    tile.entity.readNetwork(stream, elapsed);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-                Log.err(e);
-                //do nothing else...
-                //TODO fix
-            }
-
-        });
-
         Net.handleClient(DisconnectPacket.class, packet -> {
             Player player = playerGroup.getByID(packet.playerid);
 
@@ -284,15 +266,48 @@ public class NetClient extends Module {
                 Tile tile = world.tile(packet.position);
                 if (tile == null || tile.entity == null) return;
                 Tile next = tile.getNearby(packet.rotation);
-                tile.entity.items[packet.itemid]--;
+                tile.entity.items[packet.itemid] --;
                 next.block().handleItem(Item.getByID(packet.itemid), next, tile);
             };
 
-            if(threads.isEnabled()){
-                threads.run(r);
-            }else{
-                r.run();
-            }
+            threads.run(r);
+        });
+
+        Net.handleClient(ItemSetPacket.class, packet -> {
+            Runnable r = () -> {
+                Tile tile = world.tile(packet.position);
+                if (tile == null || tile.entity == null) return;
+                tile.entity.items[packet.itemid] = packet.amount;
+            };
+
+            threads.run(r);
+        });
+
+        Net.handleClient(ItemOffloadPacket.class, packet -> {
+            Runnable r = () -> {
+                Tile tile = world.tile(packet.position);
+                if (tile == null || tile.entity == null) return;
+                Tile next = tile.getNearby(tile.getRotation());
+                next.block().handleItem(Item.getByID(packet.itemid), next, tile);
+            };
+
+            threads.run(r);
+        });
+
+        Net.handleClient(NetErrorPacket.class, packet -> {
+            ui.showError(packet.message);
+            disconnectQuietly();
+        });
+
+        Net.handleClient(PlayerAdminPacket.class, packet -> {
+            Player player = playerGroup.getByID(packet.id);
+            player.isAdmin = packet.admin;
+            ui.listfrag.rebuild();
+        });
+
+        Net.handleClient(TracePacket.class, packet -> {
+            Player player = playerGroup.getByID(packet.info.playerid);
+            ui.traces.show(player, packet.info);
         });
     }
 
@@ -305,12 +320,6 @@ public class NetClient extends Module {
         }else if(!connecting){
             Net.disconnect();
         }
-    }
-
-    //TODO remove.
-    public void test(){
-        gotData = false;
-        connecting = true;
     }
 
     public boolean hasData(){
@@ -328,6 +337,7 @@ public class NetClient extends Module {
         ui.join.hide();
         Net.setClientLoaded(true);
         Timers.runTask(1f, () -> Net.send(new ConnectConfirmPacket(), SendMode.tcp));
+        Timers.runTask(40f, Platform.instance::updateRPC);
     }
 
     public void beginConnecting(){

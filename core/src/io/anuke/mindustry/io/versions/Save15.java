@@ -19,6 +19,7 @@ import io.anuke.mindustry.world.blocks.Blocks;
 import io.anuke.mindustry.world.blocks.types.BlockPart;
 import io.anuke.mindustry.world.blocks.types.Rock;
 import io.anuke.ucore.core.Core;
+import io.anuke.ucore.entities.EntityGroup.EntityContainer;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -280,11 +281,11 @@ public class Save15 extends SaveFileVersion {
 
         //--ENEMIES--
 
-        Array<Enemy> enemies = enemyGroup.all();
+        EntityContainer<Enemy> enemies = enemyGroup.all();
 
-        stream.writeInt(enemies.size); //enemy amount
+        stream.writeInt(enemies.size()); //enemy amount
 
-        for(int i = 0; i < enemies.size; i ++){
+        for(int i = 0; i < enemies.size(); i ++){
             Enemy enemy = enemies.get(i);
             stream.writeByte(enemy.type.id); //type
             stream.writeByte(enemy.lane); //lane
@@ -306,7 +307,7 @@ public class Save15 extends SaveFileVersion {
             for(int y = 0; y < world.height(); y ++){
                 Tile tile = world.tile(x, y);
 
-                if(tile.breakable()){
+                if(tile != null && tile.breakable()){
                     if(tile.block() instanceof Rock){
                         totalrocks ++;
                     }else{
@@ -324,7 +325,7 @@ public class Save15 extends SaveFileVersion {
             for (int y = 0; y < world.height(); y++) {
                 Tile tile = world.tile(x, y);
 
-                if (tile.block() instanceof Rock) {
+                if (tile != null && tile.block() instanceof Rock) {
                     stream.writeInt(tile.packedPosition());
                 }
             }
@@ -337,7 +338,7 @@ public class Save15 extends SaveFileVersion {
             for(int y = 0; y < world.height(); y ++){
                 Tile tile = world.tile(x, y);
 
-                if(tile.breakable() && !(tile.block() instanceof Rock)){
+                if(tile != null && tile.breakable() && !(tile.block() instanceof Rock)){
 
                     stream.writeInt(x + y*world.width()); //tile pos
                     stream.writeInt(tile.block().id); //block ID

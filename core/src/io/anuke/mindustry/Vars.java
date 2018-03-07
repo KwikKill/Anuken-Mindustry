@@ -28,6 +28,8 @@ public class Vars{
 	public static final boolean android = (Gdx.app.getType() == ApplicationType.Android) || testAndroid;
 	//shorthand for whether or not this is running on GWT
 	public static final boolean gwt = (Gdx.app.getType() == ApplicationType.WebGL);
+	//whether to send block state change events to players
+	public static final boolean syncBlockState = false;
 	//how far away from the player blocks can be placed
 	public static final float placerange = 66;
 	//respawn time in frames
@@ -45,10 +47,10 @@ public class Vars{
 
 	public static final String serverURL = "http://localhost:3000";
 	//directory for user-created map data
-	public static final FileHandle customMapDirectory = gwt ? null : UCore.isAssets ?
+	public static final FileHandle customMapDirectory = gwt ? null : UCore.isAssets() ?
 			Gdx.files.local("../../desktop/mindustry-maps") : Gdx.files.local("mindustry-maps/");
 	//save file directory
-	public static final FileHandle saveDirectory = gwt ? null : UCore.isAssets ?
+	public static final FileHandle saveDirectory = gwt ? null : UCore.isAssets() ?
 			Gdx.files.local("../../desktop/mindustry-saves") : Gdx.files.local("mindustry-saves/");
 	//scale of the font
 	public static float fontscale = Math.max(Unit.dp.scl(1f)/2f, 0.5f);
@@ -72,6 +74,8 @@ public class Vars{
 	public static boolean showPlayer = true;
 	//whether to hide ui, only on debug
 	public static boolean showUI = true;
+    //whether to show block debug
+    public static boolean showBlockDebug = false;
 
 	public static boolean headless = false;
 
@@ -89,7 +93,7 @@ public class Vars{
 	public static final int tilesize = 8;
 
 	public static final Locale[] locales = {new Locale("en"), new Locale("fr", "FR"), new Locale("ru"), new Locale("pl", "PL"),
-			new Locale("es", "LA"), new Locale("pt", "BR"), new Locale("ko"), new Locale("in", "ID")};
+			new Locale("de"), new Locale("es", "LA"), new Locale("pt", "BR"), new Locale("ko"), new Locale("in", "ID")};
 
 	public static final Color[] playerColors = {
 			Color.valueOf("82759a"),
@@ -135,6 +139,6 @@ public class Vars{
 	public static final EntityGroup<Enemy> enemyGroup = Entities.addGroup(Enemy.class).enableMapping();
 	public static final EntityGroup<TileEntity> tileGroup = Entities.addGroup(TileEntity.class, false);
 	public static final EntityGroup<Bullet> bulletGroup = Entities.addGroup(Bullet.class);
-	public static final EntityGroup<Shield> shieldGroup = Entities.addGroup(Shield.class);
-	public static final EntityGroup<EffectEntity> effectGroup = Entities.addGroup(EffectEntity.class);
+	public static final EntityGroup<Shield> shieldGroup = Entities.addGroup(Shield.class, false);
+	public static final EntityGroup<EffectEntity> effectGroup = Entities.addGroup(EffectEntity.class, false);
 }

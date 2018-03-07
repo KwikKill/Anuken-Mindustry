@@ -15,7 +15,6 @@ import io.anuke.ucore.scene.ui.ScrollPane;
 import io.anuke.ucore.scene.ui.layout.Table;
 import io.anuke.ucore.util.Log;
 import io.anuke.ucore.util.Log.LogHandler;
-import io.anuke.ucore.util.Mathf;
 
 import static io.anuke.mindustry.Vars.*;
 
@@ -49,11 +48,17 @@ public class DebugFragment implements Fragment {
                row();
                new button("noclip", "toggle", () -> noclip = !noclip);
                row();
+               new button("hideplayer", "toggle", () -> showPlayer = !showPlayer);
+               row();
+               new button("blocks", "toggle", () -> showBlockDebug = !showBlockDebug);
+               row();
                new button("paths", "toggle", () -> showPaths = !showPaths);
                row();
-               new button("infammo", "toggle", () -> infiniteAmmo = !infiniteAmmo);
-               row();
                new button("wave", () -> state.wavetime = 0f);
+               row();
+               new button("time 0", () -> Timers.resetTime(0f));
+               row();
+               new button("time max", () -> Timers.resetTime(1080000 - 60*10));
                row();
                new button("clear", () -> {
                    enemyGroup.clear();
@@ -62,18 +67,9 @@ public class DebugFragment implements Fragment {
                });
                row();
                new button("spawn", () -> {
-                   for(int i = 0; i < 30; i ++){
-                       new Enemy(EnemyTypes.blast).set(player.x + Mathf.range(50f), player.y + Mathf.range(50f)).add();
-                   }
+                   new Enemy(EnemyTypes.healer).set(player.x, player.y).add();
                });
                row();
-               new button("time", () -> {
-                   Timers.resetTime(10368000);
-               });
-               row();
-               new button("time2", () -> {
-                   Timers.resetTime(0);
-               });
            }}.end();
 
            row();

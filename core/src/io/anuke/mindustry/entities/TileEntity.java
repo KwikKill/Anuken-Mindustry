@@ -1,6 +1,5 @@
 package io.anuke.mindustry.entities;
 
-import io.anuke.mindustry.entities.enemies.Enemy;
 import io.anuke.mindustry.graphics.Fx;
 import io.anuke.mindustry.net.Net;
 import io.anuke.mindustry.net.NetEvents;
@@ -22,8 +21,6 @@ import static io.anuke.mindustry.Vars.tileGroup;
 import static io.anuke.mindustry.Vars.world;
 
 public class TileEntity extends Entity{
-	private static final boolean friendlyFire = false;
-
 	public Tile tile;
 	public int[] items = new int[Item.getAllItems().size];
 	public Timer timer;
@@ -101,22 +98,24 @@ public class TileEntity extends Entity{
 	}
 	
 	public boolean collide(Bullet other){
-		return other.owner instanceof Enemy || friendlyFire;
+		return true;
 	}
 	
 	@Override
 	public void update(){
-		if(health != 0 && health < tile.block().health && !(tile.block() instanceof Wall) &&
-				Mathf.chance(0.009f*Timers.delta()*(1f-health/tile.block().health))){
+		synchronized (Tile.tileSetLock) {
+			if (health != 0 && health < tile.block().health && !(tile.block() instanceof Wall) &&
+					Mathf.chance(0.009f * Timers.delta() * (1f - health / tile.block().health))) {
 
-			Effects.effect(Fx.smoke, x+Mathf.range(4), y+Mathf.range(4));
-		}
+				Effects.effect(Fx.smoke, x + Mathf.range(4), y + Mathf.range(4));
+			}
 
-		if(health <= 0){
-			onDeath();
+			if (health <= 0) {
+				onDeath();
+			}
+
+			tile.block().update(tile);
 		}
-		
-		tile.block().update(tile);
 	}
 	
 	public int totalItems(){

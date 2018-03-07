@@ -6,10 +6,7 @@
 A pixelated sandbox tower defense game made using [LibGDX](https://libgdx.badlogicgames.com/). Winner of the [GDL Metal Monstrosity Jam](https://itch.io/jam/gdl---metal-monstrosity-jam).
 
 _[TODO list](TODO.md)_  
-_[Wiki](http://mindustry.wikia.com/wiki/Mindustry_Wiki)_  
-_[Discord](https://discord.gg/r8BkXNd)_  
 
-### Building
 
 Bleeding-edge live builds are generated automatically for every commit. You can see them [here](https://github.com/Anuken/Mindustry/wiki).
 and you can see [here](https://github.com/Gab351/Anuken-Mindustry/wiki) my version.

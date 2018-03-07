@@ -17,6 +17,7 @@ import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.graphics.Draw;
+import io.anuke.ucore.graphics.Lines;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Strings;
 
@@ -53,6 +54,7 @@ public class EnemyType {
     protected String shootsound = "enemyshoot";
     protected boolean targetCore = false;
     protected boolean stopNearCore = true;
+    protected boolean targetClient = false;
     protected float mass = 1f;
 
     protected final int timerTarget = timeid ++;
@@ -81,6 +83,13 @@ public class EnemyType {
 
         Graphics.flush();
 
+        if(isCalculating(enemy)){
+            Draw.color(Color.SKY);
+            Lines.polySeg(20, 0, 4, enemy.x, enemy.y, 11f, Timers.time() * 2f + enemy.id*52f);
+            Lines.polySeg(20, 0, 4, enemy.x, enemy.y, 11f, Timers.time() * 2f + enemy.id*52f + 180f);
+            Draw.color();
+        }
+
         if(showPaths){
             Draw.tscl(0.25f);
             Draw.text((int)enemy.idletime + " " + enemy.node + " " + enemy.id + "\n" + Strings.toFixed(enemy.totalMove.x, 2) + ", "
@@ -99,9 +108,10 @@ public class EnemyType {
             enemy.hitTime -= Timers.delta();
         }
 
-        if(enemy.lane >= world.getSpawns().size) enemy.lane = 0;
+        if(enemy.lane >= world.getSpawns().size || enemy.lane < 0) enemy.lane = 0;
 
-        boolean waiting = world.getSpawns().get(enemy.lane).pathTiles == null || enemy.node <= 0;
+        boolean waiting = enemy.lane >= world.getSpawns().size || enemy.lane < 0
+                || world.getSpawns().get(enemy.lane).pathTiles == null || enemy.node <= 0;
 
         move(enemy);
 
@@ -134,9 +144,9 @@ public class EnemyType {
         }
 
         if(enemy.target == null || alwaysRotate){
-            enemy.angle = Mathf.slerp(enemy.angle, enemy.velocity.angle(), rotatespeed * Timers.delta());
+            enemy.angle = Mathf.slerpDelta(enemy.angle, enemy.velocity.angle(), rotatespeed);
         }else{
-            enemy.angle = Mathf.slerp(enemy.angle, enemy.angleTo(enemy.target), turretrotatespeed * Timers.delta());
+            enemy.angle = Mathf.slerpDelta(enemy.angle, enemy.angleTo(enemy.target), turretrotatespeed);
         }
 
         enemy.x = Mathf.clamp(enemy.x, 0, world.width() * tilesize);
@@ -145,7 +155,8 @@ public class EnemyType {
 
     public void move(Enemy enemy){
         if(Net.client()){
-            enemy.interpolate(); //TODO? better structure for interpolation
+            enemy.interpolate();
+            if(targetClient) updateTargeting(enemy, false);
             return;
         }
 
@@ -153,6 +164,8 @@ public class EnemyType {
         float range = this.range + enemy.tier * 5;
 
         Tile core = world.getCore();
+
+        if(core == null) return;
 
         if(enemy.idletime > maxIdleLife && enemy.node > 0){
             enemy.onDeath();
@@ -187,7 +200,7 @@ public class EnemyType {
             }else if(dst < avoidRange){
                 calc.set((enemy.x - other.x), (enemy.y - other.y)).setLength(avoidSpeed);
                 shift.add(calc.scl(1.1f));
-            }else if(dst < attractRange && !nearCore){
+            }else if(dst < attractRange && !nearCore && !isCalculating(enemy)){
                 calc.set((enemy.x - other.x), (enemy.y - other.y)).setLength(avoidSpeed);
                 shift.add(calc.scl(-1));
             }
@@ -215,7 +228,8 @@ public class EnemyType {
 
             //no tile found
             if(enemy.target == null){
-                enemy.target = Entities.getClosest(playerGroup, enemy.x, enemy.y, range, e -> !((Player)e).isAndroid);
+                enemy.target = Entities.getClosest(playerGroup, enemy.x, enemy.y, range, e -> !((Player)e).isAndroid &&
+                    !((Player)e).isDead());
             }
         }else if(nearCore){
             enemy.target = world.getCore().entity;
@@ -263,6 +277,10 @@ public class EnemyType {
                 state.enemies --;
             }
         }
+    }
+
+    public boolean isCalculating(Enemy enemy){
+        return enemy.node < 0 && !Net.client();
     }
 
     public static EnemyType getByID(byte id){

@@ -8,10 +8,7 @@ import io.anuke.mindustry.ai.Pathfind;
 import io.anuke.mindustry.entities.TileEntity;
 import io.anuke.mindustry.game.SpawnPoint;
 import io.anuke.mindustry.io.Maps;
-import io.anuke.mindustry.world.Block;
-import io.anuke.mindustry.world.Map;
-import io.anuke.mindustry.world.Tile;
-import io.anuke.mindustry.world.WorldGenerator;
+import io.anuke.mindustry.world.*;
 import io.anuke.mindustry.world.blocks.Blocks;
 import io.anuke.mindustry.world.blocks.DistributionBlocks;
 import io.anuke.mindustry.world.blocks.ProductionBlocks;
@@ -22,7 +19,8 @@ import io.anuke.ucore.modules.Module;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Tmp;
 
-import static io.anuke.mindustry.Vars.*;
+import static io.anuke.mindustry.Vars.control;
+import static io.anuke.mindustry.Vars.tilesize;
 
 public class World extends Module{
 	private int seed;
@@ -128,6 +126,10 @@ public class World extends Module{
 	public Tile tileWorld(float x, float y){
 		return tile(Mathf.scl2(x, tilesize), Mathf.scl2(y, tilesize));
 	}
+
+	public int toTile(float coord){
+		return Mathf.scl2(coord, tilesize);
+	}
 	
 	public Tile[][] getTiles(){
 		return tiles;
@@ -182,7 +184,7 @@ public class World extends Module{
 		
 		core = WorldGenerator.generate(map.pixmap, tiles, spawns);
 
-		placeBlock(core.x, core.y, ProductionBlocks.core, 0);
+		Placement.placeBlock(core.x, core.y, ProductionBlocks.core, 0, false, false);
 		
 		if(!map.name.equals("tutorial")){
 			setDefaultBlocks();
@@ -233,42 +235,16 @@ public class World extends Module{
 	public int getSeed(){
 		return seed;
 	}
-	
+
 	public void removeBlock(Tile tile){
 		if(!tile.block().isMultiblock() && !tile.isLinked()){
 			tile.setBlock(Blocks.air);
 		}else{
-			Tile target = tile.isLinked() ? tile.getLinked() : tile;
+			Tile target = tile.target();
 			Array<Tile> removals = target.getLinkedTiles();
 			for(Tile toremove : removals){
 				//note that setting a new block automatically unlinks it
 				toremove.setBlock(Blocks.air);
-			}
-		}
-	}
-
-	public void placeBlock(int x, int y, Block result, int rotation){
-		Tile tile = world.tile(x, y);
-
-		//just in case
-		if(tile == null) return;
-
-		tile.setBlock(result, rotation);
-
-		if(result.isMultiblock()){
-			int offsetx = -(result.width-1)/2;
-			int offsety = -(result.height-1)/2;
-
-			for(int dx = 0; dx < result.width; dx ++){
-				for(int dy = 0; dy < result.height; dy ++){
-					int worldx = dx + offsetx + x;
-					int worldy = dy + offsety + y;
-					if(!(worldx == x && worldy == y)){
-						Tile toplace = world.tile(worldx, worldy);
-						if(toplace != null)
-							toplace.setLinked((byte)(dx + offsetx), (byte)(dy + offsety));
-					}
-				}
 			}
 		}
 	}
@@ -346,5 +322,38 @@ public class World extends Module{
 			}
 		}
 		return null;
+	}
+
+	public void raycastEach(int x0f, int y0f, int x1, int y1, Raycaster cons){
+		int x0 = x0f;
+		int y0 = y0f;
+		int dx = Math.abs(x1 - x0);
+		int dy = Math.abs(y1 - y0);
+
+		int sx = x0 < x1 ? 1 : -1;
+		int sy = y0 < y1 ? 1 : -1;
+
+		int err = dx - dy;
+		int e2;
+		while(true){
+
+			if(cons.accept(x0, y0)) break;
+			if(x0 == x1 && y0 == y1) break;
+
+			e2 = 2 * err;
+			if(e2 > -dy){
+				err = err - dy;
+				x0 = x0 + sx;
+			}
+
+			if(e2 < dx){
+				err = err + dx;
+				y0 = y0 + sy;
+			}
+		}
+	}
+
+	public interface Raycaster{
+		boolean accept(int x, int y);
 	}
 }
