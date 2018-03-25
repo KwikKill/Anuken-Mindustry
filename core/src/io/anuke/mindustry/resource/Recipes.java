@@ -102,7 +102,7 @@ public class Recipes {
 		  new Recipe(decoration, DecorationBlocks.flower, stack(Item.dirt, 5)),
 		  new Recipe(decoration, DecorationBlocks.decorationrock, stack(Item.dirt, 5)),
 		  new Recipe(decoration, DecorationBlocks.arrow1, stack(Item.dirt, 5)),
-		  new Recipe(decoration, DecorationBlocks.bloodblock, stack(Item.blood, 50)),
+		  new Recipe(decoration, DecorationBlocks.bloodflesh, stack(Item.blood, 50)),
 			new Recipe(castle, DecorationBlocks.redcarpet1, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.redcarpet3, stack(Item.dirt, 5)),
 			new Recipe(castle, DecorationBlocks.castleflor, stack(Item.stone, 5))

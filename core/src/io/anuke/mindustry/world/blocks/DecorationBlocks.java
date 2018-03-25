@@ -13,7 +13,7 @@ public class DecorationBlocks{
 
 	 arrow1 = new Carpet("arrow1"){},
 
-	 bloodblock = new Carpet("bloodblock"){},
+	 bloodflesh = new Carpet("bloodflesh"){},
 
 	 decorationrock = new Decoration("decorationrock"){},
 
