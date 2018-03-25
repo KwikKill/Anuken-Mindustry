@@ -9,6 +9,9 @@ public class TraceInfo {
     public boolean modclient;
     public boolean android;
 
+    public int fastShots;
+    public long lastFastShot;
+
     public int totalBlocksBroken;
     public int structureBlocksBroken;
     public Block lastBlockBroken = Blocks.air;

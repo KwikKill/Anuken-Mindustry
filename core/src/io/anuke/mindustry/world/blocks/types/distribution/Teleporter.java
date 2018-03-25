@@ -19,6 +19,7 @@ import io.anuke.ucore.util.Strings;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 import static io.anuke.mindustry.Vars.syncBlockState;
 
@@ -55,6 +56,7 @@ public class Teleporter extends PowerBlock{
 		TeleporterEntity entity = tile.entity();
 		if(entity != null){
 			entity.color = data;
+			Arrays.fill(entity.items, 0);
 		}
 	}
 
@@ -67,7 +69,7 @@ public class Teleporter extends PowerBlock{
 	@Override
 	public void placed(Tile tile){
 		tile.<TeleporterEntity>entity().color = lastColor;
-		Timers.run(1f, () -> setConfigure(tile, lastColor));
+		setConfigure(tile, lastColor);
 	}
 	
 	@Override
@@ -115,7 +117,6 @@ public class Teleporter extends PowerBlock{
 		for(int i = 0; i < colors; i ++){
 			final int f = i;
 			ImageButton button = cont.addImageButton("white", "toggle", 24, () -> {
-				entity.color = (byte)f;
 				lastColor = (byte)f;
 				setConfigure(tile, (byte)f);
 			}).size(34, 38).padBottom(-5.1f).group(group).get();

@@ -49,6 +49,7 @@ public class UI extends SceneModule{
 	public BansDialog bans;
 	public AdminsDialog admins;
 	public TraceDialog traces;
+	public ChangelogDialog changelog;
 
 	public final MenuFragment menufrag = new MenuFragment();
     public final ToolFragment toolfrag = new ToolFragment();
@@ -127,8 +128,7 @@ public class UI extends SceneModule{
 
 		if(Graphics.drawing()) Graphics.end();
 		
-		scene.act();
-		scene.draw();
+		act();
 
 		if(control.showCursor()) {
 			Draw.color();
@@ -154,6 +154,7 @@ public class UI extends SceneModule{
 		language = new LanguageDialog();
 		settings = new SettingsMenuDialog();
 		paused = new PausedDialog();
+		changelog = new ChangelogDialog();
 		about = new AboutDialog();
 		host = new HostDialog();
 		bans = new BansDialog();
@@ -220,8 +221,8 @@ public class UI extends SceneModule{
 
 	public void showInfo(String info){
 		new Dialog("$text.info.title", "dialog"){{
-			content().margin(15).add(info);
-			buttons().addButton("$text.ok", this::hide).size(90, 50).pad(4).get().getLabelCell().width(400f).get().setWrap(true);
+			content().margin(15).add(info).width(600f).get().setWrap(true);
+			buttons().addButton("$text.ok", this::hide).size(90, 50).pad(4);
 		}}.show();
 	}
 

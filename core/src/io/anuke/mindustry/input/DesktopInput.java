@@ -17,16 +17,16 @@ import io.anuke.ucore.util.Mathf;
 import static io.anuke.mindustry.Vars.*;
 
 public class DesktopInput extends InputHandler{
-	int mousex, mousey;
-	int endx, endy;
+	float mousex, mousey;
+	float endx, endy;
 	private boolean enableHold = false;
 	private boolean beganBreak;
 	private boolean rotated = false, rotatedAlt, zoomed;
 	
 	@Override public float getCursorEndX(){ return endx; }
 	@Override public float getCursorEndY(){ return endy; }
-	@Override public float getCursorX(){ return (int)(Graphics.screen(mousex, mousey).x + 2); }
-	@Override public float getCursorY(){ return (int)(Gdx.graphics.getHeight() - 1 - Graphics.screen(mousex, mousey).y); }
+	@Override public float getCursorX(){ return Graphics.screen(mousex, mousey).x; }
+	@Override public float getCursorY(){ return Gdx.graphics.getHeight() - 1 - Graphics.screen(mousex, mousey).y; }
 	@Override public boolean drawPlace(){ return !beganBreak; }
 
 	@Override
@@ -43,13 +43,13 @@ public class DesktopInput extends InputHandler{
 
 		if((Inputs.keyTap("select") && recipe != null) || Inputs.keyTap("break")){
 			Vector2 vec = Graphics.world(Gdx.input.getX(), Gdx.input.getY());
-			mousex = (int)vec.x;
-			mousey = (int)vec.y;
+			mousex = vec.x;
+			mousey = vec.y;
 		}
 
 		if(!Inputs.keyDown("select") && !Inputs.keyDown("break")){
-			mousex = (int)Graphics.mouseWorld().x;
-			mousey = (int)Graphics.mouseWorld().y;
+			mousex = Graphics.mouseWorld().x;
+			mousey = Graphics.mouseWorld().y;
 		}
 		
 		endx = Gdx.input.getX();
@@ -107,6 +107,10 @@ public class DesktopInput extends InputHandler{
                 Cursors.restoreCursor();
             }
 		}
+
+        if(target != null && target.block().isConfigurable(target)){
+		    showCursor = true;
+        }
 		
 		if(target != null && Inputs.keyTap("select") && !ui.hasMouse()){
 			if(target.block().isConfigurable(target)){

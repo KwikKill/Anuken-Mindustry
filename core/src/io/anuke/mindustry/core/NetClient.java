@@ -16,11 +16,15 @@ import io.anuke.mindustry.net.Net.SendMode;
 import io.anuke.mindustry.net.NetworkIO;
 import io.anuke.mindustry.net.Packets.*;
 import io.anuke.mindustry.resource.Item;
+import io.anuke.mindustry.resource.Upgrade;
+import io.anuke.mindustry.resource.UpgradeRecipes;
+import io.anuke.mindustry.resource.Weapon;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.Map;
 import io.anuke.mindustry.world.Placement;
 import io.anuke.mindustry.world.Tile;
 import io.anuke.mindustry.world.blocks.ProductionBlocks;
+import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.entities.BaseBulletType;
 import io.anuke.ucore.entities.Entities;
@@ -40,10 +44,10 @@ public class NetClient extends Module {
 
     private Timer timer = new Timer(5);
     private boolean connecting = false;
-    private boolean gotData = false;
     private boolean kicked = false;
     private IntSet recieved = new IntSet();
     private IntMap<Entity> recent = new IntMap<>();
+    private float timeoutTime = 0f; //data timeout counter
 
     public NetClient(){
 
@@ -53,8 +57,8 @@ public class NetClient extends Module {
             Net.setClientLoaded(false);
             recieved.clear();
             recent.clear();
+            timeoutTime = 0f;
             connecting = true;
-            gotData = false;
             kicked = false;
 
             ui.chatfrag.clearMessages();
@@ -77,14 +81,6 @@ public class NetClient extends Module {
             }
 
             Net.send(c, SendMode.tcp);
-
-            Timers.runTask(dataTimeout, () -> {
-                if (!gotData) {
-                    Log.err("Failed to load data!");
-                    ui.loadfrag.hide();
-                    Net.disconnect();
-                }
-            });
         });
 
         Net.handleClient(Disconnect.class, packet -> {
@@ -105,8 +101,6 @@ public class NetClient extends Module {
             NetworkIO.loadWorld(data.stream);
             player.set(world.getSpawnX(), world.getSpawnY());
 
-            gotData = true;
-
             finishConnecting();
         });
 
@@ -123,7 +117,7 @@ public class NetClient extends Module {
         });
 
         Net.handleClient(SyncPacket.class, packet -> {
-            if (!gotData) return;
+            if (connecting) return;
             int players = 0;
             int enemies = 0;
 
@@ -180,9 +174,8 @@ public class NetClient extends Module {
             }
         });
 
-        Net.handleClient(BreakPacket.class, (packet) -> {
-            Placement.breakBlock(packet.x, packet.y, true, Timers.get("breakblocksound", 10));
-        });
+        Net.handleClient(BreakPacket.class, (packet) ->
+                Placement.breakBlock(packet.x, packet.y, true, Timers.get("breakblocksound", 10)));
 
         Net.handleClient(EntitySpawnPacket.class, packet -> {
             EntityGroup group = packet.group;
@@ -246,7 +239,7 @@ public class NetClient extends Module {
             kicked = true;
             Net.disconnect();
             state.set(State.menu);
-            ui.showError("$text.server.kicked." + packet.reason.name());
+            if(!packet.reason.quiet) ui.showError("$text.server.kicked." + packet.reason.name());
             ui.loadfrag.hide();
         });
 
@@ -309,6 +302,15 @@ public class NetClient extends Module {
             Player player = playerGroup.getByID(packet.info.playerid);
             ui.traces.show(player, packet.info);
         });
+
+        Net.handleClient(UpgradePacket.class, packet -> {
+            Weapon weapon = (Weapon) Upgrade.getByID(packet.id);
+
+            state.inventory.removeItems(UpgradeRecipes.get(weapon));
+            control.upgrades().addWeapon(weapon);
+            ui.hudfrag.updateWeapons();
+            Effects.sound("purchase");
+        });
     }
 
     @Override
@@ -316,14 +318,20 @@ public class NetClient extends Module {
         if(!Net.client()) return;
 
         if(!state.is(State.menu)){
-            if(gotData) sync();
+            if(!connecting) sync();
         }else if(!connecting){
             Net.disconnect();
+        }else{ //...must be connecting
+            timeoutTime += Timers.delta();
+            if(timeoutTime > dataTimeout){
+                Log.err("Failed to load data!");
+                ui.loadfrag.hide();
+                kicked = true;
+                ui.showError("$text.disconnect.data");
+                Net.disconnect();
+                timeoutTime = 0f;
+            }
         }
-    }
-
-    public boolean hasData(){
-        return gotData;
     }
 
     public boolean isConnecting(){

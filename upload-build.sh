@@ -8,6 +8,7 @@ git config --global user.name $GHUSERNAME
 git clone https://github.com/Gab351/Anuken-Mindustry.wiki.git
 cd Anuken-Mindustry.wiki
 
+
 DESKFILE="${TRAVIS_BUILD_NUMBER}-Gab351-mod.jar"
 cp ../desktop/build/libs/desktop-release.jar "${DESKFILE}"
 
@@ -23,6 +24,7 @@ echo -e "### Commit [${TRAVIS_COMMIT}](https://github.com/Gab351/Anuken-Mindustr
 
 git add ${FILE1}
 git add ${DESKFILE}
+
 
 # now remove old build
 ../cleanup_builds.sh
